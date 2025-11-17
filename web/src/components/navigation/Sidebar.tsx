@@ -1,5 +1,4 @@
 "use client";
-// src/components/Sidebar.tsx
 import React, { useState } from "react";
 import { Menu, X, LayoutDashboard, Group, User } from "lucide-react"; // Using Lucide Icons for simplicity
 import Link from "next/link";

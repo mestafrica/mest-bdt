@@ -4,7 +4,6 @@ import AccessChecker from "@/components/auth/AccessChecker";
 
 export const metadata: Metadata = {
   title: "MEST Africa - BDT Dashboard",
-  description: "A business diagnostics tool for the rest of us!",
 };
 
 export default function DashboardLayout({
