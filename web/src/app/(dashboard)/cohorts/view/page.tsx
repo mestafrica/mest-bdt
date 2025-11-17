@@ -4,7 +4,6 @@ import Link from "next/link";
 export default function ViewCohortPage() {
   return (
     <div className="p-6 sm:p-10 min-h-screen bg-gray-100 dark:bg-[#0b0c10] text-gray-900 dark:text-gray-100 transition-colors duration-300">
-
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-0">
@@ -12,7 +11,10 @@ export default function ViewCohortPage() {
         </h1>
 
         <div className="flex flex-wrap gap-3">
-          <Link href={"/cohorts/edit?id=1"} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+          <Link
+            href={"/cohorts/edit?id=1"}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition"
+          >
             Edit Cohort
           </Link>
           <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition">
@@ -71,7 +73,9 @@ export default function ViewCohortPage() {
           </div>
 
           <div>
-            <p className="text-gray-500 dark:text-gray-400">Total Participants</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              Total Participants
+            </p>
             <p className="font-semibold">25</p>
           </div>
         </div>

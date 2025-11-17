@@ -11,10 +11,16 @@ export default function ViewProgramPage() {
         </h1>
 
         <div className="flex flex-wrap gap-3">
-          <Link href={"/cohorts?pId=1"} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+          <Link
+            href={"/cohorts?pId=1"}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition"
+          >
             View Cohorts
           </Link>
-          <Link href={"/programs/edit?id=1"} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+          <Link
+            href={"/programs/edit?id=1"}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition"
+          >
             Edit Program
           </Link>
           <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition">
@@ -85,10 +91,10 @@ export default function ViewProgramPage() {
           Description
         </h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-          The Technical Skills Bootcamp is a hands-on program focused on developing
-          practical technology and business skills. Participants work on real-world
-          projects while receiving mentorship to strengthen their understanding of
-          product development, teamwork, and innovation.
+          The Technical Skills Bootcamp is a hands-on program focused on
+          developing practical technology and business skills. Participants work
+          on real-world projects while receiving mentorship to strengthen their
+          understanding of product development, teamwork, and innovation.
         </p>
       </div>
     </div>
