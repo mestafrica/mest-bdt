@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ViewProgramPage() {
   return (
@@ -10,9 +11,12 @@ export default function ViewProgramPage() {
         </h1>
 
         <div className="flex flex-wrap gap-3">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+          <Link href={"/cohorts?pId=1"} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+            View Cohorts
+          </Link>
+          <Link href={"/programs/edit?id=1"} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
             Edit Program
-          </button>
+          </Link>
           <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition">
             Delete Program
           </button>

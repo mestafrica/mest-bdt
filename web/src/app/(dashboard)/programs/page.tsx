@@ -58,8 +58,10 @@ export default function Programs() {
               </p>
               <div
                 className=" absolute top-2  right-2 flex items-center gap-3">
-                <Eye
-                  className="w-8 h-8 text-gray-600 bg-white p-1.5 rounded-full hover:text-blue-500 cursor-pointer transition" />
+                <Link href={"/programs/view?id=1"}>
+                  <Eye
+                    className="w-8 h-8 text-gray-600 bg-white p-1.5 rounded-full hover:text-blue-500 cursor-pointer transition" />
+                </Link>
                 <Trash2
                   className="text-red-600 w-8 h-8 bg-white p-1.5 rounded-full shadow-sm hover:text-red-500 cursor-pointer transition" />
               </div>
@@ -142,8 +144,10 @@ export default function Programs() {
               </div>
               <div
                 className="absolute top-2 right-2 flex items-center gap-3">
-                <Eye
-                  className="w-8 h-8 bg-white rounded-full p-1.5 text-gray-600 hover:text-blue-500 cursor-pointer transition" />
+                <Link href={"/programs/view?id=2"}>
+                  <Eye
+                    className="w-8 h-8 text-gray-600 bg-white p-1.5 rounded-full hover:text-blue-500 cursor-pointer transition" />
+                </Link>
                 <Trash2
                   className="text-red-600 w-8 h-8 bg-white rounded-full p-1.5 hover:text-red-500 cursor-pointer transition" />
               </div>
@@ -224,8 +228,10 @@ export default function Programs() {
               </div>
               <div
                 className="flex top-2 right-2 absolute items-center gap-3">
-                <Eye
-                  className="w-8 h-8 bg-white p-1.5 rounded-full text-gray-600 hover:text-blue-500 cursor-pointer transition" />
+                <Link href={"/programs/view?id=3"}>
+                  <Eye
+                    className="w-8 h-8 text-gray-600 bg-white p-1.5 rounded-full hover:text-blue-500 cursor-pointer transition" />
+                </Link>
                 <Trash2
                   className="text-red-600 w-8 h-8 bg-white p-1.5 rounded-full hover:text-red-500 cursor-pointer transition" />
               </div>
