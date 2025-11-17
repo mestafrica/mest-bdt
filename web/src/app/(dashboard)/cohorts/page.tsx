@@ -39,7 +39,7 @@ export default function Cohorts() {
             {/* Image Placeholder */}
             <div className="bg-blue-50 w-full h-48 object-contain">
               <Image
-                src="/cohort1.png"
+                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
                 alt="Cohort 1"
                 width={500}
                 height={500}
@@ -62,7 +62,7 @@ export default function Cohorts() {
             </div>
             <div className="flex justify-end items-end mt-2">
               <Link
-                href="/cohorts/2"
+                href="/cohorts/view?id=1"
                 className="p-2 hover:-translate-y-1 transition-all duration-300 flex items-center"
               >
                 <Eye className="h-5 w-5 mr-[-12] text-[#432DD7]" />
@@ -76,7 +76,7 @@ export default function Cohorts() {
           <div className="border border-blue-200 rounded-md overflow-hidden bg-white mb-8">
             <div className="bg-blue-50 w-full h-48 object-contain">
               <Image
-                src="/cohort2.jpg"
+                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
                 alt="Cohort 2"
                 width={500}
                 height={500}
@@ -99,7 +99,7 @@ export default function Cohorts() {
             </div>
             <div className="flex justify-end items-end mt-2">
               <Link
-                href="/cohorts/2"
+                href="/cohorts/view?id=2"
                 className="p-2 hover:-translate-y-1 transition-all duration-300 flex items-center"
               >
                 <Eye className="h-5 w-5 mr-[-12] text-[#432DD7]" />
@@ -113,7 +113,7 @@ export default function Cohorts() {
           <div className="border border-blue-200 rounded-md overflow-hidden bg-white mb-8">
             <div className="bg-blue-50 w-full h-48 object-contain">
               <Image
-                src="/cohort2.jpg"
+                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
                 alt="Cohort 3"
                 className="object-fit w-full h-full rounded-md"
                 width={500}
@@ -135,7 +135,7 @@ export default function Cohorts() {
             </div>
             <div className="flex justify-end items-end mt-2 ">
               <Link
-                href="/cohorts/3"
+                href="/cohorts/view?id=3"
                 className="p-2 hover:-translate-y-1 transition-all duration-300 flex items-center"
               >
                 <Eye className="h-5 w-5 mr-[-12] text-[#432DD7]" />
@@ -149,7 +149,7 @@ export default function Cohorts() {
           <div className="border border-blue-200 rounded-md overflow-hidden bg-white mb-8">
             <div className="bg-blue-50 w-full h-48 object-contain">
               <Image
-                src="/cohort4.jpg"
+                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
                 alt="Cohort 3"
                 className="object-fill w-full h-full rounded-md border-black-800 border-4"
                 width={500}
@@ -170,7 +170,7 @@ export default function Cohorts() {
             </div>
             <div className="flex justify-end items-end mt-2">
               <Link
-                href="/cohorts/3"
+                href="/cohorts/view?id=4"
                 className="p-2 hover:-translate-y-1 transition-all duration-300 flex items-center"
               >
                 <Eye className="h-5 w-5 mr-[-12] text-[#432DD7]" />
@@ -184,7 +184,7 @@ export default function Cohorts() {
           <div className="border border-blue-200 rounded-md overflow-hidden bg-white mb-8">
             <div className="bg-blue-50 w-full h-48 object-contain">
               <Image
-                src="/cohort2.jpg"
+                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
                 alt="Cohort 2"
                 className="object-fit w-full h-full rounded-md"
                 width={400}
@@ -206,7 +206,7 @@ export default function Cohorts() {
             </div>
             <div className="flex justify-end items-end mt-2">
               <Link
-                href="/cohorts/2"
+                href="/cohorts/view?id=5"
                 className="p-2 hover:-translate-y-1 transition-all duration-300 flex items-center"
               >
                 <Eye className="h-5 w-5 mr-[-12] text-[#432DD7]" />
@@ -220,7 +220,7 @@ export default function Cohorts() {
           <div className="border border-blue-200 rounded-md overflow-hidden bg-white mb-8">
             <div className="bg-blue-50 w-full h-48 object-contain">
               <Image
-                src="/cohort4.jpg"
+                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
                 alt="Cohort 6"
                 className="object-cover w-full h-full rounded-md"
                 width={400}
@@ -241,7 +241,7 @@ export default function Cohorts() {
             </div>
             <div className="flex justify-end items-end mt-2">
               <Link
-                href="/cohorts/3"
+                href="/cohorts/view?id=6"
                 className="p-2 hover:-translate-y-1 transition-all duration-300 flex items-center"
               >
                 <Eye className="h-5 w-5 mr-[-12] text-[#432DD7]" />
