@@ -6,43 +6,41 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProgramsService } from './programs.service';
 import { UpdateProgramDto } from './dto/update-program.dto';
-import { Program } from './schemas/program.schema';
+import { CreateProgramDto } from './dto/create-program.dto';
 
 @Controller('programs')
 export class ProgramsController {
   constructor(private readonly programsService: ProgramsService) {}
 
   @Post()
-  async create(
-    @Body() body: { name: string; description: string },
-  ): Promise<Program> {
-    const { name, description } = body;
-    return this.programsService.create(name, description);
+  create(@Body() createProgramDto: CreateProgramDto) {
+    return this.programsService.create(createProgramDto);
   }
 
   @Get()
-  async findAll(): Promise<Program[]> {
-    return this.programsService.findAll();
+  findAll(@Query() filter: JSON) {
+    return this.programsService.findAll(filter);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Program | null> {
-    return this.programsService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.programsService.findOne({ _id: id });
   }
 
   @Patch(':id')
-  async update(
+  updateOne(
     @Param('id') id: string,
-    @Body() UpdateProgramDto: UpdateProgramDto,
+    @Body() updateProgramDto: UpdateProgramDto,
   ) {
-    return this.programsService.update(id, UpdateProgramDto);
+    return this.programsService.updateOne({ _id: id }, updateProgramDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<Program | null> {
-    return this.programsService.remove(id);
+  deleteOne(@Param('id') id: string) {
+    return this.programsService.deleteOne({ _id: id });
   }
 }

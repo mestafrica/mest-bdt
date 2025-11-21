@@ -1,37 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Program, ProgramDocument } from './schemas/program.schema';
-import { Model } from 'mongoose';
+import { AnyKeys, Model, RootFilterQuery, UpdateQuery } from 'mongoose';
+import { Program } from './schemas/program.schema';
 
 @Injectable()
 export class ProgramsService {
   constructor(
-    @InjectModel(Program.name) private programModel: Model<ProgramDocument>,
+    @InjectModel(Program.name) private programModel: Model<Program>,
   ) {}
 
-  async create(name: string, description: string): Promise<Program> {
-    const newProgram = new this.programModel({ name, description });
-    return newProgram.save();
+  create(doc: AnyKeys<Program>) {
+    return this.programModel.insertOne(doc);
   }
 
-  async findAll(): Promise<Program[]> {
-    return this.programModel.find().exec();
+  countDocuments(filter: RootFilterQuery<Program>) {
+    return this.programModel.countDocuments(filter);
   }
 
-  async findOne(id: string): Promise<Program | null> {
-    return this.programModel.findById(id).exec();
+  findAll(filter: RootFilterQuery<Program>) {
+    return this.programModel.find(filter);
   }
 
-  async update(
-    id: string,
-    updateData: Partial<Program>,
-  ): Promise<Program | null> {
-    return this.programModel
-      .findByIdAndUpdate(id, updateData, { new: true })
-      .exec();
+  findOne(filter: RootFilterQuery<Program>) {
+    return this.programModel.findOne(filter);
   }
 
-  async remove(id: string): Promise<Program | null> {
-    return this.programModel.findByIdAndDelete(id).exec();
+  updateOne(filter: RootFilterQuery<Program>, update: UpdateQuery<Program>) {
+    return this.programModel.updateOne(filter, update);
+  }
+
+  deleteOne(filter: RootFilterQuery<Program>) {
+    return this.programModel.deleteOne(filter);
   }
 }
