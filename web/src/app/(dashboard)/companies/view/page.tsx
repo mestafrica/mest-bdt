@@ -1,11 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SquarePen, Trash2, Building2, Users, Calendar, Mail, Phone,  ArrowLeft } from "lucide-react";
+import {
+  SquarePen,
+  Trash2,
+  Building2,
+  Users,
+  Calendar,
+  Mail,
+  Phone,
+  ArrowLeft,
+} from "lucide-react";
 
 export default function ViewCompanyPage() {
   return (
     <div className="p-6 sm:p-10 min-h-screen bg-gray-100  text-gray-900  transition-colors duration-300">
-       <div className="inline-block">
+      <div className="inline-block">
         {/* Back  Navigation */}
         <Link
           href={"/companies"}
@@ -20,18 +29,20 @@ export default function ViewCompanyPage() {
       </div>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between  md:items-start w-full">
-       <div className="w-full md:w-auto">
-         <div className="flex justify-between md:justify-start items-center gap-2">
-          <Building2 size={30} className="shrink-0" />
-          <h1 className="text-lg leading-relaxed">
-            TechVentures Inc.
-          </h1>
-          <p className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded-full ">onboarding</p>
+        <div className="w-full md:w-auto">
+          <div className="flex justify-between md:justify-start items-center gap-2">
+            <Building2 size={30} className="shrink-0" />
+            <h1 className="text-lg leading-relaxed">TechVentures Inc.</h1>
+            <p className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded-full ">
+              onboarding
+            </p>
+          </div>
+          <div className="mt-1 md:mb-8">
+            <p className="text-gray-500 leading-relaxed">
+              Part of leadership development program
+            </p>
+          </div>
         </div>
-        <div className="mt-1 md:mb-8">
-        <p className="text-gray-500 leading-relaxed">Part of leadership development program</p>
-      </div>
-       </div>
 
         <div className="flex md:flex-wrap gap-3 mt-4 mb-6 md:mb-0">
           <Link
@@ -47,9 +58,6 @@ export default function ViewCompanyPage() {
           </button>
         </div>
       </div>
-
-      
-
 
       <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
         <div className="bg-white shadow-lg text-sm px-6 py-4 rounded-2xl border border-gray-300  w-full">
@@ -67,7 +75,9 @@ export default function ViewCompanyPage() {
           </span>
         </div>
         <div className="bg-white shadow-lg px-6 text-sm  py-4 rounded-2xl border border-gray-300   w-full">
-          <h2 className="mb-10 text-gray-950  font-bold">Participants enrolled</h2>
+          <h2 className="mb-10 text-gray-950  font-bold">
+            Participants enrolled
+          </h2>
           <span className="flex items-center gap-2">
             <Users size={20} />
             <p>8 participants</p>
@@ -80,7 +90,6 @@ export default function ViewCompanyPage() {
             <p>Feb 15, 2025</p>
           </span>
         </div>
-
       </div>
 
       {/* Image Section */}
@@ -99,11 +108,18 @@ export default function ViewCompanyPage() {
       <div className="flex flex-col md:flex-row justify-between gap-4 ">
         <div className="bg-white rounded-lg px-6 border  border-gray-300 w-full">
           <div className="mt-4 mb-7">
-            <h2 className=" text-gray-900 text-sm font-bold mb-1"> Contact Information</h2>
-            <p className="text-gray-600 text-sm">Primary contact for this company</p>
+            <h2 className=" text-gray-900 text-sm font-bold mb-1">
+              {" "}
+              Contact Information
+            </h2>
+            <p className="text-gray-600 text-sm">
+              Primary contact for this company
+            </p>
           </div>
           <div className="mb-4">
-            <h2 className=" text-sm text-gray-600 font-normal ">Contact Person</h2>
+            <h2 className=" text-sm text-gray-600 font-normal ">
+              Contact Person
+            </h2>
             <p className="text-sm font-semibold text-gray-900">Sarah Ayitey</p>
           </div>
           <div className=" border-t  border-gray-200"></div>
@@ -111,7 +127,10 @@ export default function ViewCompanyPage() {
             <h2 className="text-sm text-gray-600 font-normal">Email Address</h2>
             <span className="flex gap-2 items-center mt-2">
               <Mail size={16} />
-              <p className="text-sm text-blue-600 hover:underline cursor-pointer "> saraha@gmail.com</p>
+              <p className="text-sm text-blue-600 hover:underline cursor-pointer ">
+                {" "}
+                saraha@gmail.com
+              </p>
             </span>
           </div>
           <div className="border-t border-gray-200"></div>
@@ -124,11 +143,15 @@ export default function ViewCompanyPage() {
           </div>
         </div>
 
-
         <div className="bg-white rounded-lg px-6 border border-gray-300 w-full">
           <div className="mt-4">
-            <h2 className="text-sm text-gray-900 font-bold mb-2"> Progress & performance </h2>
-            <p className="text-sm text-gray-700 mb-8">Company&#39;s program performance metrics</p>
+            <h2 className="text-sm text-gray-900 font-bold mb-2">
+              {" "}
+              Progress & performance{" "}
+            </h2>
+            <p className="text-sm text-gray-700 mb-8">
+              Company&#39;s program performance metrics
+            </p>
           </div>
           {/* Progress bar */}
           <div className="w-full bg-white rounded-lg  block mb-4 ">
@@ -145,7 +168,9 @@ export default function ViewCompanyPage() {
           <div className="flex  items-center mt-4 gap-4 md:gap-20 mb-4 ">
             <div>
               <h2 className="text-sm text-gray-600">Status</h2>
-              <p className="px-2 py-1 text-xs bg-blue-300 text-blue-700 rounded-full">onboarding</p>
+              <p className="px-2 py-1 text-xs bg-blue-300 text-blue-700 rounded-full">
+                onboarding
+              </p>
             </div>
             <div className=" text-gray-900">
               <h2 className="text-sm text-gray-600">Participants</h2>
@@ -156,40 +181,46 @@ export default function ViewCompanyPage() {
       </div>
 
       <div className="mt-8 bg-white shadow-lg border border-gray-300 px-6 pb-6 rounded-lg">
-      <div className="mt-6 ">
-        <h2 className="text-sm text-gray-900 font-bold mb-1">Company Details</h2>
-        <p className="text-sm text-gray-600 ">Overview of company information</p>
-      </div>
-      <div className="flex flex-col md:flex-row  md:gap-40 md:items-center mt-6  ">
-        <div className="flex flex-col justify-between gap-6">
-          <span>
-            <h2 className="text-sm text-gray-600 mb-2">Company Name</h2>
-            <p className="text-sm text-gray-900 ">TechVentures Inc,</p>
-          </span>
-          <span>
-            <h2 className="text-sm text-gray-600 mb-2">Industry</h2>
-            <p className="text-sm text-gray-900 ">Technology</p>
-          </span>
-          <span>
-            <h2 className="text-sm text-gray-600 mb-2">Organization Size</h2>
-            <p className="text-sm text-gray-900 ">250 employees</p>
-          </span>
+        <div className="mt-6 ">
+          <h2 className="text-sm text-gray-900 font-bold mb-1">
+            Company Details
+          </h2>
+          <p className="text-sm text-gray-600 ">
+            Overview of company information
+          </p>
         </div>
-        <div className="flex flex-col justify-between gap-6">
-          <span>
-            <h2 className="text-sm text-gray-600 mb-2">Program Enrollment</h2>
-            <p className="text-sm text-gray-900">8 participants from this organization</p>
-          </span>
-          <span>
-            <h2 className="text-sm text-gray-600 mb-2">Onboarding status</h2>
-            <p className="text-sm text-gray-900">onboarding</p>
-          </span>
-          <span>
-            <h2 className="text-sm text-gray-600 mb-2">Join Date</h2>
-            <p className="text-sm text-gray-900">Feb 15, 2025</p>
-          </span>
+        <div className="flex flex-col md:flex-row  md:gap-40 md:items-center mt-6  ">
+          <div className="flex flex-col justify-between gap-6">
+            <span>
+              <h2 className="text-sm text-gray-600 mb-2">Company Name</h2>
+              <p className="text-sm text-gray-900 ">TechVentures Inc,</p>
+            </span>
+            <span>
+              <h2 className="text-sm text-gray-600 mb-2">Industry</h2>
+              <p className="text-sm text-gray-900 ">Technology</p>
+            </span>
+            <span>
+              <h2 className="text-sm text-gray-600 mb-2">Organization Size</h2>
+              <p className="text-sm text-gray-900 ">250 employees</p>
+            </span>
+          </div>
+          <div className="flex flex-col justify-between gap-6">
+            <span>
+              <h2 className="text-sm text-gray-600 mb-2">Program Enrollment</h2>
+              <p className="text-sm text-gray-900">
+                8 participants from this organization
+              </p>
+            </span>
+            <span>
+              <h2 className="text-sm text-gray-600 mb-2">Onboarding status</h2>
+              <p className="text-sm text-gray-900">onboarding</p>
+            </span>
+            <span>
+              <h2 className="text-sm text-gray-600 mb-2">Join Date</h2>
+              <p className="text-sm text-gray-900">Feb 15, 2025</p>
+            </span>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

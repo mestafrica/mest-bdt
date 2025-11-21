@@ -5,18 +5,14 @@ import Image from "next/image";
 export default function Cohorts() {
   return (
     <>
-
       <div className=" bg-gray-200 p-8 rounded-md text-black">
-
         {/* Page Header + Search + Add Button */}
         <div className="w-full mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-
           {/* Left: Header Title */}
           <h1 className="text-2xl font-bold text-white-800">Cohort Details</h1>
 
           {/* Right: Search + Add Button Group */}
           <div className="flex items-center gap-4 w-full sm:w-auto">
-
             {/* Search Bar */}
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -34,13 +30,11 @@ export default function Cohorts() {
             >
               Add Cohort
             </Link>
-
           </div>
         </div>
 
         {/* Cohort Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full mb-6">
-
           {/*Card 1 */}
           <div className="border border-blue-200 rounded-lg overflow-hidden bg-white shadow-md">
             <div className="relative w-full h-64">
@@ -66,7 +60,10 @@ export default function Cohorts() {
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">Cohort 1</h3>
               <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                Our EdTech Teacher Empowerment program is designed to help educators seamlessly integrate technology into their classrooms. Participants learn to use digital tools for lesson planning, assessment, and student engagement.
+                Our EdTech Teacher Empowerment program is designed to help
+                educators seamlessly integrate technology into their classrooms.
+                Participants learn to use digital tools for lesson planning,
+                assessment, and student engagement.
               </p>
               <button className="text-blue-600 cursor-pointer text-sm underline mt-2 hover:text-blue-800">
                 Read more
@@ -99,7 +96,12 @@ export default function Cohorts() {
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">Cohort 2</h3>
               <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                The Coding for Kids initiative introduces children to programming through hands-on activities and games. Young learners explore basic coding concepts using visual languages and block-based platforms. The program encourages creativity, logical thinking, and teamwork as students build simple apps and animations.
+                The Coding for Kids initiative introduces children to
+                programming through hands-on activities and games. Young
+                learners explore basic coding concepts using visual languages
+                and block-based platforms. The program encourages creativity,
+                logical thinking, and teamwork as students build simple apps and
+                animations.
               </p>
               <button className="text-blue-600 text-sm underline mt-2 hover:text-blue-800">
                 Read more
@@ -132,7 +134,10 @@ export default function Cohorts() {
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">Cohort 3</h3>
               <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                Our Online Learning Platform offers flexible, self-paced courses in mathematics, science, and digital literacy. Students access interactive lessons, video tutorials, and quizzes from any device, making learning accessible and convenient.
+                Our Online Learning Platform offers flexible, self-paced courses
+                in mathematics, science, and digital literacy. Students access
+                interactive lessons, video tutorials, and quizzes from any
+                device, making learning accessible and convenient.
               </p>
               <button className="text-blue-600 text-sm underline mt-2 hover:text-blue-800">
                 Read more
@@ -165,18 +170,18 @@ export default function Cohorts() {
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">Cohort 4</h3>
               <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                The Teacher Training Bootcamp is a comprehensive program focused on modern pedagogical strategies and digital literacy. Educators participate in workshops on blended learning, classroom management, and data-driven instruction. The bootcamp..
+                The Teacher Training Bootcamp is a comprehensive program focused
+                on modern pedagogical strategies and digital literacy. Educators
+                participate in workshops on blended learning, classroom
+                management, and data-driven instruction. The bootcamp..
               </p>
               <button className="text-blue-600 text-sm underline mt-2 hover:text-blue-800">
                 Read more
               </button>
             </div>
           </div>
-
         </div>
       </div>
-
-
     </>
   );
 }

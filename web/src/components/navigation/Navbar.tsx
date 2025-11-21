@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Menu, X, Home, Users, Settings, Briefcase } from "lucide-react";
+import { Menu, X, Briefcase } from "lucide-react";
 import Link from "next/link";
 
 // Define the type for a navigation link item

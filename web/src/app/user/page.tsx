@@ -2,8 +2,7 @@ import Image from "next/image";
 
 export default function UserProfile() {
   return (
-     <div className="p-6 sm:p-10 min-h-screen bg-gray-100 dark:bg-[#0b0c10] text-gray-900 dark:text-gray-100 transition-colors duration-300">
-
+    <div className="p-6 sm:p-10 min-h-screen bg-gray-100 dark:bg-[#0b0c10] text-gray-900 dark:text-gray-100 transition-colors duration-300">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">User Profile</h1>
@@ -13,10 +12,8 @@ export default function UserProfile() {
       </div>
 
       <div className="bg-white dark:bg-[#1a1d24] shadow rounded-2xl p-6 sm:p-10 flex flex-col sm:flex-row gap-8">
-
         {/* IMAGE SECTION */}
         <div className="flex flex-col items-center sm:items-start sm:w-1/3">
-
           <div className="relative w-32 h-32 sm:w-48 sm:h-48 rounded-full sm:rounded-lg overflow-hidden shadow">
             <Image
               src="https://i.pinimg.com/1200x/b2/db/80/b2db80290f2aba3567213d4eab1117a5.jpg"
@@ -37,7 +34,6 @@ export default function UserProfile() {
 
         {/* USER INFORMATION */}
         <div className="flex-1 space-y-8">
-
           <div>
             <h2 className="text-xl font-semibold">Coco Jones</h2>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
@@ -77,11 +73,13 @@ export default function UserProfile() {
               <p className="font-medium">January 2025</p>
             </div>
 
-             <div>
+            <div>
               <p className="text-xs uppercase text-gray-500 dark:text-gray-400 mb-1">
                 Bio/About
               </p>
-              <p className="font-medium">Tech enthusiast and frontend developer.</p>
+              <p className="font-medium">
+                Tech enthusiast and frontend developer.
+              </p>
             </div>
           </div>
 
@@ -90,7 +88,6 @@ export default function UserProfile() {
             <h3 className="text-lg font-semibold mb-4">Edit Information</h3>
 
             <form className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
               <div>
                 <label className="text-sm">Full Name</label>
                 <input
@@ -140,10 +137,8 @@ export default function UserProfile() {
                   Save Changes
                 </button>
               </div>
-
             </form>
           </div>
-
         </div>
       </div>
     </div>

@@ -2,8 +2,7 @@ import Image from "next/image";
 
 export default function UserCompany() {
   return (
-       <div className="p-6 sm:p-10 min-h-screen bg-gray-100 dark:bg-[#0b0c10] text-gray-900 dark:text-gray-100">
-
+    <div className="p-6 sm:p-10 min-h-screen bg-gray-100 dark:bg-[#0b0c10] text-gray-900 dark:text-gray-100">
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <h1 className="text-3xl font-bold">Company Profile</h1>
@@ -12,13 +11,11 @@ export default function UserCompany() {
           <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
             Edit Profile
           </button>
-          
         </div>
       </div>
 
       {/* VIEW SECTION */}
       <div className="bg-white dark:bg-[#1a1d24] p-6 rounded-2xl shadow mb-12">
-
         <div className="relative w-full h-56 rounded-xl overflow-hidden mb-6">
           <Image
             src="https://i.pinimg.com/1200x/53/bb/a5/53bba57fcb64c79582f30c913c2eb7f4.jpg"
@@ -36,7 +33,6 @@ export default function UserCompany() {
         <h2 className="text-xl font-semibold mt-8 mb-4">Company Information</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-
           <div>
             <p className="text-gray-500 dark:text-gray-400">Company Name</p>
             <p className="font-medium">Neo Creative Solutions Ltd.</p>
@@ -78,7 +74,9 @@ export default function UserCompany() {
           </div>
 
           <div>
-            <p className="text-gray-500 dark:text-gray-400">Operational Years</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              Operational Years
+            </p>
             <p className="font-medium">3 Years</p>
           </div>
 
@@ -96,14 +94,14 @@ export default function UserCompany() {
             <p className="text-gray-500 dark:text-gray-400">Expectation</p>
             <p className="font-medium">To increase retention by 20%</p>
           </div>
-
         </div>
 
         {/* MISSION */}
         <div className="mt-8">
           <p className="text-gray-500 dark:text-gray-400 mb-2">Mission</p>
           <p className="text-sm leading-relaxed">
-            Our mission is to support SMEs with affordable digital solutions to expand their business growth and operational efficiency.
+            Our mission is to support SMEs with affordable digital solutions to
+            expand their business growth and operational efficiency.
           </p>
         </div>
       </div>
@@ -113,7 +111,6 @@ export default function UserCompany() {
         <h2 className="text-xl font-semibold mb-6">Edit Company Information</h2>
 
         <form className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
           {/* Column 1 */}
           <div className="space-y-4">
             <label className="block text-sm">
@@ -253,9 +250,7 @@ export default function UserCompany() {
             </button>
           </div>
         </form>
-
       </div>
     </div>
-
   );
 }

@@ -25,7 +25,8 @@ export default function EditCohort() {
             Edit Cohort
           </h1>
           <p className="mt-2 text-gray-700 text-sm text-center sm:text-left">
-            Update cohort information by filling this form <span className="text-black">!</span>
+            Update cohort information by filling this form{" "}
+            <span className="text-black">!</span>
           </p>
           <div className="w-full mx-auto mt-6">
             <form className="space-y-6 mt-4">

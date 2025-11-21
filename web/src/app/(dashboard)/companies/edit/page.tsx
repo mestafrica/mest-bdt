@@ -87,9 +87,13 @@ export default function EditCompany() {
             <h2 className="text-sm">Program Details</h2>
             <form
               action=""
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 items-center ">
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 items-center "
+            >
               <div className="text-sm flex flex-col text-gray-800 justify-between gap-1 mb-1 ">
-                <label htmlFor="" className=" text-sm flex gap-1 items-center text-gray-900 font-bold">
+                <label
+                  htmlFor=""
+                  className=" text-sm flex gap-1 items-center text-gray-900 font-bold"
+                >
                   Onboarding Date
                   <span className="text-red-700">*</span>
                 </label>
@@ -103,18 +107,26 @@ export default function EditCompany() {
               <div className="text-sm flex flex-col justify-between  text-gray-800">
                 <label
                   htmlFor=""
-                  className="text-sm flex gap-1 mb-1 text-gray-900 font-bold">
+                  className="text-sm flex gap-1 mb-1 text-gray-900 font-bold"
+                >
                   Status
                   <span className="text-red-700">*</span>
                 </label>
-                <select name="" id="" className="text-gray-600 items-center block w-full px-3 py-2 bg-gray-100 rounded-lg">
+                <select
+                  name=""
+                  id=""
+                  className="text-gray-600 items-center block w-full px-3 py-2 bg-gray-100 rounded-lg"
+                >
                   <option value="">Onboarding</option>
                   <option value="">Active</option>
                   <option value="">Completed</option>
                 </select>
               </div>
               <div className="text-sm flex flex-col justify-between gap-2 mb-1">
-                <label htmlFor="" className="flex gap-1 items-center text-gray-900 font-bold ">
+                <label
+                  htmlFor=""
+                  className="flex gap-1 items-center text-gray-900 font-bold "
+                >
                   Participants Enrolled
                   <span className="text-red-700">*</span>
                 </label>
@@ -129,17 +141,19 @@ export default function EditCompany() {
             </form>
             <div>
               <label
-               htmlFor="" 
-               className="flex gap-1 items-center mb-1 text-sm text-gray-900 font-bold mt-4 ">
+                htmlFor=""
+                className="flex gap-1 items-center mb-1 text-sm text-gray-900 font-bold mt-4 "
+              >
                 Completion Rate(%)
                 <span className="text-red-600">*</span>
               </label>
-              <input 
-              type="text" 
-              name="" 
-              id="" 
-              placeholder="e.g.,65" 
-              className="w-full px-3 py-1 bg-gray-100 rounded-lg" />
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="e.g.,65"
+                className="w-full px-3 py-1 bg-gray-100 rounded-lg"
+              />
             </div>
           </div>
           <div className="mt-10 border-t border-gray-200 "></div>
@@ -148,7 +162,10 @@ export default function EditCompany() {
           <div className=" mt-4 w-[95%] mx-auto text-gray-800 ">
             <h2 className="text-sm">Contact Information</h2>
             <div className="mt-4">
-              <label htmlFor="" className="flex gap-1 items-center text-gray-900 font-bold text-sm mb-1 ">
+              <label
+                htmlFor=""
+                className="flex gap-1 items-center text-gray-900 font-bold text-sm mb-1 "
+              >
                 Contact Person
                 <span className="text-red-600">*</span>
               </label>
@@ -207,7 +224,7 @@ export default function EditCompany() {
             </div>
           </div>
           <div className="mt-10 border-t border-gray-200  "></div>
-          
+
           {/* Buttons */}
           <div className=" flex text-sm gap-4 md:gap-6 w-[95%] mx-auto mt-6 mb-10">
             <button className="flex items-center justify-center bg-black text-white px-4 py-2 rounded-lg cursor-pointer">

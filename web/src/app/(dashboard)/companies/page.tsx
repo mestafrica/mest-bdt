@@ -2,10 +2,7 @@ import { Users, Dot, Calendar, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-
 export default function Companies() {
-
-
   return (
     <>
       <div className="flex flex-col bg-gray-200 p-8 text-black">
@@ -27,7 +24,6 @@ export default function Companies() {
             </Link>
           </div>
         </section>
-
 
         {/* company card 1 */}
         <section className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4  cursor-pointer ">
@@ -58,7 +54,9 @@ export default function Companies() {
               </div>
               <div className=" mt-1.5 flex items-center text-xs md:text-sm text-gray-700">
                 <p>Venture Captial </p>
-                <span className="flex items-center ml-2"><Dot /> 85 employees</span>
+                <span className="flex items-center ml-2">
+                  <Dot /> 85 employees
+                </span>
               </div>
             </div>
 
@@ -86,13 +84,10 @@ export default function Companies() {
                 <p className="text-sm mb-1">100%</p>
               </div>
               <div className="w-full h-2 bg-gray-400 rounded-full">
-                <div className="w-4/4 h-full  bg-black rounded-full">
-                </div>
+                <div className="w-4/4 h-full  bg-black rounded-full"></div>
               </div>
             </div>
           </div>
-
-
 
           {/* company card 2*/}
           <div className="relative rounded-lg shadow-md space-y-2 bg-white border border-transparent hover:border-blue-400  hover:shadow-lg ">
@@ -122,7 +117,9 @@ export default function Companies() {
               </div>
               <div className=" mt-1.5 flex items-center text-xs md:text-sm text-gray-700">
                 <p>Construction Tech</p>
-                <span className="flex items-center ml-2"><Dot /> 320 employees</span>
+                <span className="flex items-center ml-2">
+                  <Dot /> 320 employees
+                </span>
               </div>
             </div>
 
@@ -149,12 +146,10 @@ export default function Companies() {
                 <p className="text-sm mb-1">100%</p>
               </div>
               <div className="w-full h-2 bg-gray-400 rounded-full">
-                <div className="w-4/4 h-full bg-black rounded-full">
-                </div>
+                <div className="w-4/4 h-full bg-black rounded-full"></div>
               </div>
             </div>
           </div>
-
 
           {/* company card 3 */}
           <div className="relative rounded-lg shadow-md space-y-2 bg-white border border-transparent hover:border-blue-400  hover:shadow-lg ">
@@ -184,7 +179,9 @@ export default function Companies() {
               </div>
               <div className=" mt-1.5 flex items-center text-xs md:text-sm text-gray-700">
                 <p>Healthcare </p>
-                <span className="flex items-center ml-2"><Dot /> 540 employees</span>
+                <span className="flex items-center ml-2">
+                  <Dot /> 540 employees
+                </span>
               </div>
             </div>
             {/* Details */}
@@ -214,7 +211,6 @@ export default function Companies() {
               </div>
             </div>
           </div>
-
         </section>
       </div>
     </>

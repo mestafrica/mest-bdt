@@ -5,7 +5,6 @@ import Link from "next/link";
 export default function EditProgram() {
   return (
     <>
-      
       <div className="bg-gray-100 rounded-lg p-6">
         <div className="inline-block">
           <Link
