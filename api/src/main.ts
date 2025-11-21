@@ -12,6 +12,10 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('BDT API')
     .setDescription('Business Diagnostics Tool API')
+    .addGlobalResponse({
+      status: 500,
+      description: 'Internal server error',
+    })
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, documentFactory);

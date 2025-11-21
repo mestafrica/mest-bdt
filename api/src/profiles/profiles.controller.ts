@@ -37,8 +37,8 @@ export class ProfilesController {
     return this.profilesService.findAll(filter);
   }
 
-  @Get('me')
   @UseGuards(AuthGuard)
+  @Get('me')
   async findCurrentUser(@CurrentUser() user: HankoUser) {
     // Ensure profile with email exist
     const count = await this.profilesService.countDocuments({
