@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { Connection } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { mongooseNormalizePlugin } from '@kikiutils/mongoose/plugins/normalize';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ProgramsModule } from './programs/programs.module';
 import { CohortsModule } from './cohorts/cohorts.module';
-import { Connection } from 'mongoose';
 import { CompaniesModule } from './companies/companies.module';
 
 @Module({
@@ -24,7 +22,5 @@ import { CompaniesModule } from './companies/companies.module';
     CohortsModule,
     CompaniesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
