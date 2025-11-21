@@ -8,6 +8,7 @@ import { ProfilesModule } from './profiles/profiles.module';
 import { ProgramsModule } from './programs/programs.module';
 import { CohortsModule } from './cohorts/cohorts.module';
 import { Connection } from 'mongoose';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Connection } from 'mongoose';
     ProfilesModule,
     ProgramsModule,
     CohortsModule,
+    CompaniesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
