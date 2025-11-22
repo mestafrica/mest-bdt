@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
           fixed top-0 left-0 h-full w-64 bg-gray-900 text-white z-40
           transform transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:h-auto lg:shadow-xl
-          ${isOpen ? "translate-x-0 shadow-xl" : "-translate-x-full"}
+          flex-shrink-0 ${isOpen ? "translate-x-0 shadow-xl" : "-translate-x-full"}
         `}
       >
         <div className="p-4 flex flex-col h-full justify-between">
