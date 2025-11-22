@@ -5,7 +5,7 @@ import { Cohort } from "@/utils/types";
 import { useSearchParams } from "next/navigation";
 import CohortCard from "./CohortCard";
 
-export default function AllCohorts() {
+export default function Cohorts() {
   const searchParams = useSearchParams();
   const filter = JSON.stringify({ program: searchParams.get("pid") });
   const { data, isLoading, error } = useSWR(

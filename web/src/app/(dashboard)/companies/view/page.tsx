@@ -1,11 +1,5 @@
 import Image from "next/image";
-import {
-  Building2,
-  Users,
-  Calendar,
-  Mail,
-  Phone,
-} from "lucide-react";
+import { Building2, Users, Calendar, Mail, Phone } from "lucide-react";
 import CompanyHeader from "@/components/companies/CompanyHeader";
 
 export default function ViewCompanyPage() {

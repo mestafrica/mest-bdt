@@ -40,13 +40,13 @@ export class CompaniesController {
   @ApiOkResponse({
     description: 'The companies have been successfully found.',
   })
-  findAll(@Query() filter: JSON) {
-    return this.companiesService.findAll(filter);
+  findAll(@Query() { filter = '{}' }: { filter: string }) {
+    return this.companiesService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
-  countDocuments(@Query() filter: JSON) {
-    return this.companiesService.countDocuments(filter);
+  countDocuments(@Query() { filter = '{}' }: { filter: string }) {
+    return this.companiesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @Get(':id')

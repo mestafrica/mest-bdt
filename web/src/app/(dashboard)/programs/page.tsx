@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
-import AllPrograms from "@/components/programs/AllPrograms";
+import Programs from "@/components/programs/Programs";
 
-export default function Programs() {
+export default function ProgramsPage() {
   return (
     <div className="flex flex-col bg-gray-200 p-8 text-black">
       <section className=" flex justify-between ">
@@ -23,7 +23,7 @@ export default function Programs() {
           </Link>
         </div>
       </section>
-      <AllPrograms />
+      <Programs />
     </div>
   );
 }

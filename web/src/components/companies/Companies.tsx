@@ -3,9 +3,15 @@ import useSWR from "swr";
 import CompanyCard from "./CompanyCard";
 import { apiFetcher } from "@/utils/api";
 import { Company } from "@/utils/types";
+import { useSearchParams } from "next/navigation";
 
-export default function AllCompanies() {
-  const { data, isLoading, error } = useSWR("/companies", apiFetcher);
+export default function Companies() {
+  const searchParams = useSearchParams();
+  const filter = JSON.stringify({ cohort: searchParams.get("cid") });
+  const { data, isLoading, error } = useSWR(
+    `/companies?filter=${filter}`,
+    apiFetcher,
+  );
 
   if (isLoading) {
     return (

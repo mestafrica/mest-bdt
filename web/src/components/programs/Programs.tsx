@@ -4,7 +4,7 @@ import ProgramCard from "./ProgramCard";
 import { apiFetcher } from "@/utils/api";
 import { Program } from "@/utils/types";
 
-export default function AllPrograms() {
+export default function Programs() {
   const { data, isLoading, error } = useSWR("/programs", apiFetcher);
 
   if (isLoading) {
