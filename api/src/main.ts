@@ -12,6 +12,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('BDT API')
     .setDescription('Business Diagnostics Tool API')
+    .setVersion('1.0')
     .addGlobalResponse({
       status: 500,
       description: 'Internal server error',
