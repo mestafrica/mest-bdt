@@ -4,11 +4,17 @@ import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 export class CreateCohortDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the cohort.',
+    example: 'Cohort 1',
+  })
   name: string;
 
   @IsString()
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The description of the cohort.',
+    example: 'The first cohort of the program.',
+  })
   description?: string;
 }

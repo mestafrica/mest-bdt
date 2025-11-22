@@ -11,17 +11,29 @@ import {
   UseGuards,
   NotFoundException,
 } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { CurrentUser, HankoUser } from '../common/decorators/user.decorator';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiTags('profiles')
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @Post()
+  @ApiCreatedResponse({
+    description: 'The profile has been successfully created.',
+  })
+  @ApiBadRequestResponse({ description: 'Invalid input data provided.' })
   async create(@Body() createProfileDto: CreateProfileDto) {
     // Ensure profile with email does not exist
     const count = await this.profilesService.countDocuments({
@@ -33,12 +45,21 @@ export class ProfilesController {
   }
 
   @Get()
+  @ApiOkResponse({
+    description: 'The profiles have been successfully found.',
+  })
   findAll(@Query() filter: JSON) {
     return this.profilesService.findAll(filter);
   }
 
   @UseGuards(AuthGuard)
   @Get('me')
+  @ApiOkResponse({
+    description: 'The current user profile has been successfully found.',
+  })
+  @ApiNotFoundResponse({
+    description: 'The profile for the current user was not found.',
+  })
   async findCurrentUser(@CurrentUser() user: HankoUser) {
     // Ensure profile with email exist
     const count = await this.profilesService.countDocuments({
@@ -51,11 +72,20 @@ export class ProfilesController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ description: 'The profile has been successfully found.' })
+  @ApiNotFoundResponse({
+    description: 'The profile with the given id was not found.',
+  })
   findOne(@Param('id') id: string) {
     return this.profilesService.findOne({ _id: id });
   }
 
   @Patch(':id')
+  @ApiOkResponse({ description: 'The profile has been successfully updated.' })
+  @ApiNotFoundResponse({
+    description: 'The profile with the given id was not found.',
+  })
+  @ApiBadRequestResponse({ description: 'Invalid input data provided.' })
   updateOne(
     @Param('id') id: string,
     @Body() updateProfileDto: UpdateProfileDto,
@@ -64,6 +94,10 @@ export class ProfilesController {
   }
 
   @Delete(':id')
+  @ApiOkResponse({ description: 'The profile has been successfully deleted.' })
+  @ApiNotFoundResponse({
+    description: 'The profile with the given id was not found.',
+  })
   deleteOne(@Param('id') id: string) {
     return this.profilesService.deleteOne({ _id: id });
   }
