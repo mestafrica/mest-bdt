@@ -1,13 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
-@Schema({ timestamps: true })
-export class Cohort extends Document {
+export type CohortDocument = HydratedDocument<Cohort>;
+
+@Schema({ collection: 'Cohort', timestamps: true })
+export class Cohort {
   @Prop({ required: true })
   name: string;
 
   @Prop()
-  description?: string;
+  description: string;
 }
 
 export const CohortSchema = SchemaFactory.createForClass(Cohort);

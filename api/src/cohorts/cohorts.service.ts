@@ -1,40 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { AnyKeys, Model, RootFilterQuery, UpdateQuery } from 'mongoose';
 import { Cohort } from './schemas/cohort.schema';
-import { CreateCohortDto } from './dto/create-cohort.dto';
-import { UpdateCohortDto } from './dto/update-cohort.dto';
 
 @Injectable()
 export class CohortsService {
   constructor(@InjectModel(Cohort.name) private cohortModel: Model<Cohort>) {}
 
-  async findAll() {
-    return this.cohortModel.find();
+  create(doc: AnyKeys<Cohort>) {
+    return this.cohortModel.insertOne(doc);
   }
 
-  async findOne(id: string) {
-    const cohort = await this.cohortModel.findById(id);
-    if (!cohort) throw new NotFoundException('Cohort not found');
-    return cohort;
+  countDocuments(filter: RootFilterQuery<Cohort>) {
+    return this.cohortModel.countDocuments(filter);
   }
 
-  async create(data: CreateCohortDto) {
-    const newCohort = new this.cohortModel(data);
-    return newCohort.save();
+  findAll(filter: RootFilterQuery<Cohort>) {
+    return this.cohortModel.find(filter);
   }
 
-  async update(id: string, data: UpdateCohortDto) {
-    const updated = await this.cohortModel.findByIdAndUpdate(id, data, {
-      new: true,
-    });
-    if (!updated) throw new NotFoundException('Cohort not found');
-    return updated;
+  findOne(filter: RootFilterQuery<Cohort>) {
+    return this.cohortModel.findOne(filter);
   }
 
-  async remove(id: string) {
-    const deleted = await this.cohortModel.findByIdAndDelete(id);
-    if (!deleted) throw new NotFoundException('Cohort not found');
-    return { message: 'Cohort deleted successfully' };
+  updateOne(filter: RootFilterQuery<Cohort>, update: UpdateQuery<Cohort>) {
+    return this.cohortModel.updateOne(filter, update);
+  }
+
+  deleteOne(filter: RootFilterQuery<Cohort>) {
+    return this.cohortModel.deleteOne(filter);
   }
 }

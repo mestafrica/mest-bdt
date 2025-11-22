@@ -6,6 +6,7 @@ import {
   Delete,
   Param,
   Body,
+  Query,
 } from '@nestjs/common';
 import { CohortsService } from './cohorts.service';
 import { CreateCohortDto } from './dto/create-cohort.dto';
@@ -15,28 +16,28 @@ import { UpdateCohortDto } from './dto/update-cohort.dto';
 export class CohortsController {
   constructor(private readonly cohortsService: CohortsService) {}
 
+  @Post()
+  create(@Body() createCohortDto: CreateCohortDto) {
+    return this.cohortsService.create(createCohortDto);
+  }
+
   @Get()
-  getAll() {
-    return this.cohortsService.findAll();
+  findAll(@Query() filter: JSON) {
+    return this.cohortsService.findAll(filter);
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string) {
-    return this.cohortsService.findOne(id);
-  }
-
-  @Post()
-  create(@Body() body: CreateCohortDto) {
-    return this.cohortsService.create(body);
+  findOne(@Param('id') id: string) {
+    return this.cohortsService.findOne({ _id: id });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdateCohortDto) {
-    return this.cohortsService.update(id, body);
+  updateOne(@Param('id') id: string, @Body() updateCohortDto: UpdateCohortDto) {
+    return this.cohortsService.updateOne({ _id: id }, updateCohortDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cohortsService.remove(id);
+  deleteOne(@Param('id') id: string) {
+    return this.cohortsService.deleteOne({ _id: id });
   }
 }
