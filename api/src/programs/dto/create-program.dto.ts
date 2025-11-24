@@ -17,14 +17,23 @@ export class CreateProgramDto {
   description: string;
 
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The image of the program.',
+    example: 'https://example.com/image.png',
+  })
   image: string;
 
   @IsDateString()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The start date of the program.',
+    example: '2021-01-01T00:00:00.000Z',
+  })
   startDate: Date;
 
   @IsDateString()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The end date of the program.',
+    example: '2021-12-31T23:59:59.999Z',
+  })
   endDate: Date;
 }

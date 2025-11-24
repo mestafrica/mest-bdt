@@ -3,7 +3,10 @@ import { IsDateString, IsMongoId } from 'class-validator';
 
 export class CreateCohortDto {
   @IsMongoId()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The program the cohort belongs to.',
+    example: '60f1b9b3b3b3b3b3b3b3b3b3',
+  })
   program: string;
 
   @ApiProperty({
@@ -18,14 +21,23 @@ export class CreateCohortDto {
   })
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The image of the cohort.',
+    example: 'https://example.com/image.png',
+  })
   image: string;
 
   @IsDateString()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The start date of the cohort.',
+    example: '2021-01-01T00:00:00.000Z',
+  })
   startDate: Date;
 
   @IsDateString()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The end date of the cohort.',
+    example: '2021-12-31T23:59:59.999Z',
+  })
   endDate: Date;
 }

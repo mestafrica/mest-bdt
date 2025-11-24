@@ -3,7 +3,10 @@ import { IsMongoId, IsNotEmpty } from 'class-validator';
 
 export class CreateCompanyDto {
   @IsMongoId()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The cohort the company belongs to.',
+    example: '60f1b9b3b3b3b3b3b3b3b3b3',
+  })
   cohort: string;
 
   @IsNotEmpty()
