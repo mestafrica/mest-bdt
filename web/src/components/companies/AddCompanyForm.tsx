@@ -54,11 +54,8 @@ export default function AddCompanyForm() {
               className="bg-gray-100 px-4 py-3 rounded-lg text-sm"
             />
           </div>
-     
         </div>
       </div>
-
-         
 
       {/* Company Information */}
       <div className=" mt-4 w-[95%] mx-auto text-gray-800 ">
@@ -75,11 +72,9 @@ export default function AddCompanyForm() {
             type="text"
             placeholder="Sarah Ayitey"
             className="bg-gray-100 px-4 py-3 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-         required
-         />
+            required
+          />
         </div>
-
-       
       </div>
       <div className="mt-10 border-t border-gray-200  "></div>
 

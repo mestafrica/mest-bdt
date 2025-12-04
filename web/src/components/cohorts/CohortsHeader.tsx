@@ -57,15 +57,13 @@ export default function CohortsHeader() {
         </div>
         <div className="lg:ml-auto text-white flex items-center gap-2">
           <label className="text-sm text-slate-400">Sort</label>
-          <select
-            className="px-3 py-2 text-sm rounded-md bg-[#0f1724] border border-slate-800"
-          >
+          <select className="px-3 py-2 text-sm rounded-md bg-[#0f1724] border border-slate-800">
             <option>Start date (newest)</option>
             <option>Start date (oldest)</option>
             <option>Name (A → Z)</option>
           </select>
         </div>
-    </div>
+      </div>
     </div>
   );
 }
