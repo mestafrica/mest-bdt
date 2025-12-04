@@ -12,9 +12,9 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Profile", href: "/user" },
   { name: "Company", href: "/user/company" },
-  { name: "Scale Readiness", href: "/user/scale-readiness" },
-  { name: "Technology Assessment", href: "/user/tech-assessment" },
-  { name: "BMC Diagnostics", href: "/user/bmc-diagnostics" },
+  { name: "Scale Readiness", href: "/user/form?id=69316a1fd883b67934045255" },
+  { name: "Technology Assessment", href: "/user/form?id=69316a1fd883b67934045256" },
+  { name: "BMC Diagnostics", href: "/user/form?id=69316a1fd883b67934045257" },
 ];
 
 const Navbar: React.FC = () => {
