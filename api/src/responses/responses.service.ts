@@ -1,28 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreateResponseDto } from './dto/create-response.dto';
 import { UpdateResponseDto } from './dto/update-response.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Response, ResponseDocument} from './schemas/response.schema';
 
 @Injectable()
 export class ResponsesService {
-  create(createResponseDto: CreateResponseDto) {
-    console.log(createResponseDto);
-    return 'This action adds a new response';
+  constructor(@InjectModel(Response.name) private responseModel: Model<ResponseDocument>) {}
+
+  async create(createResponseDto: CreateResponseDto): Promise<ResponseDocument> {
+    const newResponse = new this.responseModel(createResponseDto);
+    return newResponse.save();
   }
 
-  findAll() {
-    return `This action returns all responses`;
+  async findAll(): Promise<ResponseDocument[]> {
+    return this.responseModel.find() .populate('form') .populate('company') .exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} response`;
+  async findOne(id: string): Promise<ResponseDocument | null> {
+    return this.responseModel.findById(id) .populate('form') .populate('company') .exec();
   }
 
-  update(id: number, updateResponseDto: UpdateResponseDto) {
-    console.log(updateResponseDto);
-    return `This action updates a #${id} response`;
+  async update(id: string, updateResponseDto: UpdateResponseDto): Promise<ResponseDocument | null> {
+    return this.responseModel .findByIdAndUpdate(id, updateResponseDto, { new: true }) .populate('form') .populate('company') .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} response`;
+  async remove(id: string): Promise<ResponseDocument | null> {
+    return this.responseModel.findByIdAndDelete(id).exec();  
   }
 }
