@@ -3,6 +3,8 @@ import { ResponsesController } from './responses.controller';
 import { ResponsesService } from './responses.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Response } from './schemas/response.schema';
+import { mockModel } from '../common/mocks/model';
+import { mock } from 'node:test';
 
 describe('ResponsesController', () => {
   let controller: ResponsesController;
@@ -14,15 +16,7 @@ describe('ResponsesController', () => {
         ResponsesService,
         {
           provide: getModelToken(Response.name),
-          useValue: {
-            find: jest.fn(),
-            findById: jest.fn(),
-            create: jest.fn(),
-            findByIdAndUpdate: jest.fn(),
-            findByIdAndDelete: jest.fn(),
-            save: jest.fn(),
-          },
-        },
+          useValue: mockModel,}
       ],
     }).compile();
 

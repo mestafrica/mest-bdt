@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ResponsesService } from './responses.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Response } from './schemas/response.schema';
+import { mockModel } from '../common/mocks/model';
 
 describe('ResponsesService', () => {
   let service: ResponsesService;
@@ -12,16 +13,8 @@ describe('ResponsesService', () => {
         ResponsesService,
         {
           provide: getModelToken(Response.name),
-          useValue: {
-            new: jest.fn(),
-            constructor: jest.fn(),
-            find: jest.fn(),
-            findById: jest.fn(),
-            findByIdAndUpdate: jest.fn(),
-            findByIdAndDelete: jest.fn(),
-            save: jest.fn(),
+          useValue: mockModel,
           },
-        },
       ],
     }).compile();
 
