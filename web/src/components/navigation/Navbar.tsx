@@ -14,22 +14,15 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Profile", href: "/user" },
   { name: "Company", href: "/user/company" },
-  { name: "Scale Readiness", href: "/user/form?id=69316a1fd883b67934045255" },
-  {
-    name: "Technology Assessment",
-    href: "/user/form?id=69316a1fd883b67934045256",
-  },
-  { name: "BMC Diagnostics", href: "/user/form?id=69316a1fd883b67934045257" },
 ];
 
 const Navbar: React.FC = () => {
-  const { data, isLoading, error } = useSWR("/forms", apiFetcher);
+  const { data } = useSWR("/forms", apiFetcher);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  console.log(error);
 
   return (
     <nav className="bg-gray-800 shadow-md sticky top-0 z-30">
@@ -53,6 +46,15 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.name}
                   href={item.href}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150"
+                >
+                  {item.name}
+                </Link>
+              ))}
+              {data?.map((item: { name: string; id: string }) => (
+                <Link
+                  key={item.id}
+                  href={`/user/form?id=${item.id}`}
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150"
                 >
                   {item.name}

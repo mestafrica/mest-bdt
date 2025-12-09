@@ -1,25 +1,25 @@
 "use client";
+import { apiFetcher } from "@/utils/api";
 import Form from "@rjsf/shadcn";
-import { RJSFSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
-
-const schema: RJSFSchema = {
-  title: "Todo",
-  type: "object",
-  required: ["title"],
-  properties: {
-    title: { type: "string", title: "Title", default: "A new task" },
-    done: { type: "boolean", title: "Done?", default: false },
-  },
-};
+import { useSearchParams } from "next/navigation";
+import useSWR from "swr";
 
 export default function DynamicForm() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const { data, isLoading, error } = useSWR(`/forms/${id}`, apiFetcher);
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <Form
-      schema={schema}
+      schema={JSON.parse(data?.schema || "{}")}
       validator={validator}
       onSubmit={(data) => {
-        console.log(data.formData);
+        console.log(JSON.stringify(data.schema));
       }}
     />
   );

@@ -8,6 +8,8 @@ import {
   Delete,
   Query,
   UseGuards,
+  NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -20,11 +22,12 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
+import { CurrentUser, HankoUser } from '../common/decorators/user.decorator';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @UseGuards(AuthGuard)
   @Post()
@@ -32,7 +35,13 @@ export class UsersController {
     description: 'The user has been successfully created.',
   })
   @ApiBadRequestResponse({ description: 'Invalid input data provided.' })
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
+    // Ensure user with email does not exist
+    const count = await this.usersService.countDocuments({
+      email: createUserDto.email,
+    });
+    if (count) throw new ConflictException('User with email already exist!');
+    // Proceed to create new user
     return this.usersService.create(createUserDto);
   }
 
@@ -47,6 +56,24 @@ export class UsersController {
   @Get('count')
   countDocuments(@Query() filter: JSON) {
     return this.usersService.countDocuments(filter);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  @ApiOkResponse({
+    description: 'The current user profile has been successfully found.',
+  })
+  @ApiNotFoundResponse({
+    description: 'The profile for the current user was not found.',
+  })
+  async findCurrentUser(@CurrentUser() user: HankoUser) {
+    // Ensure user with email exist
+    const count = await this.usersService.countDocuments({
+      email: user.email.address,
+    });
+    if (!count) throw new NotFoundException('User with email does not exist!');
+    // Proceed to find and return user
+    return this.usersService.findOne({ email: user.email.address });
   }
 
   @Get(':id')
