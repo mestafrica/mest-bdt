@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Menu, X, Briefcase } from "lucide-react";
 import Link from "next/link";
+import useSWR from "swr";
+import { apiFetcher } from "@/utils/api";
 
 // Define the type for a navigation link item
 interface NavItem {
@@ -21,11 +23,13 @@ const navItems: NavItem[] = [
 ];
 
 const Navbar: React.FC = () => {
+  const { data, isLoading, error } = useSWR("/forms", apiFetcher);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  console.log(error);
 
   return (
     <nav className="bg-gray-800 shadow-md sticky top-0 z-30">
