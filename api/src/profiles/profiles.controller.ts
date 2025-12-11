@@ -73,7 +73,7 @@ export class ProfilesController {
     });
     if (!count)
       throw new NotFoundException('Profile with email does not exist!');
-    // Proceed to create new profile
+    // Proceed to find and return profile
     return this.profilesService.findOne({ email: user.email.address });
   }
 

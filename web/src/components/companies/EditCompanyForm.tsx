@@ -59,7 +59,7 @@ export default function EditCompanyForm() {
               className="bg-gray-100 px-3 py-2 rounded-lg text-sm"
             />
           </div>
-         </div>
+        </div>
       </div>
 
       {/* Company Information */}
@@ -79,9 +79,8 @@ export default function EditCompanyForm() {
             className="bg-gray-100 px-4 py-3 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-
-         </div>
-        <div className="mt-10 border-t border-gray-200  "></div>
+      </div>
+      <div className="mt-10 border-t border-gray-200  "></div>
 
       {/* Buttons */}
       <div className=" flex text-sm gap-4 md:gap-6 w-[95%] mx-auto mt-6 mb-10">

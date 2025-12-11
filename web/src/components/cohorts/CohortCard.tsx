@@ -3,7 +3,9 @@ import { Eye, Edit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export interface CohortCardProps { cohort: Cohort; }
+export interface CohortCardProps {
+  cohort: Cohort;
+}
 
 export default function CohortCard({ cohort }: CohortCardProps) {
   return (
@@ -60,5 +62,5 @@ export default function CohortCard({ cohort }: CohortCardProps) {
         </div>
       </div>
     </div>
-  )
-};
+  );
+}

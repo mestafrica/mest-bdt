@@ -43,7 +43,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
         <div>
           <div className="space-y-2 mt-2 text-sm text-gray-600">
             <div className="flex items-center gap-2">
-            <Boxes className="w-4 h-4" />
+              <Boxes className="w-4 h-4" />
               <p> 24 Cohorts</p>
             </div>
           </div>

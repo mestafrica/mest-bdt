@@ -99,7 +99,6 @@ export default function AddProgramForm() {
               required
             />
           </div>
-         
         </div>
       </div>
       <div className="mt-10 border-t border-gray-200  "></div>

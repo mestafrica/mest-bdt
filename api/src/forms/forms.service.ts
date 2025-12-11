@@ -1,28 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFormDto } from './dto/create-form.dto';
-import { UpdateFormDto } from './dto/update-form.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { AnyKeys, Model, RootFilterQuery, UpdateQuery } from 'mongoose';
+import { Form } from './schemas/form.schema';
 
 @Injectable()
 export class FormsService {
-  create(createFormDto: CreateFormDto) {
-    console.log(createFormDto);
-    return 'This action adds a new form';
+  constructor(
+    @InjectModel(Form.name) private readonly formModel: Model<Form>,
+  ) {}
+
+  create(doc: AnyKeys<Form>) {
+    return this.formModel.insertOne(doc);
   }
 
-  findAll() {
-    return `This action returns all forms`;
+  countDocuments(filter: RootFilterQuery<Form>) {
+    return this.formModel.countDocuments(filter);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} form`;
+  findAll(filter: RootFilterQuery<Form>) {
+    return this.formModel.find(filter);
   }
 
-  update(id: number, updateFormDto: UpdateFormDto) {
-    console.log(updateFormDto);
-    return `This action updates a #${id} form`;
+  findOne(filter: RootFilterQuery<Form>) {
+    return this.formModel.findOne(filter);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} form`;
+  updateOne(filter: RootFilterQuery<Form>, update: UpdateQuery<Form>) {
+    return this.formModel.updateOne(filter, update);
+  }
+
+  deleteOne(filter: RootFilterQuery<Form>) {
+    return this.formModel.deleteOne(filter);
   }
 }

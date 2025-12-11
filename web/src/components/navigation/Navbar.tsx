@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Menu, X, Briefcase } from "lucide-react";
 import Link from "next/link";
+import useSWR from "swr";
+import { apiFetcher } from "@/utils/api";
 
 // Define the type for a navigation link item
 interface NavItem {
@@ -12,12 +14,10 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Profile", href: "/user" },
   { name: "Company", href: "/user/company" },
-  { name: "Scale Readiness", href: "/user/scale-readiness" },
-  { name: "Technology Assessment", href: "/user/tech-assessment" },
-  { name: "BMC Diagnostics", href: "/user/bmc-diagnostics" },
 ];
 
 const Navbar: React.FC = () => {
+  const { data } = useSWR("/forms", apiFetcher);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -46,6 +46,15 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.name}
                   href={item.href}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150"
+                >
+                  {item.name}
+                </Link>
+              ))}
+              {data?.map((item: { name: string; id: string }) => (
+                <Link
+                  key={item.id}
+                  href={`/user/form?id=${item.id}`}
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150"
                 >
                   {item.name}

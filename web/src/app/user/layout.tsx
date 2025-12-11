@@ -1,3 +1,4 @@
+import UserAccessChecker from "@/components/auth/UserAccessChecker";
 import Navbar from "@/components/navigation/Navbar";
 import type { Metadata } from "next";
 
@@ -12,8 +13,10 @@ export default function UserLayout({
 }>) {
   return (
     <div>
-      <Navbar />
-      <div>{children}</div>
+      <UserAccessChecker>
+        <Navbar />
+        <div>{children}</div>
+      </UserAccessChecker>
     </div>
   );
 }

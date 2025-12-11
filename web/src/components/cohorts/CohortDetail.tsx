@@ -83,9 +83,7 @@ export default function CohortDetail() {
           </div>
 
           <div>
-            <p className="text-gray-500 dark:text-gray-400">
-              Total Companies
-            </p>
+            <p className="text-gray-500 dark:text-gray-400">Total Companies</p>
             <p className="font-semibold">25</p>
           </div>
         </div>
