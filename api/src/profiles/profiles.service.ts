@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AnyKeys, Model, RootFilterQuery, UpdateQuery } from 'mongoose';
+import { AnyKeys, Model, QueryFilter, UpdateQuery } from 'mongoose';
 import { Profile } from './schemas/profile.schema';
 
 @Injectable()
@@ -13,23 +13,23 @@ export class ProfilesService {
     return this.profileModel.insertOne(doc);
   }
 
-  countDocuments(filter: RootFilterQuery<Profile>) {
+  countDocuments(filter: QueryFilter<Profile>) {
     return this.profileModel.countDocuments(filter);
   }
 
-  findAll(filter: RootFilterQuery<Profile>) {
+  findAll(filter: QueryFilter<Profile>) {
     return this.profileModel.find(filter);
   }
 
-  findOne(filter: RootFilterQuery<Profile>) {
+  findOne(filter: QueryFilter<Profile>) {
     return this.profileModel.findOne(filter);
   }
 
-  updateOne(filter: RootFilterQuery<Profile>, update: UpdateQuery<Profile>) {
+  updateOne(filter: QueryFilter<Profile>, update: UpdateQuery<Profile>) {
     return this.profileModel.updateOne(filter, update);
   }
 
-  deleteOne(filter: RootFilterQuery<Profile>) {
+  deleteOne(filter: QueryFilter<Profile>) {
     return this.profileModel.deleteOne(filter);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AnyKeys, Model, RootFilterQuery, UpdateQuery } from 'mongoose';
+import { AnyKeys, Model, QueryFilter, UpdateQuery } from 'mongoose';
 import { Program } from './schemas/program.schema';
 
 @Injectable()
@@ -13,23 +13,23 @@ export class ProgramsService {
     return this.programModel.insertOne(doc);
   }
 
-  countDocuments(filter: RootFilterQuery<Program>) {
+  countDocuments(filter: QueryFilter<Program>) {
     return this.programModel.countDocuments(filter);
   }
 
-  findAll(filter: RootFilterQuery<Program>) {
+  findAll(filter: QueryFilter<Program>) {
     return this.programModel.find(filter);
   }
 
-  findOne(filter: RootFilterQuery<Program>) {
+  findOne(filter: QueryFilter<Program>) {
     return this.programModel.findOne(filter);
   }
 
-  updateOne(filter: RootFilterQuery<Program>, update: UpdateQuery<Program>) {
+  updateOne(filter: QueryFilter<Program>, update: UpdateQuery<Program>) {
     return this.programModel.updateOne(filter, update);
   }
 
-  deleteOne(filter: RootFilterQuery<Program>) {
+  deleteOne(filter: QueryFilter<Program>) {
     return this.programModel.deleteOne(filter);
   }
 }

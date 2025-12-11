@@ -27,7 +27,7 @@ import { CurrentUser, HankoUser } from '../common/decorators/user.decorator';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @UseGuards(AuthGuard)
   @Post()

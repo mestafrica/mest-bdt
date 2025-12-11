@@ -1,51 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreateResponseDto } from './dto/create-response.dto';
-import { UpdateResponseDto } from './dto/update-response.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Response, ResponseDocument } from './schemas/response.schema';
+import { Model, AnyKeys, QueryFilter, UpdateQuery } from 'mongoose';
+import { Response } from './schemas/response.schema';
 
 @Injectable()
 export class ResponsesService {
   constructor(
-    @InjectModel(Response.name) private responseModel: Model<ResponseDocument>,
+    @InjectModel(Response.name) private responseModel: Model<Response>,
   ) {}
 
-  async create(
-    createResponseDto: CreateResponseDto,
-  ): Promise<ResponseDocument> {
-    const newResponse = new this.responseModel(createResponseDto);
-    return newResponse.save();
+  create(doc: AnyKeys<Response>) {
+    return this.responseModel.insertOne(doc);
   }
 
-  async findAll(): Promise<ResponseDocument[]> {
-    return this.responseModel
-      .find()
-      .populate('form')
-      .populate('company')
-      .exec();
+  countDocuments(filter: QueryFilter<Response>) {
+    return this.responseModel.countDocuments(filter);
   }
 
-  async findOne(id: string): Promise<ResponseDocument | null> {
-    return this.responseModel
-      .findById(id)
-      .populate('form')
-      .populate('company')
-      .exec();
+  findAll(filter: QueryFilter<Response>) {
+    return this.responseModel.find(filter);
   }
 
-  async update(
-    id: string,
-    updateResponseDto: UpdateResponseDto,
-  ): Promise<ResponseDocument | null> {
-    return this.responseModel
-      .findByIdAndUpdate(id, updateResponseDto, { new: true })
-      .populate('form')
-      .populate('company')
-      .exec();
+  findOne(filter: QueryFilter<Response>) {
+    return this.responseModel.findOne(filter);
   }
 
-  async remove(id: string): Promise<ResponseDocument | null> {
-    return this.responseModel.findByIdAndDelete(id).exec();
+  updateOne(filter: QueryFilter<Response>, update: UpdateQuery<Response>) {
+    return this.responseModel.updateOne(filter, update);
+  }
+
+  deleteOne(filter: QueryFilter<Response>) {
+    return this.responseModel.deleteOne(filter);
   }
 }

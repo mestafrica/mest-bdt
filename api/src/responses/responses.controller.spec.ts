@@ -4,7 +4,6 @@ import { ResponsesService } from './responses.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Response } from './schemas/response.schema';
 import { mockModel } from '../common/mocks/model';
-import { mock } from 'node:test';
 
 describe('ResponsesController', () => {
   let controller: ResponsesController;
@@ -16,7 +15,8 @@ describe('ResponsesController', () => {
         ResponsesService,
         {
           provide: getModelToken(Response.name),
-          useValue: mockModel,}
+          useValue: mockModel,
+        },
       ],
     }).compile();
 
