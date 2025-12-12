@@ -16,7 +16,6 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiTags,
 } from '@nestjs/swagger';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
@@ -24,7 +23,6 @@ import { UpdateProfileDto } from './dto/update-profile.dto';
 import { CurrentUser, HankoUser } from '../common/decorators/user.decorator';
 import { AuthGuard } from '../common/guards/auth.guard';
 
-@ApiTags('profiles')
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}

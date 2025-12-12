@@ -15,14 +15,12 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiTags,
 } from '@nestjs/swagger';
 import { FormsService } from './forms.service';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 
-@ApiTags('forms')
 @Controller('forms')
 export class FormsController {
   constructor(private readonly formsService: FormsService) {}
