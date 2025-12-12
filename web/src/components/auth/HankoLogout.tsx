@@ -26,7 +26,7 @@ export default function HankoLogout() {
   };
 
   return (
-    <Button onClick={logout} isLoading={loading}>
+    <Button onClick={logout} isLoading={loading} variant="danger">
       Log Out
     </Button>
   );

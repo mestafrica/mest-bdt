@@ -3,6 +3,8 @@ import React from "react";
 import { ShieldAlert, Lock } from "lucide-react";
 import HankoLogout from "./HankoLogout";
 import NoSSR from "../core/NoSSR";
+import Link from "next/link";
+import Button from "../core/Button";
 
 // Interface for component props (optional but good practice in TypeScript)
 interface AccessDeniedProps {
@@ -44,10 +46,13 @@ const AccessDenied: React.FC<AccessDeniedProps> = ({
           <p className="text-lg text-gray-600 dark:text-gray-300">{message}</p>
         </div>
         {/* Small Print/Footer */}
-        <div className="pt-4 border-t border-gray-100 dark:border-gray-700/50">
+        <div className="pt-4 border-t border-gray-100 dark:border-gray-700/50 flex justify-between">
           <NoSSR>
             <HankoLogout />
           </NoSSR>
+          <Link href="/user">
+            <Button variant="primary">Visit Profile</Button>
+          </Link>
         </div>
       </div>
     </div>

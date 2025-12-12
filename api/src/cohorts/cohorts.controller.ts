@@ -14,14 +14,12 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiTags,
 } from '@nestjs/swagger';
 import { CohortsService } from './cohorts.service';
 import { CreateCohortDto } from './dto/create-cohort.dto';
 import { UpdateCohortDto } from './dto/update-cohort.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 
-@ApiTags('cohorts')
 @Controller('cohorts')
 export class CohortsController {
   constructor(private readonly cohortsService: CohortsService) {}

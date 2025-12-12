@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AnyKeys, Model, RootFilterQuery, UpdateQuery } from 'mongoose';
+import { AnyKeys, Model, QueryFilter, UpdateQuery } from 'mongoose';
 import { Cohort } from './schemas/cohort.schema';
 
 @Injectable()
@@ -11,23 +11,23 @@ export class CohortsService {
     return this.cohortModel.insertOne(doc);
   }
 
-  countDocuments(filter: RootFilterQuery<Cohort>) {
+  countDocuments(filter: QueryFilter<Cohort>) {
     return this.cohortModel.countDocuments(filter);
   }
 
-  findAll(filter: RootFilterQuery<Cohort>) {
+  findAll(filter: QueryFilter<Cohort>) {
     return this.cohortModel.find(filter);
   }
 
-  findOne(filter: RootFilterQuery<Cohort>) {
+  findOne(filter: QueryFilter<Cohort>) {
     return this.cohortModel.findOne(filter);
   }
 
-  updateOne(filter: RootFilterQuery<Cohort>, update: UpdateQuery<Cohort>) {
+  updateOne(filter: QueryFilter<Cohort>, update: UpdateQuery<Cohort>) {
     return this.cohortModel.updateOne(filter, update);
   }
 
-  deleteOne(filter: RootFilterQuery<Cohort>) {
+  deleteOne(filter: QueryFilter<Cohort>) {
     return this.cohortModel.deleteOne(filter);
   }
 }

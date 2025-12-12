@@ -14,14 +14,12 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiTags,
 } from '@nestjs/swagger';
 import { ProgramsService } from './programs.service';
 import { UpdateProgramDto } from './dto/update-program.dto';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 
-@ApiTags('programs')
 @Controller('programs')
 export class ProgramsController {
   constructor(private readonly programsService: ProgramsService) {}

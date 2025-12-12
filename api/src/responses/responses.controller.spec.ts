@@ -15,7 +15,8 @@ describe('ResponsesController', () => {
         ResponsesService,
         {
           provide: getModelToken(Response.name),
-          useValue: mockModel,}
+          useValue: mockModel,
+        },
       ],
     }).compile();
 

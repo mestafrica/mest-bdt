@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ResponsesService } from './responses.service';
 import { CreateResponseDto } from './dto/create-response.dto';
@@ -21,13 +22,18 @@ export class ResponsesController {
   }
 
   @Get()
-  async findAll() {
-    return this.responsesService.findAll();
+  async findAll(@Query() { filter = '{}' }: { filter: string }) {
+    return this.responsesService.findAll(JSON.parse(filter) as object);
+  }
+
+  @Get('count')
+  countDocuments(@Query() { filter = '{}' }: { filter: string }) {
+    return this.responsesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.responsesService.findOne(id);
+    return this.responsesService.findOne({ _id: id });
   }
 
   @Patch(':id')
@@ -35,11 +41,11 @@ export class ResponsesController {
     @Param('id') id: string,
     @Body() updateResponseDto: UpdateResponseDto,
   ) {
-    return this.responsesService.update(id, updateResponseDto);
+    return this.responsesService.updateOne({ _id: id }, updateResponseDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.responsesService.remove(id);
+    return this.responsesService.deleteOne({ _id: id });
   }
 }
