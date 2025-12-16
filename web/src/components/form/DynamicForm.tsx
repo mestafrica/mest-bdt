@@ -17,9 +17,10 @@ export default function DynamicForm() {
   return (
     <Form
       schema={JSON.parse(data?.schema || "{}")}
+      uiSchema={JSON.parse(data?.uiSchema || "{}")}
       validator={validator}
       onSubmit={(data) => {
-        console.log(JSON.stringify(data.schema));
+        console.log(data.formData);
       }}
     />
   );
