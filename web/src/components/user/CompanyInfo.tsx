@@ -30,6 +30,7 @@ export default function CompanyInfo() {
       toast.success("Company updated successfully");
       await mutate();
     } catch (error) {
+      console.log(error);
       toast.error("Failed to update company");
     }
   };
@@ -53,7 +54,11 @@ export default function CompanyInfo() {
 
       {/* FORM */}
       <div className="bg-white dark:bg-[#1a1d24] p-6 rounded-2xl shadow">
-        <form autoComplete="off" action={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <form
+          autoComplete="off"
+          action={handleSubmit}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
           {/* Column 1 */}
           <div className="space-y-4">
             <label className="block text-sm">

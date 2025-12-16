@@ -19,6 +19,7 @@ export default function UserInfo() {
       toast.success("User updated successfully");
       await mutate();
     } catch (error) {
+      console.log(error);
       toast.error("Failed to update user");
     }
   };
@@ -29,7 +30,10 @@ export default function UserInfo() {
       <div className="flex flex-col items-center sm:items-start sm:w-1/3">
         <div className="relative w-32 h-32 sm:w-48 sm:h-48 rounded-full sm:rounded-lg overflow-hidden shadow">
           <Image
-            src={user?.avatar || "https://i.pinimg.com/1200x/b2/db/80/b2db80290f2aba3567213d4eab1117a5.jpg"}
+            src={
+              user?.avatar ||
+              "https://i.pinimg.com/1200x/b2/db/80/b2db80290f2aba3567213d4eab1117a5.jpg"
+            }
             alt="User Avatar"
             fill
             className="object-cover"
@@ -47,7 +51,11 @@ export default function UserInfo() {
 
       {/* USER INFORMATION FORM */}
       <div className="flex-1 space-y-6">
-        <form autoComplete="off" action={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <form
+          autoComplete="off"
+          action={handleSubmit}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        >
           <div>
             <label className="text-sm">Full Name</label>
             <input
