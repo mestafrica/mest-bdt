@@ -12,4 +12,10 @@ export class CreateFormDto {
     description: 'JSON string defining form structure',
   })
   schema: string;
+
+  @ApiProperty({
+    example: '{"sections":[{"title":"Finance","fields":[]}]}',
+    description: 'JSON string defining form UI structure',
+  })
+  uiSchema: string;
 }

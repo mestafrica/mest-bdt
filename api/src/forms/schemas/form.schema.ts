@@ -13,6 +13,9 @@ export class Form {
 
   @Prop({ required: true })
   schema: string;
+
+  @Prop({ required: true })
+  uiSchema: string;
 }
 
 export const FormSchema = SchemaFactory.createForClass(Form);

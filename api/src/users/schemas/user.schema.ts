@@ -6,15 +6,30 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ collection: 'User', timestamps: true })
 export class User {
-  @Prop({ required: true, unique: true })
-  email: string;
-
   @Prop({
     required: true,
     ref: Company.name,
     type: mongoose.Schema.Types.ObjectId,
   })
   company: Company;
+
+  @Prop({ required: true, unique: true })
+  email: string;
+
+  @Prop()
+  name: string;
+
+  @Prop()
+  phone: string;
+
+  @Prop()
+  location: string;
+
+  @Prop()
+  avatar: string;
+
+  @Prop()
+  bio: string;
 
   @Prop({ required: true, enum: ['READ', 'WRITE'] })
   access: string;
