@@ -15,7 +15,7 @@ export default function UserLayout({
     <div>
       <UserAccessChecker>
         <Navbar />
-        <div>{children}</div>
+        <div className="mt-20">{children}</div>
       </UserAccessChecker>
     </div>
   );
