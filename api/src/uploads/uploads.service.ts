@@ -3,9 +3,7 @@ import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 
 @Injectable()
 export class UploadsService {
-  async uploadImage(
-    file: Express.Multer.File,
-  ): Promise<{ url: string }> {
+  async uploadImage(file: Express.Multer.File): Promise<{ url: string }> {
     if (!file) {
       throw new BadRequestException('No file provided');
     }
@@ -28,14 +26,14 @@ export class UploadsService {
       const result = await new Promise<UploadApiResponse>((resolve, reject) => {
         cloudinary.uploader
           .upload_stream({ resource_type: 'image' }, (error, result) => {
-            if (error) reject(error);
+            if (error) reject(new Error(error.message));
             else resolve(result as UploadApiResponse);
           })
           .end(file.buffer);
       });
 
       return { url: result.secure_url };
-    } catch (error) {
+    } catch {
       throw new BadRequestException('Failed to upload image to Cloudinary');
     }
   }

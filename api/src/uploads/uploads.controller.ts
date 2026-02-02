@@ -6,7 +6,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiConsumes, ApiBody, ApiCreatedResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiConsumes,
+  ApiBody,
+  ApiCreatedResponse,
+} from '@nestjs/swagger';
 import { UploadsService } from './uploads.service';
 import { AuthGuard } from '../common/guards/auth.guard';
 
