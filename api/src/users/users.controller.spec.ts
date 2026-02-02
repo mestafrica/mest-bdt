@@ -3,10 +3,12 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { AuthGuard } from '../common/guards/auth.guard';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { HankoUser } from '../common/decorators/user.decorator';
 
 describe('UsersController', () => {
   let controller: UsersController;
-  let service: UsersService;
 
   const mockUsersService = {
     create: jest.fn(),
@@ -36,7 +38,6 @@ describe('UsersController', () => {
       .compile();
 
     controller = module.get<UsersController>(UsersController);
-    service = module.get<UsersService>(UsersService);
     jest.clearAllMocks();
   });
 
@@ -45,7 +46,16 @@ describe('UsersController', () => {
   });
 
   describe('create', () => {
-    const createUserDto = { email: 'test@example.com', name: 'Test' } as any;
+    const createUserDto: CreateUserDto = {
+      email: 'test@example.com',
+      name: 'Test',
+      company: '60f1b9b3b3b3b3b3b3b3b3b3',
+      phone: '1234567890',
+      location: 'New York',
+      avatar: 'https://example.com/avatar.jpg',
+      bio: 'Tech enthusiast',
+      access: 'READ',
+    };
 
     it('should create a user if email does not exist', async () => {
       mockUsersService.countDocuments.mockResolvedValue(0);
@@ -56,10 +66,10 @@ describe('UsersController', () => {
 
       const result = await controller.create(createUserDto);
 
-      expect(service.countDocuments).toHaveBeenCalledWith({
+      expect(mockUsersService.countDocuments).toHaveBeenCalledWith({
         email: createUserDto.email,
       });
-      expect(service.create).toHaveBeenCalledWith(createUserDto);
+      expect(mockUsersService.create).toHaveBeenCalledWith(createUserDto);
       expect(result).toEqual({ _id: '123', ...createUserDto });
     });
 
@@ -76,12 +86,12 @@ describe('UsersController', () => {
     it('should call service.findAll with parsed filter', async () => {
       const filter = '{"role":"user"}';
       await controller.findAll({ filter });
-      expect(service.findAll).toHaveBeenCalledWith({ role: 'user' });
+      expect(mockUsersService.findAll).toHaveBeenCalledWith({ role: 'user' });
     });
 
     it('should call service.findAll with default filter if none provided', async () => {
       await controller.findAll({ filter: undefined as any });
-      expect(service.findAll).toHaveBeenCalledWith({});
+      expect(mockUsersService.findAll).toHaveBeenCalledWith({});
     });
   });
 
@@ -89,12 +99,16 @@ describe('UsersController', () => {
     it('should call service.countDocuments with parsed filter', async () => {
       const filter = '{"role":"user"}';
       await controller.countDocuments({ filter });
-      expect(service.countDocuments).toHaveBeenCalledWith({ role: 'user' });
+      expect(mockUsersService.countDocuments).toHaveBeenCalledWith({
+        role: 'user',
+      });
     });
   });
 
   describe('findCurrentUser', () => {
-    const mockUser = { email: { address: 'test@example.com' } } as any;
+    const mockUser: HankoUser = {
+      email: { address: 'test@example.com' },
+    } as HankoUser;
 
     it('should return current user if exists', async () => {
       mockUsersService.countDocuments.mockResolvedValue(1);
@@ -102,10 +116,10 @@ describe('UsersController', () => {
 
       const result = await controller.findCurrentUser(mockUser);
 
-      expect(service.countDocuments).toHaveBeenCalledWith({
+      expect(mockUsersService.countDocuments).toHaveBeenCalledWith({
         email: mockUser.email.address,
       });
-      expect(service.findOne).toHaveBeenCalledWith({
+      expect(mockUsersService.findOne).toHaveBeenCalledWith({
         email: mockUser.email.address,
       });
       expect(result).toEqual({ email: 'test@example.com' });
@@ -124,16 +138,16 @@ describe('UsersController', () => {
     it('should call service.findOne with id', async () => {
       const id = '123';
       await controller.findOne(id);
-      expect(service.findOne).toHaveBeenCalledWith({ _id: id });
+      expect(mockUsersService.findOne).toHaveBeenCalledWith({ _id: id });
     });
   });
 
   describe('updateOne', () => {
     it('should call service.updateOne with id and dto', async () => {
       const id = '123';
-      const updateUserDto = { name: 'Updated' } as any;
+      const updateUserDto: UpdateUserDto = { name: 'Updated' };
       await controller.updateOne(id, updateUserDto);
-      expect(service.updateOne).toHaveBeenCalledWith(
+      expect(mockUsersService.updateOne).toHaveBeenCalledWith(
         { _id: id },
         updateUserDto,
       );
@@ -144,7 +158,7 @@ describe('UsersController', () => {
     it('should call service.deleteOne with id', async () => {
       const id = '123';
       await controller.deleteOne(id);
-      expect(service.deleteOne).toHaveBeenCalledWith({ _id: id });
+      expect(mockUsersService.deleteOne).toHaveBeenCalledWith({ _id: id });
     });
   });
 });

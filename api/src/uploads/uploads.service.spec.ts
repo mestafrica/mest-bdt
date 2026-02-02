@@ -41,10 +41,10 @@ describe('UploadsService', () => {
       };
 
       (cloudinary.uploader.upload_stream as jest.Mock).mockImplementation(
-        (options, callback) => {
+        (options, callback: (error: any, result: any) => void) => {
           callback(null, mockUploadResponse);
           return {
-            end: jest.fn().mockImplementation((buffer) => {
+            end: jest.fn().mockImplementation(() => {
               return true;
             }),
           };
@@ -60,13 +60,16 @@ describe('UploadsService', () => {
     });
 
     it('should throw BadRequestException if no file is provided', async () => {
-      await expect(service.uploadImage(null as any)).rejects.toThrow(
-        BadRequestException,
-      );
+      await expect(
+        service.uploadImage(null as unknown as Express.Multer.File),
+      ).rejects.toThrow(BadRequestException);
     });
 
     it('should throw BadRequestException if invalid mime type', async () => {
-      const invalidFile = { ...mockFile, mimetype: 'application/pdf' } as any;
+      const invalidFile = {
+        ...mockFile,
+        mimetype: 'application/pdf',
+      } as Express.Multer.File;
       await expect(service.uploadImage(invalidFile)).rejects.toThrow(
         BadRequestException,
       );
@@ -74,7 +77,7 @@ describe('UploadsService', () => {
 
     it('should throw BadRequestException if Cloudinary upload fails', async () => {
       (cloudinary.uploader.upload_stream as jest.Mock).mockImplementation(
-        (options, callback) => {
+        (options, callback: (error: any, result: any) => void) => {
           callback(new Error('Upload failed'), null);
           return { end: jest.fn() };
         },

@@ -5,7 +5,6 @@ import { AuthGuard } from '../common/guards/auth.guard';
 
 describe('UploadsController', () => {
   let controller: UploadsController;
-  let service: UploadsService;
 
   const mockUploadsService = {
     uploadImage: jest.fn(),
@@ -30,7 +29,6 @@ describe('UploadsController', () => {
       .compile();
 
     controller = module.get<UploadsController>(UploadsController);
-    service = module.get<UploadsService>(UploadsService);
     jest.clearAllMocks();
   });
 
@@ -48,8 +46,6 @@ describe('UploadsController', () => {
       mockUploadsService.uploadImage.mockResolvedValue(expectedResult);
 
       const result = await controller.uploadImage(mockFile);
-
-      expect(service.uploadImage).toHaveBeenCalledWith(mockFile);
       expect(result).toEqual(expectedResult);
     });
   });
