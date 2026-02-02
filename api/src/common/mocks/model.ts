@@ -3,5 +3,6 @@ export const mockModel = {
   find: jest.fn(),
   findOne: jest.fn(),
   updateOne: jest.fn(),
+  countDocuments: jest.fn(),
   deleteOne: jest.fn(),
 };
