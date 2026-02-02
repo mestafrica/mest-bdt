@@ -45,12 +45,12 @@ export class FormsController {
   @Get()
   @ApiOkResponse({ description: 'Forms retrieved successfully.' })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.formsService.findAll(JSON.parse(filter));
+    return this.formsService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.formsService.countDocuments(JSON.parse(filter));
+    return this.formsService.countDocuments(JSON.parse(filter) as object);
   }
 
   @Get(':id')

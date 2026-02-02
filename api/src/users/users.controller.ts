@@ -48,12 +48,12 @@ export class UsersController {
     description: 'The users have been successfully found.',
   })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.usersService.findAll(JSON.parse(filter));
+    return this.usersService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.usersService.countDocuments(JSON.parse(filter));
+    return this.usersService.countDocuments(JSON.parse(filter) as object);
   }
 
   @UseGuards(AuthGuard)

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsMongoId, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsMongoId } from 'class-validator';
 
 export class CreateUserDto {
   @IsMongoId()

@@ -39,12 +39,12 @@ export class CompaniesController {
     description: 'The companies have been successfully found.',
   })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.companiesService.findAll(JSON.parse(filter));
+    return this.companiesService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.companiesService.countDocuments(JSON.parse(filter));
+    return this.companiesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @Get(':id')

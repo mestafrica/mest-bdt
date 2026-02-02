@@ -48,12 +48,12 @@ export class ProfilesController {
     description: 'The profiles have been successfully found.',
   })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.profilesService.findAll(JSON.parse(filter));
+    return this.profilesService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.profilesService.countDocuments(JSON.parse(filter));
+    return this.profilesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @UseGuards(AuthGuard)
