@@ -47,13 +47,13 @@ export class ProfilesController {
   @ApiOkResponse({
     description: 'The profiles have been successfully found.',
   })
-  findAll(@Query() filter: JSON) {
-    return this.profilesService.findAll(filter);
+  findAll(@Query() { filter = '{}' }: { filter: string }) {
+    return this.profilesService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
-  countDocuments(@Query() filter: JSON) {
-    return this.profilesService.countDocuments(filter);
+  countDocuments(@Query() { filter = '{}' }: { filter: string }) {
+    return this.profilesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @UseGuards(AuthGuard)

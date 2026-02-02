@@ -5,8 +5,10 @@ export function proxy(req: NextRequest) {
     const hanko = req.cookies.get("hanko")?.value;
     // Redirect to login page if not logged in
     if (!hanko && req.nextUrl.pathname !== "/login") {
-      console.log(hanko);
-      return NextResponse.redirect(new URL("/login", req.url));
+      const loginUrl = new URL("/login", req.url);
+      // Append the original request path to the login URL
+      loginUrl.searchParams.set("redirect", req.nextUrl.pathname);
+      return NextResponse.redirect(loginUrl);
     }
     // Redirect to home page if already logged in and heading for login again
     if (hanko && req.nextUrl.pathname === "/login") {
@@ -20,7 +22,10 @@ export function proxy(req: NextRequest) {
       "Authentication or profile check failed:",
       JSON.stringify(error),
     );
-    return NextResponse.redirect(new URL("/login", req.url));
+    const loginUrl = new URL("/login", req.url);
+    // Append the original request path to the login URL
+    loginUrl.searchParams.set("redirect", req.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
   }
 }
 

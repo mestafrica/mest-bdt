@@ -47,13 +47,13 @@ export class UsersController {
   @ApiOkResponse({
     description: 'The users have been successfully found.',
   })
-  findAll(@Query() filter: JSON) {
-    return this.usersService.findAll(filter);
+  findAll(@Query() { filter = '{}' }: { filter: string }) {
+    return this.usersService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
-  countDocuments(@Query() filter: JSON) {
-    return this.usersService.countDocuments(filter);
+  countDocuments(@Query() { filter = '{}' }: { filter: string }) {
+    return this.usersService.countDocuments(JSON.parse(filter) as object);
   }
 
   @UseGuards(AuthGuard)
