@@ -41,12 +41,12 @@ export class CohortsController {
     description: 'The cohorts have been successfully found.',
   })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.cohortsService.findAll(JSON.parse(filter) as object);
+    return this.cohortsService.findAll(JSON.parse(filter));
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.cohortsService.countDocuments(JSON.parse(filter) as object);
+    return this.cohortsService.countDocuments(JSON.parse(filter));
   }
 
   @Get(':id')

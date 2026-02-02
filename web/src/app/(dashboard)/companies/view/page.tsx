@@ -8,11 +8,16 @@ import {
   IdCardLanyard,
 } from "lucide-react";
 import CompanyHeader from "@/components/companies/CompanyHeader";
+import InviteUserSection from "@/components/companies/InviteUserSection";
 
 export default function ViewCompanyPage() {
   return (
     <div className="p-6 sm:p-10 min-h-screen bg-gray-100  text-gray-900  transition-colors duration-300">
       <CompanyHeader />
+
+      <div className="mt-6">
+        <InviteUserSection />
+      </div>
 
       <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
         <div className="bg-white shadow-lg text-sm px-6 py-4 rounded-2xl border border-gray-300  w-full">

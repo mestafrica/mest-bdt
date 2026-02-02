@@ -39,12 +39,12 @@ export class ProgramsController {
     description: 'The programs have been successfully found.',
   })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.programsService.findAll(JSON.parse(filter) as object);
+    return this.programsService.findAll(JSON.parse(filter));
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.programsService.countDocuments(JSON.parse(filter) as object);
+    return this.programsService.countDocuments(JSON.parse(filter));
   }
 
   @Get(':id')

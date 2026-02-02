@@ -23,12 +23,12 @@ export class ResponsesController {
 
   @Get()
   async findAll(@Query() { filter = '{}' }: { filter: string }) {
-    return this.responsesService.findAll(JSON.parse(filter) as object);
+    return this.responsesService.findAll(JSON.parse(filter));
   }
 
   @Get('count')
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
-    return this.responsesService.countDocuments(JSON.parse(filter) as object);
+    return this.responsesService.countDocuments(JSON.parse(filter));
   }
 
   @Get(':id')
