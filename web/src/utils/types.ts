@@ -21,4 +21,5 @@ export type Company = {
   id: string;
   cohort: string;
   name: string;
+  image: string;
 };

@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle('BDT API')
     .setDescription('Business Diagnostics Tool API')
     .setVersion('1.0')
+    .addBearerAuth()
     .addGlobalResponse({
       status: 500,
       description: 'Internal server error',

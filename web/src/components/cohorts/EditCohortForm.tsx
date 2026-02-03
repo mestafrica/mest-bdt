@@ -6,11 +6,13 @@ import Button from "../core/Button";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import dayjs from "dayjs";
+import { useUpload } from "@/hooks/upload";
 
 export default function EditCohortForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data } = useSWR(`/cohorts/${searchParams.get("id")}`, apiFetcher);
+  const { upload, loading, url } = useUpload();
 
   const handleSubmit = async (data: FormData) => {
     try {
@@ -19,7 +21,7 @@ export default function EditCohortForm() {
         {
           name: data.get("name"),
           description: data.get("description"),
-          image: "<image link will go here after upload>",
+          ...(url && { image: url }),
           startDate: data.get("startDate"),
           endDate: data.get("endDate"),
         },
@@ -103,17 +105,28 @@ export default function EditCohortForm() {
             </div>
           </div>
           {/* Upload Image */}
-          <div className="flex flex-col">
-            <label className="text-sm text-gray-700 font-semibold">
-              Upload Image
-              <span className="text-gray-400 ml-1">(Optional)</span>
-            </label>
-            <input
-              type="file"
-              accept=".png,.jpg,.jpeg"
-              className="bg-gray-100 px-2 py-3 rounded-lg text-sm  border border-gray-400"
-            />
-          </div>
+          {loading ? (
+            <p>Uploading...</p>
+          ) : url ? (
+            <p>Image uploaded successfully</p>
+          ) : (
+            <div className="flex flex-col">
+              <label className="text-sm text-gray-700 font-semibold">
+                Upload Image
+                <span className="text-gray-400 ml-1">(Optional)</span>
+              </label>
+              <input
+                type="file"
+                accept=".png,.jpg,.jpeg"
+                onChange={(e) => {
+                  if (e.target.files?.[0]) {
+                    upload(e.target.files?.[0]);
+                  }
+                }}
+                className="bg-gray-100 px-2 py-3 rounded-lg text-sm  border border-gray-400"
+              />
+            </div>
+          )}
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end gap-4 mt-6">
             <SubmitButton title="Edit Cohort" />

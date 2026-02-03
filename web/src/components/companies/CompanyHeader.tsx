@@ -37,14 +37,12 @@ export default function CompanyHeader() {
         <div className="flex justify-between md:justify-start items-center gap-2">
           <Building2 size={30} className="shrink-0" />
           <h1 className="text-lg leading-relaxed">{data?.name}</h1>
-          <p className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded-full ">
-            onboarding
+          <p className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded-full">
+            {data?.sector}
           </p>
         </div>
         <div className="mt-1 md:mb-8">
-          <p className="text-gray-500 leading-relaxed">
-            Part of leadership development program
-          </p>
+          <p className="text-gray-500 leading-relaxed">{data?.mission}</p>
         </div>
       </div>
 

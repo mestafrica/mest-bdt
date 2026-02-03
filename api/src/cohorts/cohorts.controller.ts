@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -20,6 +21,7 @@ import { CreateCohortDto } from './dto/create-cohort.dto';
 import { UpdateCohortDto } from './dto/update-cohort.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiBearerAuth()
 @Controller('cohorts')
 export class CohortsController {
   constructor(private readonly cohortsService: CohortsService) {}

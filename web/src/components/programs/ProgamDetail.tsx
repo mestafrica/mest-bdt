@@ -30,14 +30,13 @@ export default function ProgramDetail() {
   return (
     <>
       {/* Image Section */}
-      <div className="relative mb-10">
+      <div className="relative mb-10 h-[500px]">
         <Image
-          src="https://i.pinimg.com/1200x/a3/51/30/a35130edc8113b0b747ed58f84fa3f8c.jpg"
+          src={data.image || "https://placehold.co/600x400.png"}
           alt="Program Image"
-          width={1200}
-          height={500}
+          fill
           quality={100}
-          className="rounded-2xl object-cover shadow-md"
+          className="rounded-2xl object-cover shadow-md h-full"
         />
         <p className="absolute top-5 left-5 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
           Active

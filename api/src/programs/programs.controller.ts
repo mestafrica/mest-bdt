@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -20,6 +21,7 @@ import { UpdateProgramDto } from './dto/update-program.dto';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiBearerAuth()
 @Controller('programs')
 export class ProgramsController {
   constructor(private readonly programsService: ProgramsService) {}

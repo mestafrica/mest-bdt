@@ -13,9 +13,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       {/* Card Image */}
       <div className="relative w-full h-48  overflow-hidden">
         <Image
-          src={
-            "https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
-          }
+          src={"https://placehold.co/600x400.png"}
           alt="image complete"
           fill
           quality={100}

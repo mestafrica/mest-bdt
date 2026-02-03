@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -23,6 +24,7 @@ import { UpdateProfileDto } from './dto/update-profile.dto';
 import { CurrentUser, HankoUser } from '../common/decorators/user.decorator';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiBearerAuth()
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}

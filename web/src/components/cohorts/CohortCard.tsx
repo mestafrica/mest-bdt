@@ -13,7 +13,7 @@ export default function CohortCard({ cohort }: CohortCardProps) {
       {/* Image */}
       <div className="relative h-48 w-full bg-slate-900 transform transition-transform duration-300 hover:scale-110">
         <Image
-          src="https://i.pinimg.com/736x/ff/ad/d0/ffadd05c91a3025f9bad3895f090ecce.jpg"
+          src={cohort.image || "https://placehold.co/600x400.png"}
           alt="Cohort 1"
           fill
           sizes="(max-width: 640px) 100vw, 33vw"

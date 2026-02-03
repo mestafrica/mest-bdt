@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -21,6 +22,7 @@ import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiBearerAuth()
 @Controller('forms')
 export class FormsController {
   constructor(private readonly formsService: FormsService) {}

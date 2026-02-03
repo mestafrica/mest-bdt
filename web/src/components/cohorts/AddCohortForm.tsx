@@ -4,10 +4,12 @@ import { apiClient } from "@/utils/api";
 import { useRouter, useSearchParams } from "next/navigation";
 import Button from "../core/Button";
 import toast from "react-hot-toast";
+import { useUpload } from "@/hooks/upload";
 
 export default function AddCohortForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { upload, loading, url } = useUpload();
 
   const handleSubmit = async (data: FormData) => {
     try {
@@ -15,7 +17,7 @@ export default function AddCohortForm() {
         program: searchParams.get("pid"),
         name: data.get("name"),
         description: data.get("description"),
-        image: "<image link will go here after upload>",
+        image: url,
         startDate: data.get("startDate"),
         endDate: data.get("endDate"),
       });
@@ -94,17 +96,28 @@ export default function AddCohortForm() {
             </div>
           </div>
           {/* Upload Image */}
-          <div className="flex flex-col">
-            <label className="text-sm text-gray-700 font-semibold">
-              Upload Image
-              <span className="text-gray-400 ml-1">(Optional)</span>
-            </label>
-            <input
-              type="file"
-              accept=".png,.jpg,.jpeg"
-              className="bg-gray-100 px-2 py-3 rounded-lg text-sm  border border-gray-400"
-            />
-          </div>
+          {loading ? (
+            <p>Uploading...</p>
+          ) : url ? (
+            <p>Image uploaded successfully</p>
+          ) : (
+            <div className="flex flex-col">
+              <label className="text-sm text-gray-700 font-semibold">
+                Upload Image
+                <span className="text-gray-400 ml-1">(Optional)</span>
+              </label>
+              <input
+                type="file"
+                accept=".png,.jpg,.jpeg"
+                onChange={(e) => {
+                  if (e.target.files?.[0]) {
+                    upload(e.target.files?.[0]);
+                  }
+                }}
+                className="bg-gray-100 px-2 py-3 rounded-lg text-sm  border border-gray-400"
+              />
+            </div>
+          )}
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end gap-4 mt-6">
             <SubmitButton title="Create Cohort" />

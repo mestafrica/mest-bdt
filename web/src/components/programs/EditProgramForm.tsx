@@ -6,11 +6,13 @@ import Button from "../core/Button";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import dayjs from "dayjs";
+import { useUpload } from "@/hooks/upload";
 
 export default function EditProgramForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data } = useSWR(`/programs/${searchParams.get("id")}`, apiFetcher);
+  const { upload, loading, url } = useUpload();
 
   const handleSubmit = async (data: FormData) => {
     try {
@@ -19,7 +21,7 @@ export default function EditProgramForm() {
         {
           name: data.get("name"),
           description: data.get("description"),
-          image: "<image link will go here after upload>",
+          ...(url && { image: url }),
           startDate: data.get("startDate"),
           endDate: data.get("endDate"),
         },
@@ -115,17 +117,27 @@ export default function EditProgramForm() {
       <div className="mt-10 border-t border-gray-200  "></div>
 
       {/* Insert of Images */}
-      <div className="w-[95%] mx-auto mt-4">
-        <h2 className="text-sm">Image(Optional)</h2>
-        <div>
-          <input
-            type="file"
-            placeholder=" https://example.com/image.jpg"
-            className="bg-gray-100 px-4 py-3 rounded-lg text-sm w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
+      {loading ? (
+        <p>Uploading...</p>
+      ) : url ? (
+        <p>Image uploaded successfully</p>
+      ) : (
+        <div className="w-[95%] mx-auto mt-4">
+          <h2 className="text-sm">Image(Optional)</h2>
+          <div>
+            <input
+              type="file"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  upload(e.target.files?.[0]);
+                }
+              }}
+              className="bg-gray-100 px-4 py-3 rounded-lg text-sm w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="mt-10 border border-t-gray-400  "></div>
 
       {/* Buttons */}

@@ -1,7 +1,7 @@
 import CompanyHeader from "@/components/companies/CompanyHeader";
 import InviteUserSection from "@/components/companies/InviteUserSection";
 import CompanyStats from "@/components/companies/CompanyStats";
-import CompanyImage from "@/components/companies/CompanyImage";
+// import CompanyImage from "@/components/companies/CompanyImage";
 import CompanyContactInfo from "@/components/companies/CompanyContactInfo";
 import OrganizationProfile from "@/components/companies/OrganizationProfile";
 import CompanyGoals from "@/components/companies/CompanyGoals";
@@ -15,8 +15,10 @@ export default function ViewCompanyPage() {
         <InviteUserSection />
       </div>
 
-      <CompanyStats />
-      <CompanyImage />
+      <div className="mb-6">
+        <CompanyStats />
+      </div>
+      {/* <CompanyImage /> */}
 
       {/* Company details */}
       <div className="flex flex-col md:flex-row justify-between gap-4 ">
@@ -24,7 +26,9 @@ export default function ViewCompanyPage() {
         <OrganizationProfile />
       </div>
 
-      <CompanyGoals />
+      <div className="mt-6">
+        <CompanyGoals />
+      </div>
     </div>
   );
 }

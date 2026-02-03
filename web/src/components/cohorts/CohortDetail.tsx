@@ -30,12 +30,11 @@ export default function CohortDetail() {
   return (
     <>
       {/* Image Section */}
-      <div className="relative mb-10">
+      <div className="relative mb-10 h-[400px]">
         <Image
-          src="https://i.pinimg.com/1200x/2f/94/e1/2f94e1314b23dda5338f32b587489d90.jpg"
+          src={data.image || "https://placehold.co/600x400.png"}
           alt="Cohort Image"
-          width={1200}
-          height={500}
+          fill
           quality={100}
           className="rounded-2xl object-cover shadow-md"
         />

@@ -11,10 +11,12 @@ import {
   ApiConsumes,
   ApiBody,
   ApiCreatedResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { UploadsService } from './uploads.service';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiBearerAuth()
 @ApiTags('uploads')
 @Controller('uploads')
 export class UploadsController {
