@@ -6,7 +6,7 @@ import { User } from "lucide-react";
 
 export default function AccountPage() {
   return (
-    <div className="px-4 sm:px-8 py-8 min-h-screen">
+    <div className="container mx-auto px-4 py-8 lg:px-8 max-w-7xl min-h-screen">
       <div className="mb-10">
         <div className="flex items-center gap-4 mb-3">
           <div className="p-3 bg-primary/10 rounded-xl">

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, LayoutDashboard, Group, User, UserPlus, LogOut } from "lucide-react";
+import { Menu, X, LayoutGrid, Cpu, Users, Terminal, Activity, Settings2, LogOut } from "lucide-react";
 import Link from "next/link";
 import HankoLogout from "../auth/HankoLogout";
 import NoSSR from "../core/NoSSR";
@@ -14,11 +14,12 @@ interface SidebarItem {
 }
 
 const sidebarItems: SidebarItem[] = [
-  { name: "Dashboard", icon: LayoutDashboard, href: "/" },
-  { name: "Programs", icon: Group, href: "/programs" },
-  { name: "Profiles", icon: UserPlus, href: "/profiles" },
-  { name: "Forms", icon: Menu, href: "/forms" },
-  { name: "Account", icon: User, href: "/account" },
+  { name: "Dashboard", icon: LayoutGrid, href: "/" },
+  { name: "Programs", icon: Cpu, href: "/programs" },
+  { name: "Profiles", icon: Users, href: "/profiles" },
+  { name: "Forms", icon: Terminal, href: "/forms" },
+  { name: "Responses", icon: Activity, href: "/responses" },
+  { name: "Account", icon: Settings2, href: "/account" },
 ];
 
 const Sidebar: React.FC = () => {

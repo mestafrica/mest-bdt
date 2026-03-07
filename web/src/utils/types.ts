@@ -54,3 +54,12 @@ export type User = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type Response = {
+  id: string;
+  form: string;
+  company: string;
+  data: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
