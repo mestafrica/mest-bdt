@@ -24,7 +24,7 @@ export default function AddCohortForm() {
         endDate: data.get("endDate"),
       });
       toast.success("Cohort added successfully!");
-      router.push("/cohorts");
+      router.back();
     } catch (error) {
       console.error(error);
       toast.error("Failed to add cohort!");

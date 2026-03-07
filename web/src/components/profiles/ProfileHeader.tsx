@@ -19,7 +19,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ id }) => {
     try {
       await apiClient.delete(`/profiles/${id}`);
       toast.success("Profile deleted successfully!");
-      router.push("/profiles");
+      router.back();
     } catch {
       toast.error("Failed to delete profile");
     } finally {
@@ -31,7 +31,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ id }) => {
     <div className="mb-8">
       <div className="flex items-center gap-4 mb-6">
         <button
-          onClick={() => router.push("/profiles")}
+          onClick={() => router.back()}
           className="p-2 rounded-xl bg-foreground/5 text-foreground/40 hover:text-primary transition-all hover:bg-primary/5"
         >
           <ArrowLeft className="h-5 w-5" />

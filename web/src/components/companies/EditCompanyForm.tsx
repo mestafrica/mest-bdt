@@ -22,7 +22,7 @@ export default function EditCompanyForm() {
         name: formData.get("name"),
       });
       toast.success("Company updated successfully!");
-      router.push("/companies");
+      router.back();
     } catch (error) {
       console.error(error);
       toast.error("Failed to update company!");

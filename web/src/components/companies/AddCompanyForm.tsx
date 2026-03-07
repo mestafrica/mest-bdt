@@ -17,7 +17,7 @@ export default function AddCompanyForm() {
         name: data.get("name"),
       });
       toast.success("Company added successfully!");
-      router.push("/companies");
+      router.back();
     } catch (error) {
       console.error(error);
       toast.error("Failed to add company!");

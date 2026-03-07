@@ -30,7 +30,7 @@ export default function EditCohortForm() {
         endDate: formData.get("endDate"),
       });
       toast.success("Cohort updated successfully!");
-      router.push("/cohorts");
+      router.back();
     } catch (error) {
       console.error(error);
       toast.error("Failed to update cohort!");

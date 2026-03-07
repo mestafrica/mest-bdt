@@ -19,7 +19,7 @@ const AddProfileForm = () => {
     try {
       await apiClient.post("/profiles", { email });
       toast.success("Profile added successfully!");
-      router.push("/profiles");
+      router.back();
     } catch (error: unknown) {
       const message =
         (error as { response?: { data?: { message?: string } } })?.response

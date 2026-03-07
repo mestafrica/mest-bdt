@@ -52,7 +52,7 @@ export default function EditForm() {
         uiSchema: uiSchemaStr || "{}",
       });
       toast.success("Form template updated successfully!");
-      router.push(`/forms/view?id=${id}`);
+      router.back();
     } catch (error: unknown) {
       console.error(error);
       const errorMessage =

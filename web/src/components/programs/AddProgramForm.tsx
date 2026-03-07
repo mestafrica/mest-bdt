@@ -22,7 +22,7 @@ export default function AddProgramForm() {
         endDate: data.get("endDate"),
       });
       toast.success("Program added successfully!");
-      router.push("/programs");
+      router.back();
     } catch (error) {
       console.error(error);
       toast.error("Failed to add program!");

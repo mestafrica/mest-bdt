@@ -30,7 +30,7 @@ export default function EditProgramForm() {
         endDate: formData.get("endDate"),
       });
       toast.success("Program updated successfully!");
-      router.push("/programs");
+      router.back();
     } catch (error) {
       console.error(error);
       toast.error("Failed to update program!");

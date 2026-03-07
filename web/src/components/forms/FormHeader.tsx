@@ -20,7 +20,7 @@ export default function FormHeader() {
     try {
       await apiClient.delete(`/forms/${id}`);
       toast.success("Form deleted successfully");
-      router.push("/forms");
+      router.back();
     } catch (error: unknown) {
       const errorMessage =
         (error as { response?: { data?: { message?: string } } })?.response

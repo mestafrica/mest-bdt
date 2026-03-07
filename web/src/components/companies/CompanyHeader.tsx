@@ -18,7 +18,7 @@ export default function CompanyHeader() {
       try {
         await apiClient.delete(`/companies/${searchParams.get("id")}`);
         toast.success("Company deleted successfully!");
-        router.push("/companies");
+        router.back();
       } catch (error) {
         toast.error("Failed to delete company!");
         console.error(error);

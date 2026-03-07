@@ -16,7 +16,7 @@ export default function CohortHeader({ name }: { name?: string }) {
       try {
         await apiClient.delete(`/cohorts/${searchParams.get("id")}`);
         toast.success("Cohort deleted successfully!");
-        router.push("/cohorts");
+        router.back();
       } catch (error) {
         toast.error("Failed to delete cohort!");
         console.error(error);

@@ -43,7 +43,7 @@ export default function AddForm() {
         uiSchema: uiSchemaStr || "{}",
       });
       toast.success("Form template created successfully!");
-      router.push("/forms");
+      router.back();
     } catch (error: unknown) {
       console.error(error);
       const errorMessage =

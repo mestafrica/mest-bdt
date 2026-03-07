@@ -16,7 +16,7 @@ export default function ProgramHeader({ name }: { name?: string }) {
       try {
         await apiClient.delete(`/programs/${searchParams.get("id")}`);
         toast.success("Program deleted successfully!");
-        router.push("/programs");
+        router.back();
       } catch (error) {
         toast.error("Failed to delete program!");
         console.error(error);

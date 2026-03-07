@@ -35,7 +35,7 @@ const EditProfileForm = () => {
     try {
       await apiClient.patch(`/profiles/${id}`, { email });
       toast.success("Profile updated successfully!");
-      router.push("/profiles");
+      router.back();
     } catch (error: unknown) {
       const message =
         (error as { response?: { data?: { message?: string } } })?.response
