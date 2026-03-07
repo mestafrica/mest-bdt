@@ -12,8 +12,6 @@ export default function CohortHeader({ name }: { name?: string }) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
-    if (!confirm("Are you sure you want to delete this cohort?")) return;
-
     startTransition(async () => {
       try {
         await apiClient.delete(`/cohorts/${searchParams.get("id")}`);
@@ -40,19 +38,25 @@ export default function CohortHeader({ name }: { name?: string }) {
             {name || "Cohort Details"}
           </h1>
           <div className="flex items-center gap-2 mt-1">
-             <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Resource Management</span>
-             <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
-             <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Cohort Overview</span>
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+              Resource Management
+            </span>
+            <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
+              Cohort Overview
+            </span>
           </div>
         </div>
       </div>
 
       <div className="card-meltwater p-3 flex flex-col md:flex-row items-center gap-3">
         <div className="flex items-center gap-3 px-4">
-           <Users size={18} className="text-primary" />
-           <span className="text-sm font-bold text-foreground">Actions & Navigation</span>
+          <Users size={18} className="text-primary" />
+          <span className="text-sm font-bold text-foreground">
+            Actions & Navigation
+          </span>
         </div>
-        
+
         <div className="md:ml-auto flex items-center gap-2">
           <Link
             href={`/companies?cid=${searchParams.get("id")}`}

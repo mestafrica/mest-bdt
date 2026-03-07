@@ -10,12 +10,13 @@ interface ResponseCardProps {
   onDelete: (id: string) => void;
 }
 
-export default function ResponseCard({ response, onDelete }: ResponseCardProps) {
+export default function ResponseCard({
+  response,
+  onDelete,
+}: ResponseCardProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this response?")) return;
-
     setIsDeleting(true);
     try {
       await apiClient.delete(`/responses/${response.id}`);
@@ -40,9 +41,16 @@ export default function ResponseCard({ response, onDelete }: ResponseCardProps) 
   const dataPreview = Object.entries(parsedData)
     .slice(0, 3)
     .map(([key, value]) => (
-      <div key={key} className="flex justify-between text-xs py-1 border-b border-border last:border-0">
-        <span className="text-foreground/40 font-bold uppercase tracking-wider">{key}</span>
-        <span className="text-foreground font-semibold truncate max-w-[150px]">{String(value)}</span>
+      <div
+        key={key}
+        className="flex justify-between text-xs py-1 border-b border-border last:border-0"
+      >
+        <span className="text-foreground/40 font-bold uppercase tracking-wider">
+          {key}
+        </span>
+        <span className="text-foreground font-semibold truncate max-w-[150px]">
+          {String(value)}
+        </span>
       </div>
     ));
 
@@ -66,7 +74,9 @@ export default function ResponseCard({ response, onDelete }: ResponseCardProps) 
           <div>
             <div className="flex items-center gap-1.5 mb-1">
               <Building size={12} className="text-primary" />
-              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Company ID</span>
+              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+                Company ID
+              </span>
             </div>
             <p className="text-xs font-bold text-foreground truncate pl-4 border-l-2 border-primary/20">
               {response.company}
@@ -76,7 +86,9 @@ export default function ResponseCard({ response, onDelete }: ResponseCardProps) 
           <div>
             <div className="flex items-center gap-1.5 mb-1">
               <Info size={12} className="text-primary" />
-              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Form ID</span>
+              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+                Form ID
+              </span>
             </div>
             <p className="text-xs font-bold text-foreground truncate pl-4 border-l-2 border-primary/20">
               {response.form}
@@ -85,7 +97,9 @@ export default function ResponseCard({ response, onDelete }: ResponseCardProps) 
         </div>
 
         <div className="p-4 rounded-xl bg-foreground/5 border border-border">
-          <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest block mb-2">Data Payload</span>
+          <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest block mb-2">
+            Data Payload
+          </span>
           <div className="space-y-1">
             {dataPreview}
             {Object.keys(parsedData).length > 3 && (
@@ -100,9 +114,13 @@ export default function ResponseCard({ response, onDelete }: ResponseCardProps) 
       <div className="bg-foreground/5 p-4 border-t border-border flex items-center justify-between">
         <div className="flex items-center gap-2 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
           <Calendar size={12} />
-          {response.createdAt ? new Date(response.createdAt).toLocaleDateString() : 'N/A'}
+          {response.createdAt
+            ? new Date(response.createdAt).toLocaleDateString()
+            : "N/A"}
         </div>
-        <span className="text-[10px] font-black text-primary uppercase italic">Submitted</span>
+        <span className="text-[10px] font-black text-primary uppercase italic">
+          Submitted
+        </span>
       </div>
     </div>
   );

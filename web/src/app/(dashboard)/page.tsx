@@ -10,7 +10,7 @@ export default function DashboardPage() {
       <DashboardHeader />
       <div className="space-y-8">
         <StatCardsGrid />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <PerformanceChart />

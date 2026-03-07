@@ -81,9 +81,7 @@ export default function ProgramDetail() {
 
           <div>
             <p className="text-slate-500 mb-1">Status</p>
-            <p className="font-medium text-green-400">
-              Active
-            </p>
+            <p className="font-medium text-green-400">Active</p>
           </div>
         </div>
       </div>

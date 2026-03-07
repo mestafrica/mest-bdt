@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { apiClient, apiFetcher } from "@/utils/api";
 import toast from "react-hot-toast";
-import { Trash, Edit, ArrowLeft, Building2, Globe, MapPin } from "lucide-react";
+import { Trash, Edit, ArrowLeft, Building2, MapPin } from "lucide-react";
 import useSWR from "swr";
 
 export default function CompanyHeader() {
@@ -14,8 +14,6 @@ export default function CompanyHeader() {
   const { data } = useSWR(`/companies/${searchParams.get("id")}`, apiFetcher);
 
   const handleDelete = () => {
-    if (!confirm("Are you sure you want to delete this company?")) return;
-
     startTransition(async () => {
       try {
         await apiClient.delete(`/companies/${searchParams.get("id")}`);
@@ -39,30 +37,34 @@ export default function CompanyHeader() {
         </button>
         <div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight flex items-center gap-3">
-             <Building2 size={28} className="text-primary" />
-             {data?.name || "Company Details"}
+            <Building2 size={28} className="text-primary" />
+            {data?.name || "Company Details"}
           </h1>
           <div className="flex items-center gap-2 mt-1">
-             <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Resource Management</span>
-             <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
-             <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Partner Profile</span>
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+              Resource Management
+            </span>
+            <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
+              Partner Profile
+            </span>
           </div>
         </div>
       </div>
 
       <div className="card-meltwater p-3 flex flex-col md:flex-row items-center gap-3">
         <div className="flex items-center gap-4 px-4">
-           {data?.sector && (
-             <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/20">
-               {data.sector}
-             </span>
-           )}
-           <div className="flex items-center gap-2 text-foreground/40 text-xs font-bold uppercase tracking-wider">
-              <MapPin size={14} className="text-primary" />
-              <span>Accra, Ghana</span>
-           </div>
+          {data?.sector && (
+            <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/20">
+              {data.sector}
+            </span>
+          )}
+          <div className="flex items-center gap-2 text-foreground/40 text-xs font-bold uppercase tracking-wider">
+            <MapPin size={14} className="text-primary" />
+            <span>Accra, Ghana</span>
+          </div>
         </div>
-        
+
         <div className="md:ml-auto flex items-center gap-2">
           <Link
             href={`/companies/edit?id=${searchParams.get("id")}`}

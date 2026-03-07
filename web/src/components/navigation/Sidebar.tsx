@@ -1,7 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, LayoutGrid, Cpu, Users, Terminal, Activity, Settings2, LogOut } from "lucide-react";
+import {
+  Menu,
+  X,
+  LayoutGrid,
+  Cpu,
+  Users,
+  Terminal,
+  Activity,
+  Settings2,
+} from "lucide-react";
 import Link from "next/link";
 import HankoLogout from "../auth/HankoLogout";
 import NoSSR from "../core/NoSSR";
@@ -75,13 +84,17 @@ const Sidebar: React.FC = () => {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
-                      ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
-                      : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
-                      }`}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                        : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
+                    }`}
                     onClick={() => setIsOpen(false)}
                   >
-                    <item.icon size={20} className={isActive ? "text-white" : "text-primary"} />
+                    <item.icon
+                      size={20}
+                      className={isActive ? "text-white" : "text-primary"}
+                    />
                     <span className="text-sm font-semibold">{item.name}</span>
                   </Link>
                 );
@@ -91,7 +104,9 @@ const Sidebar: React.FC = () => {
 
           <div className="pt-6 border-t border-border flex flex-col gap-4">
             <div className="flex items-center justify-between px-2">
-              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Theme</span>
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Theme
+              </span>
               <ThemeToggle />
             </div>
             <NoSSR>

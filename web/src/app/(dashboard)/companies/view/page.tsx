@@ -12,7 +12,7 @@ export default function ViewCompanyPage() {
 
       <div className="space-y-8">
         <InviteUserSection />
-        
+
         <CompanyStats />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

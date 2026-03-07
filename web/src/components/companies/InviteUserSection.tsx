@@ -4,7 +4,15 @@ import { useSearchParams } from "next/navigation";
 import { apiClient, apiFetcher } from "@/utils/api";
 import SubmitButton from "../core/SubmitButton";
 import toast from "react-hot-toast";
-import { Mail, Shield, UserPlus, Trash2, Loader2, CheckCircle2, Clock } from "lucide-react";
+import {
+  Mail,
+  Shield,
+  UserPlus,
+  Trash2,
+  Loader2,
+  CheckCircle2,
+  Clock,
+} from "lucide-react";
 
 type User = {
   id: string;
@@ -17,7 +25,11 @@ type User = {
 export default function InviteUserSection() {
   const searchParams = useSearchParams();
   const companyId = searchParams.get("id");
-  const { data: users, mutate, isLoading } = useSWR(
+  const {
+    data: users,
+    mutate,
+    isLoading,
+  } = useSWR(
     companyId ? `/users?filter={"company": "${companyId}"}` : null,
     apiFetcher,
   );
@@ -40,7 +52,6 @@ export default function InviteUserSection() {
   };
 
   const handleRevoke = async (userId: string) => {
-    if (!confirm("Are you sure you want to revoke this invitation?")) return;
     try {
       await apiClient.delete(`/users/${userId}`);
       toast.success("User revoked.");
@@ -58,9 +69,11 @@ export default function InviteUserSection() {
         <div className="p-8 lg:w-1/3">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-               <UserPlus className="text-primary" size={20} />
+              <UserPlus className="text-primary" size={20} />
             </div>
-            <h2 className="text-xl font-bold text-foreground tracking-tight">Invite Member</h2>
+            <h2 className="text-xl font-bold text-foreground tracking-tight">
+              Invite Member
+            </h2>
           </div>
           <p className="text-sm font-medium text-foreground/40 mb-8 leading-relaxed">
             Invite a new member to join this company workspace and collaborate.
@@ -108,7 +121,10 @@ export default function InviteUserSection() {
             </div>
 
             <div className="pt-2">
-              <SubmitButton title="Send Invitation" className="w-full btn-pill bg-primary text-primary-foreground py-3 font-bold text-sm shadow-lg shadow-primary/20" />
+              <SubmitButton
+                title="Send Invitation"
+                className="w-full btn-pill bg-primary text-primary-foreground py-3 font-bold text-sm shadow-lg shadow-primary/20"
+              />
             </div>
           </form>
         </div>
@@ -116,36 +132,53 @@ export default function InviteUserSection() {
         {/* Invited Users List */}
         <div className="p-8 lg:w-2/3 bg-foreground/[0.01]">
           <div className="flex items-center justify-between mb-8">
-             <h3 className="text-lg font-bold text-foreground">Invited Members</h3>
-             <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest bg-foreground/5 px-2.5 py-1 rounded-full">
-                {users?.length || 0} Total
-             </span>
+            <h3 className="text-lg font-bold text-foreground">
+              Invited Members
+            </h3>
+            <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest bg-foreground/5 px-2.5 py-1 rounded-full">
+              {users?.length || 0} Total
+            </span>
           </div>
-          
+
           <div className="overflow-hidden border border-border/50 rounded-2xl bg-background shadow-sm">
             <table className="w-full text-sm text-left border-collapse">
               <thead>
                 <tr className="bg-foreground/[0.02] border-b border-border">
-                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Member</th>
-                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Access</th>
-                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Status</th>
-                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest text-right">Actions</th>
+                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+                    Member
+                  </th>
+                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+                    Access
+                  </th>
+                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+                    Status
+                  </th>
+                  <th className="py-4 px-6 text-[10px] font-bold text-foreground/30 uppercase tracking-widest text-right">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/50 font-bold">
                 {isLoading ? (
-                   <tr>
-                     <td colSpan={4} className="py-12 text-center">
-                        <Loader2 className="animate-spin h-6 w-6 text-primary mx-auto" />
-                     </td>
-                   </tr>
+                  <tr>
+                    <td colSpan={4} className="py-12 text-center">
+                      <Loader2 className="animate-spin h-6 w-6 text-primary mx-auto" />
+                    </td>
+                  </tr>
                 ) : users && users.length > 0 ? (
                   users.map((user: User) => (
-                    <tr key={user.id} className="hover:bg-foreground/[0.02] transition-colors">
+                    <tr
+                      key={user.id}
+                      className="hover:bg-foreground/[0.02] transition-colors"
+                    >
                       <td className="py-4 px-6">
                         <div className="flex flex-col">
-                           <span className="text-foreground">{user.email.split('@')[0]}</span>
-                           <span className="text-[10px] text-foreground/40 font-medium">{user.email}</span>
+                          <span className="text-foreground">
+                            {user.email.split("@")[0]}
+                          </span>
+                          <span className="text-[10px] text-foreground/40 font-medium">
+                            {user.email}
+                          </span>
                         </div>
                       </td>
                       <td className="py-4 px-6">
@@ -155,16 +188,23 @@ export default function InviteUserSection() {
                       </td>
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-1.5">
-                           {user.status === "ACCEPTED" ? (
-                              <CheckCircle2 size={14} className="text-emerald-500" />
-                           ) : (
-                              <Clock size={14} className="text-amber-500" />
-                           )}
-                           <span className={`text-[10px] font-bold uppercase tracking-widest ${
-                             user.status === "ACCEPTED" ? "text-emerald-500" : "text-amber-500"
-                           }`}>
-                             {user.status || "PENDING"}
-                           </span>
+                          {user.status === "ACCEPTED" ? (
+                            <CheckCircle2
+                              size={14}
+                              className="text-emerald-500"
+                            />
+                          ) : (
+                            <Clock size={14} className="text-amber-500" />
+                          )}
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-widest ${
+                              user.status === "ACCEPTED"
+                                ? "text-emerald-500"
+                                : "text-amber-500"
+                            }`}
+                          >
+                            {user.status || "PENDING"}
+                          </span>
                         </div>
                       </td>
                       <td className="py-4 px-6 text-right">
@@ -182,8 +222,10 @@ export default function InviteUserSection() {
                   <tr>
                     <td colSpan={4} className="py-12 text-center">
                       <div className="flex flex-col items-center gap-2 opacity-30">
-                         <UserPlus size={40} />
-                         <p className="text-xs font-bold uppercase tracking-widest">No pending invitations</p>
+                        <UserPlus size={40} />
+                        <p className="text-xs font-bold uppercase tracking-widest">
+                          No pending invitations
+                        </p>
                       </div>
                     </td>
                   </tr>

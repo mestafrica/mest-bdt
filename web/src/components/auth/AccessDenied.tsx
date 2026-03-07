@@ -34,7 +34,7 @@ const AccessDenied: React.FC<AccessDeniedProps> = ({
               <Lock className="w-5 h-5 text-foreground/40" />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <span className="text-[10px] font-bold text-rose-500/60 uppercase tracking-[0.3em]">
               Security Protocol Alert
@@ -58,7 +58,10 @@ const AccessDenied: React.FC<AccessDeniedProps> = ({
             <HankoLogout />
           </NoSSR>
           <Link href={href}>
-            <Button variant="outline" className="w-full sm:w-auto flex items-center gap-2 group">
+            <Button
+              variant="outline"
+              className="w-full sm:w-auto flex items-center gap-2 group"
+            >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               {label}
             </Button>

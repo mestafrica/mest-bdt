@@ -19,23 +19,27 @@ export default function FormCard({ form }: FormCardProps) {
           <FileText size={24} />
         </div>
       </div>
-      
+
       <div className="p-6 pt-2 flex flex-col flex-1">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
             {form.name}
           </h3>
           <p className="text-foreground/50 text-xs mt-2 line-clamp-2 font-medium leading-relaxed">
-            {form.description || "No description provided for this form template."}
+            {form.description ||
+              "No description provided for this form template."}
           </p>
         </div>
 
         <div className="mt-auto space-y-4">
           <div className="flex items-center gap-2 pt-4 border-t border-foreground/5">
-             <Calendar size={12} className="text-foreground/30" />
-             <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">
-               Created {form.createdAt ? dayjs(form.createdAt).format("MMM DD, YYYY") : "Recently"}
-             </span>
+            <Calendar size={12} className="text-foreground/30" />
+            <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">
+              Created{" "}
+              {form.createdAt
+                ? dayjs(form.createdAt).format("MMM DD, YYYY")
+                : "Recently"}
+            </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

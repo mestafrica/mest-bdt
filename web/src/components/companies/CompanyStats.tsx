@@ -1,4 +1,4 @@
-import { Building2, Users, Calendar, Briefcase, Award, TrendingUp } from "lucide-react";
+import { Building2, Users, Award, TrendingUp } from "lucide-react";
 
 export default function CompanyStats() {
   const stats = [

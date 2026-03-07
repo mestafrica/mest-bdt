@@ -24,7 +24,10 @@ export default function QuickActions() {
             className="flex flex-col items-center justify-center p-6 rounded-2xl bg-foreground/5 hover:bg-primary/10 border border-transparent hover:border-primary/20 transition-all duration-300 group"
           >
             <div className="w-12 h-12 bg-card rounded-xl flex items-center justify-center mb-3 shadow-sm group-hover:bg-primary group-hover:text-white transition-all duration-300">
-              <action.icon size={22} className="text-primary group-hover:text-white" />
+              <action.icon
+                size={22}
+                className="text-primary group-hover:text-white"
+              />
             </div>
             <span className="text-sm font-bold text-foreground/70 group-hover:text-primary transition-colors text-center">
               {action.name}

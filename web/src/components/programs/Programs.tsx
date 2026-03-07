@@ -12,7 +12,9 @@ export default function Programs() {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater">
         <Loader2 className="h-10 w-10 text-primary animate-spin" />
-        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading Programs...</p>
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">
+          Loading Programs...
+        </p>
       </div>
     );
   }
@@ -21,7 +23,7 @@ export default function Programs() {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater border-rose-500/20 bg-rose-500/5">
         <p className="text-rose-500 font-bold">Failed to load programs</p>
-        <button 
+        <button
           onClick={() => window.location.reload()}
           className="text-xs font-bold text-foreground/40 hover:text-foreground underline decoration-primary underline-offset-4"
         >
@@ -38,7 +40,9 @@ export default function Programs() {
           <Loader2 className="h-8 w-8 text-foreground/20" />
         </div>
         <h3 className="text-lg font-bold text-foreground">No Programs Found</h3>
-        <p className="text-foreground/40 text-sm font-medium">Create your first program to get started.</p>
+        <p className="text-foreground/40 text-sm font-medium">
+          Create your first program to get started.
+        </p>
       </div>
     );
   }

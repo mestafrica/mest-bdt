@@ -40,8 +40,8 @@ const RecentActivities = () => {
                 activity.status === "completed"
                   ? "bg-emerald-500/10 text-emerald-500"
                   : activity.status === "pending"
-                  ? "bg-amber-500/10 text-amber-500"
-                  : "bg-rose-500/10 text-rose-500"
+                    ? "bg-amber-500/10 text-amber-500"
+                    : "bg-rose-500/10 text-rose-500"
               }`}
             >
               <activity.icon size={20} />

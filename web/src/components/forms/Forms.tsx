@@ -12,7 +12,9 @@ export default function Forms() {
     return (
       <div className="mt-12 flex flex-col items-center justify-center gap-4 py-20">
         <Loader2 className="h-10 w-10 text-primary animate-spin" />
-        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading form templates...</p>
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">
+          Loading form templates...
+        </p>
       </div>
     );
   }
@@ -23,8 +25,12 @@ export default function Forms() {
         <div className="flex justify-center mb-4">
           <FileWarning className="h-12 w-12 text-rose-500/40" />
         </div>
-        <p className="text-rose-500 font-bold">Failed to load form templates.</p>
-        <p className="text-rose-500/60 text-xs mt-1">Please check your connection and try again.</p>
+        <p className="text-rose-500 font-bold">
+          Failed to load form templates.
+        </p>
+        <p className="text-rose-500/60 text-xs mt-1">
+          Please check your connection and try again.
+        </p>
       </div>
     );
   }
@@ -35,9 +41,12 @@ export default function Forms() {
         <div className="flex justify-center mb-4 opacity-10">
           <FileWarning className="h-16 w-16" />
         </div>
-        <h3 className="text-lg font-bold text-foreground">No form templates found</h3>
+        <h3 className="text-lg font-bold text-foreground">
+          No form templates found
+        </h3>
         <p className="text-foreground/40 text-sm mt-1 max-w-xs mx-auto font-medium">
-          Get started by creating your first dynamic form template to collect structured data.
+          Get started by creating your first dynamic form template to collect
+          structured data.
         </p>
       </div>
     );

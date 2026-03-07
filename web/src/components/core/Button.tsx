@@ -22,14 +22,20 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   ...rest
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98]";
-  
+  const baseStyles =
+    "inline-flex items-center justify-center font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98]";
+
   const variantStyles: Record<ButtonVariant, string> = {
-    primary: "bg-primary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20 btn-pill",
-    secondary: "bg-foreground/10 text-foreground hover:bg-foreground/20 btn-pill",
-    outline: "bg-transparent border border-border text-foreground hover:border-primary hover:text-primary btn-pill",
-    ghost: "bg-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 btn-pill",
-    danger: "bg-rose-500 text-white hover:bg-rose-600 shadow-lg shadow-rose-500/20 btn-pill",
+    primary:
+      "bg-primary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20 btn-pill",
+    secondary:
+      "bg-foreground/10 text-foreground hover:bg-foreground/20 btn-pill",
+    outline:
+      "bg-transparent border border-border text-foreground hover:border-primary hover:text-primary btn-pill",
+    ghost:
+      "bg-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 btn-pill",
+    danger:
+      "bg-rose-500 text-white hover:bg-rose-600 shadow-lg shadow-rose-500/20 btn-pill",
   };
 
   const sizeStyles: Record<ButtonSize, string> = {
@@ -47,11 +53,7 @@ const Button: React.FC<ButtonProps> = ({
   ].join(" ");
 
   return (
-    <button 
-      className={classes} 
-      disabled={disabled || isLoading} 
-      {...rest}
-    >
+    <button className={classes} disabled={disabled || isLoading} {...rest}>
       {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
       {children}
     </button>

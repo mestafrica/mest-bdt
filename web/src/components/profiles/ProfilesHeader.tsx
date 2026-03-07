@@ -9,8 +9,8 @@ const ProfilesHeader = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight flex items-center gap-3">
-             <UserPlus className="text-primary" size={28} />
-             Profiles
+            <UserPlus className="text-primary" size={28} />
+            Profiles
           </h1>
           <p className="text-foreground/50 text-sm mt-1 font-medium">
             Manage user identities and access profiles
@@ -33,7 +33,9 @@ const ProfilesHeader = () => {
           />
         </div>
         <div className="md:ml-auto flex items-center gap-2 px-4">
-          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Type</span>
+          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+            Type
+          </span>
           <select className="bg-transparent text-sm font-bold text-foreground outline-none cursor-pointer">
             <option>All Users</option>
             <option>Admins</option>

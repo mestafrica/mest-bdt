@@ -3,7 +3,7 @@ import { apiFetcher } from "@/utils/api";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
-import { Calendar, Users, Building2, Info, Loader2, Globe, Clock, ChevronRight } from "lucide-react";
+import { Calendar, Building2, Info, Loader2, Clock } from "lucide-react";
 
 export default function CohortDetail() {
   const searchParams = useSearchParams();
@@ -16,7 +16,9 @@ export default function CohortDetail() {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
         <Loader2 className="h-10 w-10 text-primary animate-spin" />
-        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading Cohort details...</p>
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">
+          Loading Cohort details...
+        </p>
       </div>
     );
   }
@@ -42,22 +44,26 @@ export default function CohortDetail() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
-             <div>
-                <span className="bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block">
-                  Active Cohort
-                </span>
-                <h2 className="text-3xl font-bold text-white tracking-tight">{data.name}</h2>
-             </div>
+            <div>
+              <span className="bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block">
+                Active Cohort
+              </span>
+              <h2 className="text-3xl font-bold text-white tracking-tight">
+                {data.name}
+              </h2>
+            </div>
           </div>
         </div>
 
         {/* Description Section */}
         <div className="card-meltwater p-8">
           <div className="flex items-center gap-3 mb-6">
-             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                <Info size={20} className="text-primary" />
-             </div>
-             <h3 className="text-xl font-bold text-foreground tracking-tight">Cohort Overview</h3>
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+              <Info size={20} className="text-primary" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground tracking-tight">
+              Cohort Overview
+            </h3>
           </div>
           <p className="text-foreground/70 leading-relaxed font-medium whitespace-pre-wrap">
             {data.description || "No description provided for this cohort."}
@@ -67,62 +73,94 @@ export default function CohortDetail() {
 
       {/* Sidebar Info */}
       <div className="space-y-8">
-         <div className="card-meltwater p-8">
-            <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">Timeline & Outreach</h3>
-            <div className="space-y-6">
-               <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                     <Calendar size={18} className="text-primary" />
-                  </div>
-                  <div>
-                     <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">Start Date</p>
-                     <p className="text-sm font-bold text-foreground">
-                        {new Date(data.startDate).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
-                     </p>
-                  </div>
-               </div>
-
-               <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                     <Clock size={18} className="text-primary" />
-                  </div>
-                  <div>
-                     <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">End Date</p>
-                     <p className="text-sm font-bold text-foreground">
-                        {new Date(data.endDate).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
-                     </p>
-                  </div>
-               </div>
-
-               <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
-                     <Building2 size={18} className="text-primary" />
-                  </div>
-                  <div>
-                     <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">Affiliated Companies</p>
-                     <p className="text-sm font-bold text-foreground">25 Participating</p>
-                  </div>
-               </div>
+        <div className="card-meltwater p-8">
+          <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">
+            Timeline & Outreach
+          </h3>
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Calendar size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+                  Start Date
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  {new Date(data.startDate).toLocaleDateString(undefined, {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
             </div>
-         </div>
 
-         <div className="card-meltwater p-8">
-            <h3 className="text-lg font-bold text-foreground mb-6 tracking-tight">Administrative</h3>
-            <div className="space-y-4">
-               <div className="flex items-center justify-between py-2 border-b border-border">
-                  <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Parent Program</span>
-                  <span className="text-xs font-extrabold text-foreground">Tech for Growth</span>
-               </div>
-               <div className="flex items-center justify-between py-2 border-b border-border">
-                  <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Capacity</span>
-                  <span className="text-xs font-extrabold text-foreground">50 Seats</span>
-               </div>
-               <div className="flex items-center justify-between py-2">
-                  <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Mode</span>
-                  <span className="text-xs font-extrabold text-foreground">Hybrid</span>
-               </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Clock size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+                  End Date
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  {new Date(data.endDate).toLocaleDateString(undefined, {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
             </div>
-         </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Building2 size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+                  Affiliated Companies
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  25 Participating
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="card-meltwater p-8">
+          <h3 className="text-lg font-bold text-foreground mb-6 tracking-tight">
+            Administrative
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Parent Program
+              </span>
+              <span className="text-xs font-extrabold text-foreground">
+                Tech for Growth
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Capacity
+              </span>
+              <span className="text-xs font-extrabold text-foreground">
+                50 Seats
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Mode
+              </span>
+              <span className="text-xs font-extrabold text-foreground">
+                Hybrid
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

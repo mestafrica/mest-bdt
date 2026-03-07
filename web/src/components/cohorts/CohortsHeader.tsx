@@ -18,7 +18,9 @@ export default function CohortsHeader() {
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground tracking-tight">Cohorts</h1>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">
+              Cohorts
+            </h1>
             <p className="text-foreground/50 text-sm mt-1 font-medium">
               List of Cohorts enrolled across our edTech offerings
             </p>
@@ -40,24 +42,26 @@ export default function CohortsHeader() {
             className="bg-transparent outline-none text-foreground placeholder:text-foreground/30 w-full text-sm font-medium"
           />
         </div>
-        
+
         <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
-           {["All", "Active", "Ongoing", "Completed"].map((status) => (
-             <button 
-               key={status}
-               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${
-                 status === "All" 
-                 ? "bg-primary text-primary-foreground border-primary" 
-                 : "bg-foreground/5 text-foreground/60 border-transparent hover:border-border hover:text-foreground"
-               }`}
-             >
-               {status}
-             </button>
-           ))}
+          {["All", "Active", "Ongoing", "Completed"].map((status) => (
+            <button
+              key={status}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${
+                status === "All"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-foreground/5 text-foreground/60 border-transparent hover:border-border hover:text-foreground"
+              }`}
+            >
+              {status}
+            </button>
+          ))}
         </div>
 
         <div className="lg:ml-auto flex items-center gap-2 px-4">
-          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Sort By</span>
+          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+            Sort By
+          </span>
           <select className="bg-transparent text-sm font-bold text-foreground outline-none cursor-pointer">
             <option>Newest First</option>
             <option>Oldest First</option>

@@ -53,8 +53,10 @@ export default function UserInfo() {
       {/* USER INFORMATION FORM */}
       <div className="flex-1">
         <div className="flex items-center gap-3 mb-8">
-           <Info size={18} className="text-primary" />
-           <h2 className="text-lg font-bold text-foreground tracking-tight">Personal Details</h2>
+          <Info size={18} className="text-primary" />
+          <h2 className="text-lg font-bold text-foreground tracking-tight">
+            Personal Details
+          </h2>
         </div>
 
         <form
@@ -64,7 +66,8 @@ export default function UserInfo() {
         >
           <div className="space-y-2">
             <label className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1 flex items-center gap-2">
-              <User size={12} /> Full Name <span className="text-primary">*</span>
+              <User size={12} /> Full Name{" "}
+              <span className="text-primary">*</span>
             </label>
             <input
               name="name"
@@ -124,7 +127,10 @@ export default function UserInfo() {
           </div>
 
           <div className="col-span-full flex justify-end pt-4">
-            <SubmitButton title="Update Profile" className="px-12 py-3.5 btn-pill text-sm shadow-lg shadow-primary/20" />
+            <SubmitButton
+              title="Update Profile"
+              className="px-12 py-3.5 btn-pill text-sm shadow-lg shadow-primary/20"
+            />
           </div>
         </form>
       </div>
@@ -132,20 +138,29 @@ export default function UserInfo() {
   );
 }
 
-const FileText = ({ size, className }: { size: number; className?: string }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+const FileText = ({
+  size,
+  className,
+}: {
+  size: number;
+  className?: string;
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
   >
-    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/>
-    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
+    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <line x1="10" y1="9" x2="8" y2="9" />
   </svg>
 );

@@ -19,9 +19,9 @@ export default function ProgramCard({ program }: ProgramCardProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-           <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-1">
-             View Details <ChevronRight size={14} />
-           </span>
+          <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+            View Details <ChevronRight size={14} />
+          </span>
         </div>
       </div>
 
@@ -31,7 +31,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
             Active Program
           </span>
         </div>
-        
+
         <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-1">
           {program.name}
         </h2>

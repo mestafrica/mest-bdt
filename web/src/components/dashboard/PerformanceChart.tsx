@@ -22,7 +22,7 @@ const data = [
 
 const PerformanceChart = () => {
   const { theme } = useTheme();
-  
+
   return (
     <div className="card-meltwater p-8">
       <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">
@@ -55,7 +55,8 @@ const PerformanceChart = () => {
             <Tooltip
               contentStyle={{
                 backgroundColor: theme === "dark" ? "#0f1724" : "#ffffff",
-                border: "1px solid " + (theme === "dark" ? "#1e293b" : "#e2e8f0"),
+                border:
+                  "1px solid " + (theme === "dark" ? "#1e293b" : "#e2e8f0"),
                 borderRadius: "12px",
                 boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
               }}

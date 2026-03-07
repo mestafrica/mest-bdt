@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, ArrowLeft, Loader2, User, ShieldCheck, Info } from "lucide-react";
+import { Mail, Loader2, User, ShieldCheck } from "lucide-react";
 import toast from "react-hot-toast";
 import { apiClient, apiFetcher } from "@/utils/api";
 import useSWR from "swr";
@@ -12,10 +12,10 @@ const EditProfileForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  
+
   const { data: profile, isLoading: isFetching } = useSWR<Profile>(
-    id ? `/profiles/${id}` : null, 
-    apiFetcher
+    id ? `/profiles/${id}` : null,
+    apiFetcher,
   );
 
   const [email, setEmail] = useState("");
@@ -37,7 +37,9 @@ const EditProfileForm = () => {
       toast.success("Profile updated successfully!");
       router.push("/profiles");
     } catch (error: unknown) {
-      const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || "Failed to update profile!";
+      const message =
+        (error as { response?: { data?: { message?: string } } })?.response
+          ?.data?.message || "Failed to update profile!";
       toast.error(message);
     } finally {
       setIsLoading(false);
@@ -48,7 +50,9 @@ const EditProfileForm = () => {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
         <Loader2 className="h-10 w-10 text-primary animate-spin" />
-        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading profile data...</p>
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">
+          Loading profile data...
+        </p>
       </div>
     );
   }
@@ -56,20 +60,29 @@ const EditProfileForm = () => {
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
       <div className="mb-8">
-         <h1 className="text-3xl font-bold text-foreground tracking-tight mb-1">Edit Profile</h1>
-         <p className="text-foreground/40 text-sm font-medium">Update the user&apos;s email address and profile settings.</p>
+        <h1 className="text-3xl font-bold text-foreground tracking-tight mb-1">
+          Edit Profile
+        </h1>
+        <p className="text-foreground/40 text-sm font-medium">
+          Update the user&apos;s email address and profile settings.
+        </p>
       </div>
 
       <div className="card-meltwater p-8 space-y-8">
         <div className="space-y-6">
           <div className="flex items-center gap-3 mb-2">
-             <User size={18} className="text-primary" />
-             <h2 className="text-lg font-bold text-foreground tracking-tight">User Identity</h2>
+            <User size={18} className="text-primary" />
+            <h2 className="text-lg font-bold text-foreground tracking-tight">
+              User Identity
+            </h2>
           </div>
-          
+
           <div className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="email" className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1">
+              <label
+                htmlFor="email"
+                className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1"
+              >
                 Email Address <span className="text-primary">*</span>
               </label>
               <div className="relative group">
@@ -90,25 +103,31 @@ const EditProfileForm = () => {
 
         <div className="space-y-6 pt-8 border-t border-border">
           <div className="flex items-center gap-3 mb-2">
-             <ShieldCheck size={18} className="text-primary" />
-             <h2 className="text-lg font-bold text-foreground tracking-tight">Account Status</h2>
+            <ShieldCheck size={18} className="text-primary" />
+            <h2 className="text-lg font-bold text-foreground tracking-tight">
+              Account Status
+            </h2>
           </div>
           <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center justify-between">
-             <div>
-                <p className="text-xs font-bold text-foreground mb-0.5">Verified Profile</p>
-                <p className="text-[10px] font-medium text-foreground/40">This account is fully verified and active.</p>
-             </div>
-             <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500">
-                <ShieldCheck size={18} />
-             </div>
+            <div>
+              <p className="text-xs font-bold text-foreground mb-0.5">
+                Verified Profile
+              </p>
+              <p className="text-[10px] font-medium text-foreground/40">
+                This account is fully verified and active.
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500">
+              <ShieldCheck size={18} />
+            </div>
           </div>
         </div>
       </div>
 
       <div className="flex items-center justify-end gap-4 pt-4">
-        <Button 
-          type="button" 
-          variant="outline" 
+        <Button
+          type="button"
+          variant="outline"
           onClick={() => router.back()}
           className="px-8"
         >

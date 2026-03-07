@@ -13,7 +13,9 @@ export default function AccountPage() {
             <User className="w-6 h-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-foreground tracking-tight">Account Settings</h1>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">
+              Account Settings
+            </h1>
             <p className="text-foreground/50 text-sm mt-1 font-medium">
               Manage your personal information and security settings.
             </p>
@@ -24,7 +26,9 @@ export default function AccountPage() {
       <div className="max-w-4xl">
         <div className="card-meltwater overflow-hidden">
           <div className="p-8 border-b border-border bg-foreground/[0.02]">
-            <h2 className="text-xl font-bold text-foreground tracking-tight">Profile Information</h2>
+            <h2 className="text-xl font-bold text-foreground tracking-tight">
+              Profile Information
+            </h2>
             <p className="text-xs font-bold text-foreground/40 uppercase tracking-widest mt-1">
               Update your account details and email preferences.
             </p>

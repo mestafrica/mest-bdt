@@ -15,7 +15,10 @@ export default function DynamicForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const id = searchParams.get("id");
-  const { data, isLoading, error } = useSWR(id ? `/forms/${id}` : null, apiFetcher);
+  const { data, isLoading, error } = useSWR(
+    id ? `/forms/${id}` : null,
+    apiFetcher,
+  );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -31,7 +34,7 @@ export default function DynamicForm() {
         data: JSON.stringify(formData),
       });
       toast.success("Form submitted successfully!");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error("Submission error:", err);
       toast.error("Failed to submit form. Please try again.");
@@ -49,8 +52,12 @@ export default function DynamicForm() {
             <div className="absolute inset-0 blur-xl bg-primary/20 animate-pulse"></div>
           </div>
           <div className="text-center space-y-2">
-            <p className="text-foreground/40 font-bold uppercase tracking-[0.2em] text-[10px]">Portal Initialization</p>
-            <p className="text-foreground font-bold text-lg">Loading Dynamic Schema...</p>
+            <p className="text-foreground/40 font-bold uppercase tracking-[0.2em] text-[10px]">
+              Portal Initialization
+            </p>
+            <p className="text-foreground font-bold text-lg">
+              Loading Dynamic Schema...
+            </p>
           </div>
         </div>
       </div>
@@ -65,12 +72,20 @@ export default function DynamicForm() {
             <AlertCircle size={48} className="text-rose-500/60" />
           </div>
           <div className="text-center space-y-2">
-            <h2 className="text-xl font-bold text-rose-500">Schema Sync Failed</h2>
+            <h2 className="text-xl font-bold text-rose-500">
+              Schema Sync Failed
+            </h2>
             <p className="text-sm text-foreground/50 max-w-xs mx-auto">
-              We couldn&apos;t retrieve the requested form structure. Please verify the URL or contact support.
+              We couldn&apos;t retrieve the requested form structure. Please
+              verify the URL or contact support.
             </p>
           </div>
-          <Button variant="outline" size="sm" onClick={() => router.back()} className="mt-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => router.back()}
+            className="mt-4"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Go Back
           </Button>
@@ -78,7 +93,6 @@ export default function DynamicForm() {
       </div>
     );
   }
-
 
   return (
     <div className="w-full max-w-4xl mx-auto py-12 px-4 animate-in fade-in duration-700">
@@ -107,7 +121,9 @@ export default function DynamicForm() {
 
         <div className="hidden lg:block">
           <div className="px-4 py-2 bg-foreground/5 rounded-xl border border-border">
-            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest block mb-1">Status</span>
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest block mb-1">
+              Status
+            </span>
             <span className="text-xs font-black text-foreground flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               Awaiting Input
@@ -146,7 +162,9 @@ export default function DynamicForm() {
           <div className="h-px bg-foreground/5 flex-1"></div>
         </div>
         <p className="text-[9px] text-foreground/30 max-w-sm text-center font-medium leading-relaxed">
-          By submitting this form, you acknowledge that the data provided is accurate to the best of your knowledge and will be used for diagnostic purposes.
+          By submitting this form, you acknowledge that the data provided is
+          accurate to the best of your knowledge and will be used for diagnostic
+          purposes.
         </p>
       </div>
 

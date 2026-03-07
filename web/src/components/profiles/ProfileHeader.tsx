@@ -15,8 +15,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ id }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this profile?")) return;
-
     setIsDeleting(true);
     try {
       await apiClient.delete(`/profiles/${id}`);
@@ -40,24 +38,30 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ id }) => {
         </button>
         <div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight flex items-center gap-3">
-             <User className="text-primary" size={28} />
-             Profile Details
+            <User className="text-primary" size={28} />
+            Profile Details
           </h1>
           <div className="flex items-center gap-2 mt-1">
-             <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Access Control</span>
-             <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
-             <span className="text-[10px] font-bold text-primary uppercase tracking-widest">User Profile</span>
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+              Access Control
+            </span>
+            <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
+              User Profile
+            </span>
           </div>
         </div>
       </div>
 
       <div className="card-meltwater p-3 flex flex-col md:flex-row items-center gap-3">
         <div className="flex items-center gap-3 px-4">
-           <Shield size={18} className="text-primary" />
-           <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Account ID:</span>
-           <span className="text-xs font-bold text-foreground">{id}</span>
+          <Shield size={18} className="text-primary" />
+          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+            Account ID:
+          </span>
+          <span className="text-xs font-bold text-foreground">{id}</span>
         </div>
-        
+
         <div className="md:ml-auto flex items-center gap-2">
           <Link
             href={`/profiles/edit?id=${id}`}
@@ -71,7 +75,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ id }) => {
             disabled={isDeleting}
             className="flex items-center gap-2 px-4 py-2 bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white rounded-xl transition-all text-xs font-bold disabled:opacity-50"
           >
-            {isDeleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 className="h-4 w-4" />}
+            {isDeleting ? (
+              <Loader2 size={16} className="animate-spin" />
+            ) : (
+              <Trash2 className="h-4 w-4" />
+            )}
             {isDeleting ? "Deleting..." : "Delete Profile"}
           </button>
         </div>

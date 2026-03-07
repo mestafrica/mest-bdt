@@ -16,7 +16,9 @@ export default function ResponsesHeader() {
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground tracking-tight">Form Responses</h1>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">
+              Form Responses
+            </h1>
             <p className="text-foreground/50 text-sm mt-1 font-medium">
               View and manage submissions from your forms
             </p>
@@ -33,7 +35,9 @@ export default function ResponsesHeader() {
           />
         </div>
         <div className="md:ml-auto flex items-center gap-2 px-4">
-          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Sort By</span>
+          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+            Sort By
+          </span>
           <select className="bg-transparent text-sm font-bold text-foreground outline-none cursor-pointer">
             <option>Newest First</option>
             <option>Oldest First</option>

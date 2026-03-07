@@ -3,7 +3,10 @@ import { apiFetcher } from "@/utils/api";
 import { Profile } from "@/utils/types";
 
 export function useProfile() {
-  const { data, error, isLoading, mutate } = useSWR<Profile>("/profiles/me", apiFetcher);
+  const { data, error, isLoading, mutate } = useSWR<Profile>(
+    "/profiles/me",
+    apiFetcher,
+  );
 
   return {
     profile: data,
