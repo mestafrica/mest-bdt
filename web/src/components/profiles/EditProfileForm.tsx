@@ -56,17 +56,8 @@ const EditProfileForm = () => {
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
       <div className="mb-8">
-         <div className="flex items-center gap-4 mb-4">
-            <button
-               type="button"
-               onClick={() => router.back()}
-               className="p-2 rounded-xl bg-foreground/5 text-foreground/40 hover:text-primary transition-all hover:bg-primary/5"
-            >
-               <ArrowLeft size={18} />
-            </button>
-            <h1 className="text-3xl font-bold text-foreground tracking-tight">Edit Profile</h1>
-         </div>
-         <p className="text-foreground/40 text-sm mt-1 font-medium">Update the user&apos;s email address and profile settings.</p>
+         <h1 className="text-3xl font-bold text-foreground tracking-tight mb-1">Edit Profile</h1>
+         <p className="text-foreground/40 text-sm font-medium">Update the user&apos;s email address and profile settings.</p>
       </div>
 
       <div className="card-meltwater p-8 space-y-8">

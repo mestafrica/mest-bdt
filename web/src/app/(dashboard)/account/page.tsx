@@ -6,26 +6,30 @@ import { User } from "lucide-react";
 
 export default function AccountPage() {
   return (
-    <div className="px-4 sm:px-8 py-6 min-h-screen bg-[#0B1220] text-slate-200">
+    <div className="px-4 sm:px-8 py-8 min-h-screen">
       <div className="mb-10">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-blue-900/20 rounded-lg">
-            <User className="w-6 h-6 text-blue-400" />
+        <div className="flex items-center gap-4 mb-3">
+          <div className="p-3 bg-primary/10 rounded-xl">
+            <User className="w-6 h-6 text-primary" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-100">Account Settings</h1>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">Account Settings</h1>
+            <p className="text-foreground/50 text-sm mt-1 font-medium">
+              Manage your personal information and security settings.
+            </p>
+          </div>
         </div>
-        <p className="text-slate-400 text-sm">
-          Manage your personal information and security settings.
-        </p>
       </div>
 
       <div className="max-w-4xl">
-        <div className="bg-[#0f1724] rounded-xl border border-slate-800 shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-slate-800 bg-slate-900/50">
-            <h2 className="text-lg font-semibold text-slate-100">Profile Information</h2>
-            <p className="text-xs text-slate-500 mt-1">Update your account details and email preferences.</p>
+        <div className="card-meltwater overflow-hidden">
+          <div className="p-8 border-b border-border bg-foreground/[0.02]">
+            <h2 className="text-xl font-bold text-foreground tracking-tight">Profile Information</h2>
+            <p className="text-xs font-bold text-foreground/40 uppercase tracking-widest mt-1">
+              Update your account details and email preferences.
+            </p>
           </div>
-          <div className="p-6 hanko-profile-container">
+          <div className="p-8 hanko-profile-container">
             <NoSSR>
               <HankoProfile />
             </NoSSR>
@@ -36,19 +40,28 @@ export default function AccountPage() {
       <style jsx global>{`
         .hanko-profile-container hanko-profile::part(container) {
           background-color: transparent !important;
-          color: #e2e8f0 !important;
+          color: var(--foreground) !important;
         }
         .hanko-profile-container hanko-profile::part(heading) {
-          color: #f1f5f9 !important;
+          color: var(--foreground) !important;
+          font-weight: 700 !important;
+          letter-spacing: -0.025em !important;
         }
         .hanko-profile-container hanko-profile::part(input) {
-          background-color: #1e293b !important;
-          border-color: #334155 !important;
-          color: #f1f5f9 !important;
+          background-color: var(--foreground) / 0.05 !important;
+          border-color: var(--border) !important;
+          color: var(--foreground) !important;
+          border-radius: 0.75rem !important;
         }
         .hanko-profile-container hanko-profile::part(button) {
-          background-color: #3b82f6 !important;
-          color: #ffffff !important;
+          background-color: var(--primary) !important;
+          color: var(--primary-foreground) !important;
+          border-radius: 9999px !important;
+          font-weight: 700 !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.05em !important;
+          font-size: 0.75rem !important;
+          padding: 0.75rem 1.5rem !important;
         }
       `}</style>
     </div>

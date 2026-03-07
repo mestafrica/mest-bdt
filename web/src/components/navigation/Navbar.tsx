@@ -4,6 +4,9 @@ import { Menu, X, Briefcase } from "lucide-react";
 import Link from "next/link";
 import useSWR from "swr";
 import { apiFetcher } from "@/utils/api";
+import { ThemeToggle } from "../core/ThemeToggle";
+import HankoLogout from "../auth/HankoLogout";
+import NoSSR from "../core/NoSSR";
 
 // Define the type for a navigation link item
 interface NavItem {
@@ -12,7 +15,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "Account", href: "/account" },
+  // { name: "Account", href: "/account" },
   { name: "Company", href: "/user/company" },
 ];
 
@@ -31,7 +34,7 @@ const Navbar: React.FC = () => {
           {/* Logo/Branding Area */}
           <div className="shrink-0">
             <Link
-              href="/"
+              href="/user"
               className="text-foreground text-xl font-bold flex items-center gap-2 group"
             >
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -42,8 +45,8 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Navigation Links (Hidden on small screens) */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-1">
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-baseline space-x-1">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -63,10 +66,17 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
             </div>
+            <div className="pl-4 border-l border-border flex items-center gap-4">
+              <ThemeToggle />
+              <NoSSR>
+                <HankoLogout />
+              </NoSSR>
+            </div>
           </div>
 
           {/* Mobile Menu Button (Hidden on desktop) */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-lg text-foreground/50 hover:text-foreground hover:bg-foreground/5 focus:outline-none transition-colors"
@@ -100,6 +110,21 @@ const Navbar: React.FC = () => {
               {item.name}
             </Link>
           ))}
+          {data?.map((item: { name: string; id: string }) => (
+            <Link
+              key={item.id}
+              href={`/user/form?id=${item.id}`}
+              className="text-foreground/70 hover:bg-foreground/5 hover:text-foreground block px-4 py-3 rounded-xl text-base font-semibold transition-all duration-200"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </Link>
+          ))}
+          <div className="pt-4 border-t border-border mt-4">
+            <NoSSR>
+              <HankoLogout />
+            </NoSSR>
+          </div>
         </div>
       </div>
     </nav>

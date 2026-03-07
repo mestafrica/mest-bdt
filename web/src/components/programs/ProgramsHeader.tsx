@@ -1,16 +1,27 @@
 "use client";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ProgramsHeader() {
+  const router = useRouter();
+
   return (
     <div className="mb-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">Programs</h1>
-          <p className="text-foreground/50 text-sm mt-1 font-medium">
-            Manage Cohort Programs and initiatives
-          </p>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => router.back()}
+            className="p-2.5 rounded-xl bg-foreground/5 text-foreground/40 hover:text-primary transition-all hover:bg-primary/5"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">Programs</h1>
+            <p className="text-foreground/50 text-sm mt-1 font-medium">
+              Manage Cohort Programs and initiatives
+            </p>
+          </div>
         </div>
         <Link href="/programs/add">
           <button className="btn-pill bg-primary text-primary-foreground hover:opacity-90 flex items-center gap-2 shadow-lg shadow-primary/20">

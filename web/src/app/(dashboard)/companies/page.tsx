@@ -3,7 +3,7 @@ import CompaniesHeader from "@/components/companies/CompaniesHeader";
 
 export default function CompaniesPage() {
   return (
-    <div className="bg-[#0B1220] p-4 sm:p-8 rounded-md min-h-screen">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <CompaniesHeader />
       <Companies />
     </div>
