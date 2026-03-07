@@ -23,3 +23,13 @@ export type Company = {
   name: string;
   image: string;
 };
+
+export type Form = {
+  id: string;
+  name: string;
+  description: string;
+  schema: string;
+  uiSchema: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
