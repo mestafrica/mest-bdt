@@ -12,7 +12,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "Profile", href: "/user" },
+  { name: "Account", href: "/account" },
   { name: "Company", href: "/user/company" },
 ];
 

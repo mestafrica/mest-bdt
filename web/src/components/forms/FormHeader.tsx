@@ -16,7 +16,7 @@ export default function FormHeader() {
     try {
       await apiClient.delete(`/forms/${id}`);
       toast.success("Form deleted successfully");
-      router.push("/forms");
+      router.back();
     } catch (error: unknown) {
       const errorMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || "Failed to delete form";
       toast.error(errorMessage);
@@ -27,7 +27,7 @@ export default function FormHeader() {
     <div className="bg-[#0B1220] p-4 rounded-md border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div className="flex items-center gap-4">
         <button
-          onClick={() => router.push("/forms")}
+          onClick={() => router.back()}
           className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
         >
           <ArrowLeft className="h-5 w-5" />

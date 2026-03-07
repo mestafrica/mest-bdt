@@ -22,40 +22,44 @@ const activities = [
 
 const RecentActivities = () => {
   return (
-    <div className="p-6 bg-white dark:bg-[#1a1d24] rounded-2xl shadow-lg">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+    <div className="p-6 bg-[#0f1724] rounded-xl border border-slate-800 shadow-sm h-full">
+      <h2 className="text-lg font-semibold text-slate-100 mb-6">
         Recent Activities
       </h2>
       <div className="space-y-4">
         {activities.map((activity, index) => (
           <div
             key={index}
-            className="flex items-center justify-between p-3 bg-gray-50 dark:bg-[#2a2d34] rounded-lg"
+            className="flex items-center justify-between p-3 bg-slate-900/40 border border-slate-800/50 rounded-lg group hover:border-slate-700 transition-all duration-200"
           >
-            <div>
-              <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                {activity.action}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {activity.date}
-              </p>
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-md ${
+                activity.status === "Success" ? "bg-green-900/20" : "bg-yellow-900/20"
+              }`}>
+                {activity.status === "Success" ? (
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                ) : (
+                  <Clock className="w-4 h-4 text-yellow-500" />
+                )}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-200 group-hover:text-blue-400 transition-colors">
+                  {activity.action}
+                </p>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  {activity.date}
+                </p>
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              {activity.status === "Success" ? (
-                <CheckCircle className="w-5 h-5 text-green-500" />
-              ) : (
-                <Clock className="w-5 h-5 text-yellow-500" />
-              )}
-              <span
-                className={`text-sm font-semibold ${
-                  activity.status === "Success"
-                    ? "text-green-600 dark:text-green-400"
-                    : "text-yellow-600 dark:text-yellow-400"
-                }`}
-              >
-                {activity.status}
-              </span>
-            </div>
+            <span
+              className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-800/50 ${
+                activity.status === "Success"
+                  ? "text-green-400"
+                  : "text-yellow-400"
+              }`}
+            >
+              {activity.status}
+            </span>
           </div>
         ))}
       </div>

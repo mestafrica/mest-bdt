@@ -1,4 +1,4 @@
-import DynamicForm from "@/components/form/DynamicForm";
+import DynamicForm from "@/components/forms/DynamicForm";
 
 export default function UserScaleReadinessPage() {
   return (

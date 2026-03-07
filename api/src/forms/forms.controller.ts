@@ -21,13 +21,14 @@ import { FormsService } from './forms.service';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
+import { TemporarilyBlockedGuard } from '../common/guards/temporarily-blocked.guard';
 
 @ApiBearerAuth()
 @Controller('forms')
 export class FormsController {
   constructor(private readonly formsService: FormsService) {}
 
-  @UseGuards(AuthGuard)
+  @UseGuards(TemporarilyBlockedGuard, AuthGuard)
   @Post()
   @ApiCreatedResponse({
     description: 'The form has been successfully created.',
@@ -71,7 +72,7 @@ export class FormsController {
     return this.formsService.updateOne({ _id: id }, updateFormDto);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(TemporarilyBlockedGuard, AuthGuard)
   @Delete(':id')
   @ApiOkResponse({ description: 'The form has been successfully deleted.' })
   @ApiNotFoundResponse({ description: 'Form with the given ID not found.' })

@@ -43,7 +43,7 @@ export default function AddForm() {
       });
       console.log(response.data);
       toast.success("Form added successfully!");
-      router.push("/forms");
+      router.back();
     } catch (error: unknown) {
       console.log(error);
       const errorMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || "Failed to add form!";

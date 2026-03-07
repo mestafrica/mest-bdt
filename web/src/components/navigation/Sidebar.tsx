@@ -16,7 +16,7 @@ const sidebarItems: SidebarItem[] = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/" },
   { name: "Programs", icon: Group, href: "/programs" },
   { name: "Forms", icon: Menu, href: "/forms" },
-  { name: "Profile", icon: User, href: "/profile" },
+  { name: "Account", icon: User, href: "/account" },
 ];
 
 const Sidebar: React.FC = () => {

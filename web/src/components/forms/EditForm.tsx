@@ -19,7 +19,7 @@ export default function EditForm() {
   const handleSubmit = async (data: FormData) => {
     setSchemaError("");
     setUiSchemaError("");
-    
+
     const name = data.get("name") as string;
     const description = data.get("description") as string;
     const schemaStr = data.get("schema") as string;
@@ -49,7 +49,7 @@ export default function EditForm() {
       });
       console.log(response.data);
       toast.success("Form updated successfully!");
-      router.push(`/forms/view?id=${id}`);
+      router.back();
     } catch (error: unknown) {
       console.log(error);
       const errorMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || "Failed to update form!";
@@ -77,7 +77,7 @@ export default function EditForm() {
       <p className="text-slate-400 text-sm mb-6">
         Update the details and schema for this form
       </p>
-      
+
       <div className="space-y-6">
         {/* Form Name */}
         <div className="flex flex-col">
@@ -93,7 +93,7 @@ export default function EditForm() {
             className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
           />
         </div>
-        
+
         {/* Form Description */}
         <div className="flex flex-col">
           <label className="text-sm font-medium text-slate-300 mb-2">

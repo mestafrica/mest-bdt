@@ -32,8 +32,8 @@ export default function ProgamHeader() {
   return (
     <div className="bg-[#0B1220] p-4 rounded-md border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div className="flex items-center gap-4">
-        <button 
-          onClick={() => router.push("/programs")}
+        <button
+          onClick={() => router.back()}
           className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
         >
           <ArrowLeft className="h-5 w-5" />
@@ -60,7 +60,7 @@ export default function ProgamHeader() {
           <Edit className="h-4 w-4" />
           Edit Program
         </Link>
-        <button 
+        <button
           onClick={handleDelete}
           disabled={isPending}
           className="flex items-center gap-2 px-4 py-2 bg-red-900/40 hover:bg-red-900/80 text-red-200 border border-red-800/50 rounded-md transition-colors text-sm font-medium disabled:opacity-50"
