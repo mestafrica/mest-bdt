@@ -33,3 +33,10 @@ export type Form = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type Profile = {
+  id: string;
+  email: string;
+  createdAt?: string;
+  updatedAt?: string;
+};

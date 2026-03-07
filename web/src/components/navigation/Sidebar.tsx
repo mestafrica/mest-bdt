@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, LayoutDashboard, Group, User } from "lucide-react";
+import { Menu, X, LayoutDashboard, Group, User, UserPlus } from "lucide-react";
 import Link from "next/link";
 import HankoLogout from "../auth/HankoLogout";
 import NoSSR from "../core/NoSSR";
@@ -15,6 +15,7 @@ interface SidebarItem {
 const sidebarItems: SidebarItem[] = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/" },
   { name: "Programs", icon: Group, href: "/programs" },
+  { name: "Profiles", icon: UserPlus, href: "/profiles" },
   { name: "Forms", icon: Menu, href: "/forms" },
   { name: "Account", icon: User, href: "/account" },
 ];
