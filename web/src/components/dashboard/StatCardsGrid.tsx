@@ -1,5 +1,5 @@
-// src/components/dashboard/StatCardsGrid.tsx
 "use client";
+import React from "react";
 import useSWR from "swr";
 import StatCard from "./StatCard";
 import { Briefcase, Building2, Calendar, Users } from "lucide-react";
@@ -12,7 +12,7 @@ const StatCardsGrid = () => {
   const { data: upcomingCohorts } = useSWR("/cohorts/count", apiFetcher);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <StatCard
         title="Total Programs"
         value={totalPrograms || 0}
@@ -30,8 +30,8 @@ const StatCardsGrid = () => {
       <StatCard
         title="Active Programs"
         value={activePrograms || 0}
-        change="Pending"
-        changeType="pending"
+        change="+3%"
+        changeType="increase"
         icon={Calendar}
       />
       <StatCard

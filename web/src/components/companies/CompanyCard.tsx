@@ -1,5 +1,6 @@
+"use client";
 import { Company } from "@/utils/types";
-import { Users, Dot, Calendar, Eye } from "lucide-react";
+import { Users, Calendar, Eye, Building2, Dot, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,72 +10,67 @@ export interface CompanyCardProps {
 
 export default function CompanyCard({ company }: CompanyCardProps) {
   return (
-    <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm flex flex-col group transition-all duration-300 hover:border-slate-700">
-      {/* Card Image */}
-      <div className="relative h-32 w-full bg-slate-900 border-b border-slate-800 overflow-hidden">
-        <Image
-          src={"https://placehold.co/600x400.png"}
-          alt="Company Image"
-          fill
-          quality={100}
-          style={{ objectFit: "cover" }}
-          className="transform transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute top-2 right-2">
-          <p className="border border-green-900/50 bg-green-900/40 text-green-200 px-2 py-0.5 rounded text-[10px] font-medium backdrop-blur-sm">
-            Completed
-          </p>
+    <div className="card-meltwater overflow-hidden group flex flex-col h-full hover:border-primary/30 transition-all duration-300">
+      <div className="relative h-32 w-full bg-foreground/5 overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 flex items-center justify-center">
+           <Building2 size={48} className="text-primary/10" />
+        </div>
+        <div className="absolute top-4 right-4">
+          <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md backdrop-blur-sm border border-primary/20">
+            Partner
+          </span>
         </div>
       </div>
 
-      {/* Company Details */}
-      <div className="p-4 flex flex-col flex-1">
-        <div className="flex justify-between items-start gap-2 mb-2">
-          <p className="text-slate-100 font-medium">
-            {company.name}
-          </p>
-        </div>
-
-        <div className="flex items-center text-[11px] text-slate-400 mb-4">
-          <span className="bg-slate-800/50 px-1.5 py-0.5 rounded text-slate-300">Venture Capital</span>
-          <Dot className="text-slate-600 h-4 w-4" />
-          <span>85 employees</span>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="flex items-center gap-2 text-[11px] text-slate-500 bg-slate-900/30 p-2 rounded border border-slate-800/50">
-            <Users size={12} className="text-blue-400" />
-            <p><span className="text-slate-300 font-medium">6</span> Participants</p>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+              {company.name}
+            </h2>
+            <div className="flex items-center text-[11px] font-bold text-foreground/40 uppercase tracking-wider">
+               <span>Tech Startup</span>
+               <Dot size={16} />
+               <span>Accra, Ghana</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-[11px] text-slate-500 bg-slate-900/30 p-2 rounded border border-slate-800/50">
-            <Calendar size={12} className="text-blue-400" />
-            <p>Aug 15, 2024</p>
-          </div>
-        </div>
-
-        {/* Progress Section */}
-        <div className="space-y-1.5 mb-4">
-          <div className="flex justify-between items-center text-[10px]">
-            <p className="text-slate-500 uppercase tracking-wider font-semibold">Completion</p>
-            <p className="text-blue-400 font-bold">100%</p>
-          </div>
-          <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
-            <div className="w-full h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
-          </div>
-        </div>
-
-        <div className="flex-1" />
-
-        {/* Footer Actions */}
-        <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-          <Link href={`/companies/view?id=${company.id}`} className="w-full">
-            <button className="w-full px-3 py-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 font-medium border border-slate-700 hover:border-slate-600 shadow-sm">
-              <Eye className="h-3.5 w-3.5" />
-              View Details
-            </button>
+          <Link href={`/companies/view?id=${company.id}`} className="p-2 rounded-lg bg-foreground/5 hover:bg-primary hover:text-white transition-all">
+            <ArrowUpRight size={18} />
           </Link>
         </div>
+
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="flex flex-col gap-1 p-3 rounded-xl bg-foreground/[0.03] border border-border/50">
+             <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Team Size</span>
+             <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+                <Users size={12} className="text-primary" />
+                <span>12 Members</span>
+             </div>
+          </div>
+          <div className="flex flex-col gap-1 p-3 rounded-xl bg-foreground/[0.03] border border-border/50">
+             <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Joined</span>
+             <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+                <Calendar size={12} className="text-primary" />
+                <span>Aug 2024</span>
+             </div>
+          </div>
+        </div>
+
+        <div className="space-y-2 mb-6">
+           <div className="flex justify-between items-center">
+              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Onboarding Progress</span>
+              <span className="text-[10px] font-bold text-primary">85%</span>
+           </div>
+           <div className="h-1.5 w-full bg-foreground/5 rounded-full overflow-hidden">
+              <div className="h-full bg-primary rounded-full" style={{ width: '85%' }}></div>
+           </div>
+        </div>
+
+        <Link href={`/companies/view?id=${company.id}`} className="mt-auto">
+          <button className="w-full py-2.5 rounded-xl bg-foreground/5 hover:bg-primary hover:text-white text-foreground text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2">
+            <Eye size={16} /> View Company
+          </button>
+        </Link>
       </div>
     </div>
   );

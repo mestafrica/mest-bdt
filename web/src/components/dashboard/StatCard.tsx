@@ -1,13 +1,13 @@
-// src/components/dashboard/StatCard.tsx
+"use client";
 import React from "react";
-import { LucideProps } from "lucide-react";
+import { TrendingUp, TrendingDown, LucideIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
-  value: string;
+  value: string | number;
   change: string;
-  changeType: "increase" | "decrease" | "pending";
-  icon: React.ComponentType<LucideProps>;
+  changeType: "increase" | "decrease";
+  icon: LucideIcon;
 }
 
 const StatCard: React.FC<StatCardProps> = ({
@@ -17,26 +17,32 @@ const StatCard: React.FC<StatCardProps> = ({
   changeType,
   icon: Icon,
 }) => {
-
+  const isIncrease = changeType === "increase";
 
   return (
-    <div className="p-6 bg-[#0f1724] rounded-xl border border-slate-800 shadow-sm flex items-center justify-between transition-all duration-300 hover:border-slate-700 hover:shadow-md group">
-      <div>
-        <p className="text-sm font-medium text-slate-400 mb-1">{title}</p>
-        <div className="flex items-baseline gap-2">
-          <p className="text-3xl font-bold text-slate-100 tracking-tight">
-            {value}
-          </p>
-          <span className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
-            changeType === 'increase' ? 'bg-green-900/30 text-green-400' : 
-            changeType === 'decrease' ? 'bg-red-900/30 text-red-400' : 'bg-yellow-900/30 text-yellow-400'
-          }`}>
-            {change}
-          </span>
+    <div className="card-meltwater p-6 group">
+      <div className="flex items-center justify-between mb-4">
+        <div className="p-2.5 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
+          <Icon className="w-5 h-5 text-primary" />
+        </div>
+        <div
+          className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-lg ${
+            isIncrease
+              ? "text-emerald-600 bg-emerald-500/10 dark:text-emerald-400"
+              : "text-rose-600 bg-rose-500/10 dark:text-rose-400"
+          }`}
+        >
+          {isIncrease ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+          {change}
         </div>
       </div>
-      <div className="p-3 bg-blue-900/20 rounded-lg group-hover:bg-blue-900/30 transition-colors">
-        <Icon className="w-6 h-6 text-blue-400" />
+      <div>
+        <p className="text-sm font-bold text-foreground/50 uppercase tracking-wider mb-1">
+          {title}
+        </p>
+        <h3 className="text-3xl font-bold text-foreground tracking-tight">
+          {value}
+        </h3>
       </div>
     </div>
   );

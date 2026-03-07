@@ -1,60 +1,37 @@
+"use client";
 import React from "react";
 import Link from "next/link";
-import { Briefcase, Users, Building2, ClipboardList } from "lucide-react";
+import { Users, Layout, FileText, Building2 } from "lucide-react";
 
 const actions = [
-  {
-    title: "Add Program",
-    href: "/programs/add",
-    icon: Briefcase,
-    color: "text-blue-400",
-    bgColor: "bg-blue-900/20",
-  },
-  {
-    title: "Add Cohort",
-    href: "/cohorts/add",
-    icon: Users,
-    color: "text-green-400",
-    bgColor: "bg-green-900/20",
-  },
-  {
-    title: "Add Company",
-    href: "/companies/add",
-    icon: Building2,
-    color: "text-purple-400",
-    bgColor: "bg-purple-900/20",
-  },
-  {
-    title: "Add Form",
-    href: "/forms/add",
-    icon: ClipboardList,
-    color: "text-orange-400",
-    bgColor: "bg-orange-900/20",
-  },
+  { name: "New Program", href: "/programs/add", icon: Layout },
+  { name: "New Cohort", href: "/cohorts/add", icon: Users },
+  { name: "New Company", href: "/companies/add", icon: Building2 },
+  { name: "New Form", href: "/forms/add", icon: FileText },
 ];
 
-const QuickActions = () => {
+export default function QuickActions() {
   return (
-    <div className="mb-10">
-      <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">
+    <div className="card-meltwater p-8">
+      <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">
         Quick Actions
-      </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {actions.map((action, index) => (
+      </h3>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {actions.map((action) => (
           <Link
-            key={index}
+            key={action.name}
             href={action.href}
-            className="flex items-center gap-3 p-4 bg-[#0f1724] border border-slate-800 rounded-xl hover:border-slate-600 transition-all group shadow-sm hover:shadow-md"
+            className="flex flex-col items-center justify-center p-6 rounded-2xl bg-foreground/5 hover:bg-primary/10 border border-transparent hover:border-primary/20 transition-all duration-300 group"
           >
-            <div className={`p-2 rounded-lg ${action.bgColor} group-hover:scale-110 transition-transform`}>
-              <action.icon className={`w-5 h-5 ${action.color}`} />
+            <div className="w-12 h-12 bg-card rounded-xl flex items-center justify-center mb-3 shadow-sm group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <action.icon size={22} className="text-primary group-hover:text-white" />
             </div>
-            <span className="text-sm font-medium text-slate-200">{action.title}</span>
+            <span className="text-sm font-bold text-foreground/70 group-hover:text-primary transition-colors text-center">
+              {action.name}
+            </span>
           </Link>
         ))}
       </div>
     </div>
   );
-};
-
-export default QuickActions;
+}

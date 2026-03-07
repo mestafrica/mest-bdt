@@ -1,5 +1,6 @@
+"use client";
 import { Cohort } from "@/utils/types";
-import { Eye, Edit } from "lucide-react";
+import { Eye, Edit, Calendar, Clock, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,55 +10,60 @@ export interface CohortCardProps {
 
 export default function CohortCard({ cohort }: CohortCardProps) {
   return (
-    <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm flex flex-col">
-      {/* Image */}
-      <div className="relative h-32 w-full bg-slate-900 border-b border-slate-800 transform transition-transform duration-300 hover:scale-105">
+    <div className="card-meltwater overflow-hidden group flex flex-col h-full transform transition-all duration-300 hover:-translate-y-1">
+      <div className="relative h-40 w-full bg-foreground/5 overflow-hidden">
         <Image
           src={cohort.image || "https://placehold.co/600x400.png"}
-          alt="Cohort Image"
+          alt={cohort.name}
           fill
-          sizes="(max-width: 640px) 100vw, 33vw"
-          style={{ objectFit: "cover" }}
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
-      </div>
-      {/* Card Details */}
-      <div className="p-4 flex flex-col flex-1">
-        {/* Name and Description*/}
-        <div>
-          <h2 className="text-slate-100 font-medium">{cohort.name}</h2>
-          <p className="text-sm text-slate-400 mt-1 line-clamp-3">
-            {cohort.description}
-          </p>
-        </div>
-        <div className="flex-1" />
-        {/* Status */}
-        <div className="mt-2 flex items-center justify-between gap-2">
-          <span className="text-xs px-2 py-1 rounded-md border bg-green-800/30 border-green-700 text-green-200">
+        <div className="absolute top-4 left-4">
+          <span className="bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md shadow-lg">
             Active
           </span>
         </div>
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-800/50">
-          <Link href={`/cohorts/view?id=${cohort.id}`}>
-            <button className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 cursor-pointer transition-colors">
-              <Eye className="h-4 w-4" /> View
-            </button>
-          </Link>
-          <Link href={`/cohorts/edit?id=${cohort.id}`}>
-            <button className="px-3 py-1.5 rounded-md border text-slate-100 border-slate-700 hover:bg-slate-800 text-sm flex items-center gap-2 cursor-pointer transition-colors">
-              <Edit className="h-4 w-4" /> Edit
-            </button>
-          </Link>
-        </div>
-        {/* Dates */}
-        <div className="mt-3 text-sm text-slate-300">
-          <div>
-            <span className="text-slate-500">Start Date: </span>
-            {new Date(cohort.startDate).toDateString()}
+      </div>
+
+      <div className="p-6 flex flex-col flex-1">
+        <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-1">
+          {cohort.name}
+        </h2>
+        <p className="text-sm text-foreground/50 line-clamp-2 mb-6 font-medium leading-relaxed">
+          {cohort.description}
+        </p>
+
+        <div className="mt-auto space-y-4">
+          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest flex items-center gap-1">
+                <Calendar size={10} className="text-primary" /> Start Date
+              </span>
+              <span className="text-xs font-bold text-foreground">
+                {new Date(cohort.startDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+              </span>
+            </div>
+            <div className="flex flex-col gap-1 border-l border-border pl-4">
+              <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest flex items-center gap-1">
+                <Clock size={10} className="text-primary" /> End Date
+              </span>
+              <span className="text-xs font-bold text-foreground">
+                {new Date(cohort.endDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+              </span>
+            </div>
           </div>
-          <div>
-            <span className="text-slate-500">End Date: </span>
-            {new Date(cohort.endDate).toDateString()}
+
+          <div className="flex items-center gap-2 pt-2">
+            <Link href={`/cohorts/view?id=${cohort.id}`} className="flex-1">
+              <button className="w-full py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold transition-all hover:opacity-90 flex items-center justify-center gap-2">
+                <Eye size={14} /> View
+              </button>
+            </Link>
+            <Link href={`/cohorts/edit?id=${cohort.id}`}>
+              <button className="p-2.5 rounded-xl bg-foreground/5 hover:bg-foreground/10 text-foreground transition-all duration-300">
+                <Edit size={14} />
+              </button>
+            </Link>
           </div>
         </div>
       </div>

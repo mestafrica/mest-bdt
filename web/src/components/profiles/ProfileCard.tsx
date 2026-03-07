@@ -1,5 +1,6 @@
+"use client";
 import { Profile } from "@/utils/types";
-import { Mail, Calendar, Eye, User } from "lucide-react";
+import { Mail, Calendar, Eye, User, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export interface ProfileCardProps {
@@ -7,52 +8,52 @@ export interface ProfileCardProps {
 }
 
 export default function ProfileCard({ profile }: ProfileCardProps) {
+  const initials = profile.email.substring(0, 2).toUpperCase();
+
   return (
-    <div className="bg-[#0f1724] rounded-xl overflow-hidden border border-slate-800 shadow-sm flex flex-col group transition-all duration-300 hover:border-slate-700 hover:shadow-md">
-      <div className="p-5 flex flex-col flex-1">
-        <div className="flex items-start justify-between mb-4">
-          <div className="p-3 bg-blue-900/20 rounded-xl group-hover:bg-blue-900/30 transition-colors">
-            <User className="w-6 h-6 text-blue-400" />
+    <div className="card-meltwater overflow-hidden group flex flex-col h-full hover:border-primary/30 transition-all duration-300">
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-start justify-between mb-6">
+          <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
+            <span className="text-lg font-bold text-primary group-hover:text-white">{initials}</span>
           </div>
-          <div className="flex gap-2">
-            <Link href={`/profiles/view?id=${profile.id}`}>
-              <button className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-900/20 rounded-lg transition-all" title="View Details">
-                <Eye size={18} />
-              </button>
-            </Link>
+          <Link href={`/profiles/view?id=${profile.id}`}>
+            <button className="p-2 rounded-xl bg-foreground/5 hover:bg-primary hover:text-white transition-all duration-300">
+              <Eye size={18} />
+            </button>
+          </Link>
+        </div>
+
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors truncate mb-1">
+            {profile.email.split('@')[0]}
+          </h3>
+          <div className="flex items-center gap-2 text-xs font-bold text-foreground/40 uppercase tracking-wider">
+            <Mail size={12} className="text-primary" />
+            <span className="truncate">{profile.email}</span>
           </div>
         </div>
 
-        <div className="space-y-3">
-          <div>
-            <h3 className="text-slate-100 font-semibold truncate" title={profile.email}>
-              {profile.email.split('@')[0]}
-            </h3>
-            <div className="flex items-center gap-2 text-xs text-slate-400 mt-1">
-              <Mail size={12} className="text-slate-500" />
-              <span className="truncate">{profile.email}</span>
+        <div className="mt-auto pt-6 border-t border-border flex items-center justify-between">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Added On</span>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+              <Calendar size={12} className="text-primary" />
+              <span>{profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'N/A'}</span>
             </div>
           </div>
-
-          <div className="pt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px]">
-            <div className="flex items-center gap-1.5 text-slate-500">
-              <Calendar size={12} />
-              <span>Added {profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'N/A'}</span>
-            </div>
-            <span className="bg-slate-800 text-slate-400 px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider">
-              Profile
-            </span>
-          </div>
+          <span className="bg-foreground/5 text-foreground/60 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+            User
+          </span>
         </div>
       </div>
       
-      <div className="px-5 py-3 bg-slate-900/30 border-t border-slate-800 flex justify-end gap-2">
-        <Link href={`/profiles/view?id=${profile.id}`} className="flex-1">
-          <button className="w-full py-1.5 text-xs font-medium text-slate-300 hover:text-blue-400 transition-colors">
-            View Details
-          </button>
-        </Link>
-      </div>
+      <Link href={`/profiles/view?id=${profile.id}`} className="block">
+        <div className="px-6 py-3 bg-foreground/[0.02] border-t border-border group-hover:bg-primary/5 transition-colors flex items-center justify-between">
+           <span className="text-[10px] font-bold uppercase tracking-widest text-foreground/40">Manage Profile</span>
+           <ArrowRight size={14} className="text-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+        </div>
+      </Link>
     </div>
   );
 }

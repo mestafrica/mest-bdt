@@ -7,41 +7,35 @@ export default function CompaniesHeader() {
   const searchParams = useSearchParams();
 
   return (
-    <div className="p-2 sm:p-4 bg-[#0B1220] rounded-md mb-6">
-      <header className="mb-4">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold text-slate-100">Companies</h1>
-            <p className="text-sm text-slate-400">
-              Manage Companies
-            </p>
-          </div>
-          <div className="flex gap-2 sm:gap-4 flex-wrap">
-            <Link href={`/companies/add?cid=${searchParams.get("cid")}`}>
-              <button className="flex items-center gap-2 bg-[#0F1724] hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors cursor-pointer">
-                <Plus className="h-4 w-4" />
-                Add New Company
-              </button>
-            </Link>
-          </div>
+    <div className="mb-8">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Companies</h1>
+          <p className="text-foreground/50 text-sm mt-1 font-medium">
+            Manage partners and participating organizations
+          </p>
         </div>
-      </header>
-      {/* Filter Bar */}
-      <div className=" bg-[#0b1220] p-2 sm:p-4 rounded-md border border-slate-800 flex flex-col lg:flex-row lg:items-center gap-3">
-        <label className="flex items-center gap-2 flex-1">
-          <span className="sr-only">Search companies</span>
-          <div className="flex items-center gap-2 px-3 py-2 bg-[#0f1724] rounded-md border border-slate-800 w-full">
-            <Search className="h-4 w-4 text-slate-400" />
-            <input
-              placeholder="Search by company name"
-              className="bg-transparent outline-none text-slate-200 placeholder:text-slate-500 w-full text-sm"
-            />
-          </div>
-        </label>
-        <div className="lg:ml-auto text-white flex items-center gap-2">
-          <label className="text-sm text-slate-400">Sort</label>
-          <select className="px-3 py-2 text-sm rounded-md bg-[#0f1724] border border-slate-800">
-            <option>Name (A → Z)</option>
+        <Link href={`/companies/add?cid=${searchParams.get("cid")}`}>
+          <button className="btn-pill bg-primary text-primary-foreground hover:opacity-90 flex items-center gap-2 shadow-lg shadow-primary/20">
+            <Plus className="h-4 w-4" />
+            Add New Company
+          </button>
+        </Link>
+      </div>
+
+      <div className="card-meltwater p-2 flex flex-col md:flex-row items-center gap-3">
+        <div className="flex items-center gap-3 px-4 py-2 bg-foreground/5 rounded-lg w-full md:w-96 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+          <Search className="h-4 w-4 text-foreground/40" />
+          <input
+            placeholder="Search companies..."
+            className="bg-transparent outline-none text-foreground placeholder:text-foreground/30 w-full text-sm font-medium"
+          />
+        </div>
+        <div className="md:ml-auto flex items-center gap-2 px-4">
+          <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Sort By</span>
+          <select className="bg-transparent text-sm font-bold text-foreground outline-none cursor-pointer">
+            <option>Name A-Z</option>
+            <option>Newest First</option>
           </select>
         </div>
       </div>

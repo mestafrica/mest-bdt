@@ -1,5 +1,6 @@
+"use client";
 import { Program } from "@/utils/types";
-import { Eye, Boxes, Calendar } from "lucide-react";
+import { Eye, Boxes, Calendar, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,53 +10,59 @@ export interface ProgramCardProps {
 
 export default function ProgramCard({ program }: ProgramCardProps) {
   return (
-    <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm flex flex-col">
-      <div className="relative h-32 w-full bg-slate-900 border-b border-slate-800 transform transition-transform duration-300 hover:scale-105">
+    <div className="card-meltwater overflow-hidden group flex flex-col h-full">
+      <div className="relative h-48 w-full bg-foreground/5 overflow-hidden">
         <Image
           src={program?.image || "https://placehold.co/600x400.png"}
-          alt="Program Image"
+          alt={program.name}
           fill
-          quality={100}
-          style={{ objectFit: "cover" }}
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
-      </div>
-      <div className="flex mt-4 px-4 items-center justify-between">
-        {/*Action tags  */}
-        <p className="border border-blue-900 bg-blue-900/40 text-blue-200 px-2 py-0.5 rounded-md text-xs">
-          Upcoming
-        </p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+           <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+             View Details <ChevronRight size={14} />
+           </span>
+        </div>
       </div>
 
-      {/* Program Details */}
-      <div className="p-4 flex flex-col flex-1">
-        <h2 className="text-slate-100 font-medium">{program.name}</h2>
-        <p className="text-sm text-slate-400 mt-1 line-clamp-3 leading-relaxed">
+      <div className="p-6 flex flex-col flex-1">
+        <div className="mb-4">
+          <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md">
+            Active Program
+          </span>
+        </div>
+        
+        <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-1">
+          {program.name}
+        </h2>
+        <p className="text-sm text-foreground/50 line-clamp-3 mb-6 font-medium leading-relaxed">
           {program.description}
         </p>
-        <div className="flex-1" />
-        
-        <div className="space-y-2 mt-4 text-xs text-slate-500">
-          <div className="flex items-center gap-2">
-            <Boxes className="w-4 h-4" />
-            <p>24 Cohorts</p>
+
+        <div className="mt-auto space-y-3 pt-6 border-t border-border">
+          <div className="flex items-center justify-between text-xs font-bold">
+            <div className="flex items-center gap-2 text-foreground/40">
+              <Boxes size={14} className="text-primary" />
+              <span>Cohorts</span>
+            </div>
+            <span className="text-foreground">24 Active</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-slate-500" />
-            <p>
-              {new Date(program.startDate).toDateString()} -{" "}
-              {new Date(program.endDate).toDateString()}
-            </p>
+          <div className="flex items-center justify-between text-xs font-bold">
+            <div className="flex items-center gap-2 text-foreground/40">
+              <Calendar size={14} className="text-primary" />
+              <span>Timeline</span>
+            </div>
+            <span className="text-foreground">
+              {new Date(program.startDate).getFullYear()}
+            </span>
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-800/50">
-          <Link href={`/programs/view?id=${program.id}`}>
-            <button className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 cursor-pointer transition-colors">
-              <Eye className="h-4 w-4" /> View
-            </button>
-          </Link>
-        </div>
+        <Link href={`/programs/view?id=${program.id}`} className="mt-6">
+          <button className="w-full py-2.5 rounded-xl bg-foreground/5 hover:bg-primary hover:text-white text-foreground text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2">
+            <Eye size={16} /> View Program
+          </button>
+        </Link>
       </div>
     </div>
   );

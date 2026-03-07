@@ -1,68 +1,65 @@
-// src/components/dashboard/RecentActivities.tsx
+"use client";
 import React from "react";
-import { CheckCircle, Clock } from "lucide-react";
+import { CheckCircle2, Clock, AlertCircle } from "lucide-react";
 
 const activities = [
   {
-    action: "Created “Tech for Growth” Program",
-    date: "Nov 5, 2025",
-    status: "Success",
+    id: 1,
+    title: "New Program added",
+    time: "2 hours ago",
+    status: "completed",
+    icon: CheckCircle2,
   },
   {
-    action: "Added “MEST Cohort 2025”",
-    date: "Nov 3, 2025",
-    status: "Success",
+    id: 2,
+    title: "Cohort updated",
+    time: "4 hours ago",
+    status: "pending",
+    icon: Clock,
   },
   {
-    action: "Updated “Startup Accelerator”",
-    date: "Nov 1, 2025",
-    status: "Pending",
+    id: 3,
+    title: "Form submission error",
+    time: "6 hours ago",
+    status: "error",
+    icon: AlertCircle,
   },
 ];
 
 const RecentActivities = () => {
   return (
-    <div className="p-6 bg-[#0f1724] rounded-xl border border-slate-800 shadow-sm h-full">
-      <h2 className="text-lg font-semibold text-slate-100 mb-6">
-        Recent Activities
-      </h2>
-      <div className="space-y-4">
-        {activities.map((activity, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between p-3 bg-slate-900/40 border border-slate-800/50 rounded-lg group hover:border-slate-700 transition-all duration-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-md ${
-                activity.status === "Success" ? "bg-green-900/20" : "bg-yellow-900/20"
-              }`}>
-                {activity.status === "Success" ? (
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                ) : (
-                  <Clock className="w-4 h-4 text-yellow-500" />
-                )}
-              </div>
-              <div>
-                <p className="text-sm font-medium text-slate-200 group-hover:text-blue-400 transition-colors">
-                  {activity.action}
-                </p>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  {activity.date}
-                </p>
-              </div>
-            </div>
-            <span
-              className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-800/50 ${
-                activity.status === "Success"
-                  ? "text-green-400"
-                  : "text-yellow-400"
+    <div className="card-meltwater p-8 h-full flex flex-col">
+      <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">
+        Recent Activity
+      </h3>
+      <div className="space-y-6 flex-1">
+        {activities.map((activity) => (
+          <div key={activity.id} className="flex gap-4 group">
+            <div
+              className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 ${
+                activity.status === "completed"
+                  ? "bg-emerald-500/10 text-emerald-500"
+                  : activity.status === "pending"
+                  ? "bg-amber-500/10 text-amber-500"
+                  : "bg-rose-500/10 text-rose-500"
               }`}
             >
-              {activity.status}
-            </span>
+              <activity.icon size={20} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-foreground truncate">
+                {activity.title}
+              </p>
+              <p className="text-xs text-foreground/40 font-medium">
+                {activity.time}
+              </p>
+            </div>
           </div>
         ))}
       </div>
+      <button className="w-full mt-10 py-3 text-sm font-bold text-primary hover:bg-primary/5 rounded-xl transition-colors border border-primary/20">
+        View All Activity
+      </button>
     </div>
   );
 };

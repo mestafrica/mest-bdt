@@ -1,51 +1,47 @@
+import { PieChart, Briefcase, DollarSign, Users, ShieldCheck } from "lucide-react";
+
 export default function OrganizationProfile() {
+  const profileItems = [
+    { label: "Project Manager", value: "Eramus Konney", icon: ShieldCheck },
+    { label: "Total Employees", value: "60 Persons", icon: Users },
+    { label: "Organizational Units", value: "12 Departments", icon: PieChart },
+    { label: "Revenue Range", value: "$5.0M - $10.0M", icon: DollarSign },
+  ];
+
   return (
-    <div className="bg-[#0B1220] rounded-md px-6 py-6 border border-slate-800 w-full">
-      <div className="mb-4 text-slate-200">
-        <h2 className="text-lg font-medium mb-1">
-          Organization Profile
-        </h2>
+    <div className="card-meltwater p-8 w-full">
+      <div className="flex items-center gap-3 mb-8">
+        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+          <Briefcase className="text-primary" size={20} />
+        </div>
+        <h2 className="text-xl font-bold text-foreground tracking-tight">Organization Profile</h2>
       </div>
-      <div className="border-t border-slate-800 mb-4"></div>
-      <p className="text-sm text-slate-400 mb-6">
-        Business Operation Overview
+
+      <p className="text-sm font-medium text-foreground/40 mb-10 leading-relaxed">
+        Key details regarding the business operations and structural overview of the organization.
       </p>
 
-      <div className="mb-6">
-        <h2 className="text-sm text-slate-500">
-          Project Manager
-        </h2>
-        <p className="text-sm font-medium text-slate-200 mt-1 mb-4">Eramus Konney</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+        {profileItems.map((item) => (
+          <div key={item.label} className="space-y-2 flex flex-col">
+            <div className="flex items-center gap-1.5 mb-1">
+               <item.icon size={14} className="text-primary" />
+               <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+                 {item.label}
+               </span>
+            </div>
+            <p className="text-sm font-bold text-foreground pl-5 border-l-2 border-primary/20">
+               {item.value}
+            </p>
+          </div>
+        ))}
       </div>
-
-      <div className="border-t border-slate-800 mb-6"></div>
-      {/* Key Data Fields */}
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-sm text-slate-500">
-            Total Number of Employees
-          </h2>
-          <p className="text-sm font-medium text-slate-200 mt-1">60</p>
-        </div>
-
-        <div>
-          <h3 className="text-sm text-slate-500">
-            Key Organizational Units
-          </h3>
-          <p className="text-sm font-medium text-slate-200 mt-1">10</p>
-        </div>
-
-        <div>
-          <h3 className="text-sm text-slate-500">
-            Product / Service
-          </h3>
-          <p className="text-sm font-medium text-slate-200 mt-1">Technology</p>
-        </div>
-
-        <div>
-          <h3 className="text-sm text-slate-500">Annual Revenue</h3>
-          <p className="text-sm font-medium text-slate-200 mt-1">$16.0M</p>
-        </div>
+      
+      <div className="mt-10 pt-8 border-t border-border">
+         <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
+            <span className="text-[10px] font-bold text-primary uppercase tracking-widest block mb-2">Core Product/Service</span>
+            <p className="text-sm font-bold text-foreground italic">"Cloud-based Enterprise Resource Planning Software for SMEs"</p>
+         </div>
       </div>
     </div>
   );

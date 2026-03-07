@@ -3,39 +3,51 @@ import useSWR from "swr";
 import ProgramCard from "./ProgramCard";
 import { apiFetcher } from "@/utils/api";
 import { Program } from "@/utils/types";
+import { Loader2 } from "lucide-react";
 
 export default function Programs() {
   const { data, isLoading, error } = useSWR("/programs", apiFetcher);
 
   if (isLoading) {
     return (
-      <section className="mt-8 flex justify-center text-slate-400">
-        <p>Loading all programs...</p>
-      </section>
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater">
+        <Loader2 className="h-10 w-10 text-primary animate-spin" />
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading Programs...</p>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <section className="mt-8 flex justify-center text-red-400">
-        <p>An unexpected error occured...</p>
-      </section>
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater border-rose-500/20 bg-rose-500/5">
+        <p className="text-rose-500 font-bold">Failed to load programs</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="text-xs font-bold text-foreground/40 hover:text-foreground underline decoration-primary underline-offset-4"
+        >
+          Try Again
+        </button>
+      </div>
     );
   }
 
   if (!data || data.length === 0) {
     return (
-      <section className="mt-8 flex justify-center text-slate-400 bg-[#0B1220] p-8 rounded-md border border-slate-800">
-        <p>No programs found. Create one to get started.</p>
-      </section>
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
+        <div className="w-16 h-16 bg-foreground/5 rounded-2xl flex items-center justify-center mb-2">
+          <Loader2 className="h-8 w-8 text-foreground/20" />
+        </div>
+        <h3 className="text-lg font-bold text-foreground">No Programs Found</h3>
+        <p className="text-foreground/40 text-sm font-medium">Create your first program to get started.</p>
+      </div>
     );
   }
 
   return (
-    <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {data.map((program: Program) => (
         <ProgramCard key={program.id} program={program} />
       ))}
-    </section>
+    </div>
   );
 }

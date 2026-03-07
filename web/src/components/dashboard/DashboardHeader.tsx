@@ -1,13 +1,18 @@
-// src/components/dashboard/DashboardHeader.tsx
+"use client";
 import React from "react";
+import dayjs from "dayjs";
 
 const DashboardHeader = () => {
+  const currentDate = dayjs().format("MMMM D, YYYY");
+
   return (
-    <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-6 sm:mb-10">
-      <h1 className="text-2xl sm:text-3xl font-bold text-slate-100">Dashboard Overview</h1>
-      <span className="text-slate-400 text-sm mt-1 sm:mt-0">
-        {new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', day: 'numeric' }).format(new Date())}
-      </span>
+    <div className="mb-10">
+      <h1 className="text-3xl font-bold text-foreground tracking-tight">
+        Dashboard Overview
+      </h1>
+      <p className="text-foreground/50 text-sm mt-1 font-medium">
+        Today is {currentDate}
+      </p>
     </div>
   );
 };

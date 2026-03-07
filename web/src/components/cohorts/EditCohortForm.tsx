@@ -7,129 +7,210 @@ import toast from "react-hot-toast";
 import useSWR from "swr";
 import dayjs from "dayjs";
 import { useUpload } from "@/hooks/upload";
+import { Image as ImageIcon, Calendar, Info, Users, Loader2, ArrowLeft } from "lucide-react";
 
 export default function EditCohortForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { data } = useSWR(`/cohorts/${searchParams.get("id")}`, apiFetcher);
-  const { upload, loading, url } = useUpload();
+  const id = searchParams.get("id");
+  const { data, isLoading: dataLoading } = useSWR(id ? `/cohorts/${id}` : null, apiFetcher);
+  const { upload, loading: uploadLoading, url } = useUpload();
 
-  const handleSubmit = async (data: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     try {
-      const response = await apiClient.patch(
-        `/cohorts/${searchParams.get("id")}`,
-        {
-          name: data.get("name"),
-          description: data.get("description"),
-          ...(url && { image: url }),
-          startDate: data.get("startDate"),
-          endDate: data.get("endDate"),
-        },
-      );
-      console.log(response.data);
+      await apiClient.patch(`/cohorts/${id}`, {
+        name: formData.get("name"),
+        description: formData.get("description"),
+        ...(url && { image: url }),
+        startDate: formData.get("startDate"),
+        endDate: formData.get("endDate"),
+      });
       toast.success("Cohort updated successfully!");
-      // Navigate back
-      router.back();
+      router.push("/cohorts");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to update cohort!");
     }
   };
+
+  if (dataLoading) {
+    return (
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
+        <Loader2 className="h-10 w-10 text-primary animate-spin" />
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading cohort details...</p>
+      </div>
+    );
+  }
 
   return (
     <form
       autoComplete="off"
       action={handleSubmit}
-      className="mt-6 bg-[#0B1220] p-4 sm:p-8 border border-slate-800 rounded-lg text-slate-200"
+      className="max-w-4xl mx-auto space-y-8"
     >
-      <h1 className="text-2xl font-semibold text-slate-100 mb-2">
-        Edit Cohort
-      </h1>
-      <p className="text-slate-400 text-sm mb-6">
-        Update cohort information by filling this form
-      </p>
-      <div className="w-full mx-auto mt-6">
-        <div className="space-y-6 mt-4">
-          {/* Cohort Name */}
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-slate-300 mb-2">
-              Cohort Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="name"
-              defaultValue={data?.name}
-              placeholder="e.g., 2025 Spring Cohort"
-              className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
-            />
+      <div className="mb-8">
+         <div className="flex items-center gap-4 mb-4">
+            <button
+               type="button"
+               onClick={() => router.back()}
+               className="p-2 rounded-xl bg-foreground/5 text-foreground/40 hover:text-primary transition-all hover:bg-primary/5"
+            >
+               <ArrowLeft size={18} />
+            </button>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">Edit Cohort</h1>
+         </div>
+         <p className="text-foreground/40 text-sm mt-1 font-medium">Update the cohort information and settings below.</p>
+      </div>
+
+      <div className="card-meltwater p-8 space-y-8">
+        {/* Basic Information Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 mb-2">
+             <Users size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">Cohort Details</h2>
           </div>
-          {/* Cohort Description */}
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-slate-300 mb-2">
-              Cohort Description <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              name="description"
-              defaultValue={data?.description}
-              placeholder="Provide a detailed description of the cohort..."
-              className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
-              rows={5}
-            />
+          
+          <div className="grid grid-cols-1 gap-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1">
+                Cohort Name <span className="text-primary">*</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                defaultValue={data?.name}
+                placeholder="e.g., 2025 Spring Cohort"
+                className="w-full px-4 py-3 bg-foreground/5 border border-transparent focus:border-primary/30 rounded-xl text-sm font-bold placeholder:text-foreground/20 outline-none transition-all"
+                required
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1">
+                Cohort Description <span className="text-primary">*</span>
+              </label>
+              <textarea
+                name="description"
+                defaultValue={data?.description}
+                placeholder="Provide a detailed description of the cohort..."
+                className="w-full px-4 py-3 bg-foreground/5 border border-transparent focus:border-primary/30 rounded-xl text-sm font-bold placeholder:text-foreground/20 outline-none transition-all min-h-[120px]"
+                required
+              />
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6">
-            <div className="flex flex-col flex-1">
-              <label className="text-sm font-medium text-slate-300 mb-2">
-                Start Date <span className="text-red-500">*</span>
+        </div>
+
+        {/* Schedule Section */}
+        <div className="space-y-6 pt-8 border-t border-border">
+          <div className="flex items-center gap-3 mb-2">
+             <Calendar size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">Timeline Schedule</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1">
+                Start Date <span className="text-primary">*</span>
               </label>
               <input
                 type="date"
                 name="startDate"
                 defaultValue={dayjs(data?.startDate).format("YYYY-MM-DD")}
-                className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors text-slate-200"
+                className="w-full px-4 py-3 bg-foreground/5 border border-transparent focus:border-primary/30 rounded-xl text-sm font-bold outline-none transition-all"
+                required
               />
             </div>
-            <div className="flex flex-col flex-1">
-              <label className="text-sm font-medium text-slate-300 mb-2">
-                End Date <span className="text-red-500">*</span>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1">
+                End Date <span className="text-primary">*</span>
               </label>
               <input
                 type="date"
                 name="endDate"
                 defaultValue={dayjs(data?.endDate).format("YYYY-MM-DD")}
-                className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors text-slate-200"
+                className="w-full px-4 py-3 bg-foreground/5 border border-transparent focus:border-primary/30 rounded-xl text-sm font-bold outline-none transition-all"
+                required
               />
             </div>
-          </div>
-          {/* Upload Image */}
-          {loading ? (
-            <p>Uploading...</p>
-          ) : url ? (
-            <p>Image uploaded successfully</p>
-          ) : (
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-slate-300 mb-2">
-                Upload Image <span className="text-slate-500 font-normal">(Optional)</span>
-              </label>
-              <input
-                type="file"
-                accept=".png,.jpg,.jpeg"
-                onChange={(e) => {
-                  if (e.target.files?.[0]) {
-                    upload(e.target.files?.[0]);
-                  }
-                }}
-                className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 text-slate-300"
-              />
-            </div>
-          )}
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6 mt-6 border-t border-slate-800">
-            <Button type="button" variant="danger" onClick={() => router.back()}>
-              Cancel
-            </Button>
-            <SubmitButton title="Edit Cohort" />
           </div>
         </div>
+
+        {/* Image Upload Section */}
+        <div className="space-y-6 pt-8 border-t border-border">
+          <div className="flex items-center gap-3 mb-2">
+             <ImageIcon size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">Cohort Banner</h2>
+          </div>
+          
+          <div className="relative">
+             {uploadLoading ? (
+                <div className="w-full py-10 flex flex-col items-center justify-center gap-3 bg-foreground/5 rounded-2xl border border-dashed border-border transition-all">
+                   <Loader2 size={32} className="text-primary animate-spin" />
+                   <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Uploading Image...</span>
+                </div>
+             ) : (url || data?.image) ? (
+                <div className="w-full p-6 flex flex-col items-center justify-center gap-4 bg-primary/5 rounded-2xl border border-primary/20 transition-all">
+                   <div className="relative h-32 w-full max-w-md rounded-xl overflow-hidden shadow-lg border border-primary/10">
+                      <img src={url || data?.image} alt="Cohort Banner" className="object-cover w-full h-full" />
+                   </div>
+                   <p className="text-xs font-bold text-primary uppercase tracking-widest">Banner Image Active</p>
+                   <div className="relative group overflow-hidden">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          if (e.target.files?.[0]) {
+                            upload(e.target.files?.[0]);
+                          }
+                        }}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      />
+                      <span className="text-[10px] font-bold text-foreground/40 group-hover:text-primary uppercase tracking-widest underline decoration-primary/20 underline-offset-4 transition-all">
+                        Replace Image
+                      </span>
+                   </div>
+                </div>
+             ) : (
+                <div className="relative group">
+                   <input
+                     type="file"
+                     accept="image/*"
+                     onChange={(e) => {
+                       if (e.target.files?.[0]) {
+                         upload(e.target.files?.[0]);
+                       }
+                     }}
+                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                   />
+                   <div className="w-full py-12 flex flex-col items-center justify-center gap-4 bg-foreground/[0.02] border-2 border-dashed border-border group-hover:bg-primary/5 group-hover:border-primary/30 rounded-2xl transition-all">
+                      <div className="w-12 h-12 bg-foreground/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center transition-all">
+                         <ImageIcon size={24} />
+                      </div>
+                      <div className="text-center">
+                         <p className="text-sm font-bold text-foreground">Click or drag banner image here</p>
+                         <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mt-1">PNG, JPG up to 10MB</p>
+                      </div>
+                   </div>
+                </div>
+             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex items-center justify-end gap-4 pt-4">
+        <Button 
+          type="button" 
+          variant="outline" 
+          onClick={() => router.back()}
+          className="px-8"
+        >
+          Cancel
+        </Button>
+        <SubmitButton 
+          title="Update Cohort" 
+          className="px-10 py-3 text-base"
+        />
       </div>
     </form>
   );

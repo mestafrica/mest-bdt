@@ -1,70 +1,64 @@
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, User, Globe } from "lucide-react";
 
 export default function CompanyContactInfo() {
+  const contacts = [
+    {
+      role: "Primary Contact",
+      name: "Sarah Ayitey",
+      email: "saraha@gmail.com",
+      phone: "+233 (023) 2345",
+    },
+    {
+      role: "Alternative Contact",
+      name: "John Doe",
+      email: "johnd@gmail.com",
+      phone: "+233 (024) 5678",
+    }
+  ];
+
   return (
-    <div className="bg-[#0B1220] rounded-md px-6 py-6 border border-slate-800 w-full">
-      <div className="mb-4 text-slate-200">
-        <h2 className="text-lg font-medium mb-1">
-          Contact Information
-        </h2>
+    <div className="card-meltwater p-8 w-full">
+      <div className="flex items-center gap-3 mb-8">
+        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+          <User className="text-primary" size={20} />
+        </div>
+        <h2 className="text-xl font-bold text-foreground tracking-tight">Contact Information</h2>
       </div>
-      <div className="border-t border-slate-800 mb-4"></div>
-      
-      <div className="mb-6">
-        <p className="text-slate-400 text-sm mb-4">
-          Primary contact for this company
-        </p>
-        <h2 className="text-sm text-slate-500">Contact Person</h2>
-        <p className="text-sm font-medium text-slate-200 mt-1">Sarah Ayitey</p>
 
-        <div className="mt-4">
-          <h2 className="text-sm text-slate-500">Email Address</h2>
-          <span className="flex gap-2 items-center mt-1">
-            <Mail size={16} className="text-slate-400" />
-            <p className="text-sm text-blue-400 hover:text-blue-300 hover:underline cursor-pointer transition-colors">
-              saraha@gmail.com
-            </p>
-          </span>
-        </div>
-        <div className="mt-4">
-          <h2 className="text-sm text-slate-500">Phone Number</h2>
-          <span className="flex items-center gap-2 mt-1">
-            <Phone size={16} className="text-slate-400" />
-            <p className="text-sm text-slate-300">+233 (023) 2345</p>
-          </span>
-        </div>
-      </div>
-      
-      <div className="border-t border-slate-800 mb-4"></div>
-
-      <div className="mt-4">
-        <p className="text-slate-400 text-sm mb-4">Alternative contact</p>
-
-        <div className="mb-4">
-          <h2 className="text-sm text-slate-500">
-            Contact Person
-          </h2>
-          <p className="text-sm font-medium text-slate-200 mt-1">
-            Sarah Ayitey
-          </p>
-        </div>
-
-        <div className="mt-4">
-          <h2 className="text-sm text-slate-500">Email Address</h2>
-          <span className="flex gap-2 items-center mt-1">
-            <Mail size={16} className="text-slate-400" />
-            <p className="text-sm text-blue-400 hover:text-blue-300 hover:underline cursor-pointer transition-colors">
-              saraha@gmail.com
-            </p>
-          </span>
-        </div>
-        <div className="mt-4">
-          <h2 className="text-sm text-slate-500">Phone Number</h2>
-          <span className="flex items-center gap-2 mt-1">
-            <Phone size={16} className="text-slate-400" />
-            <p className="text-sm text-slate-300">+233 (023) 2345</p>
-          </span>
-        </div>
+      <div className="space-y-10">
+        {contacts.map((contact, index) => (
+          <div key={index} className="space-y-6">
+            <div className="flex items-center justify-between">
+               <span className="text-[10px] font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full uppercase tracking-widest leading-none">
+                  {contact.role}
+               </span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Full Name</p>
+                  <p className="text-sm font-bold text-foreground">{contact.name}</p>
+               </div>
+               <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Email Address</p>
+                  <div className="flex items-center gap-2 group cursor-pointer">
+                     <Mail size={14} className="text-primary" />
+                     <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">
+                        {contact.email}
+                     </p>
+                  </div>
+               </div>
+               <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Phone Number</p>
+                  <div className="flex items-center gap-2">
+                     <Phone size={14} className="text-primary" />
+                     <p className="text-sm font-bold text-foreground">{contact.phone}</p>
+                  </div>
+               </div>
+            </div>
+            {index === 0 && <div className="border-b border-border/50 pt-2" />}
+          </div>
+        ))}
       </div>
     </div>
   );

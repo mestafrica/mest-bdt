@@ -10,7 +10,7 @@ export default function ViewProfilePage() {
   if (!id) return <div>Invalid Profile ID</div>;
 
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <ProfileHeader id={id} />
       <ProfileDetail id={id} />
     </div>

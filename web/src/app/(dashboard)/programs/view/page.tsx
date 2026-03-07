@@ -1,10 +1,10 @@
-import ProgramDetail from "@/components/programs/ProgamDetail";
-import ProgamHeader from "@/components/programs/ProgramHeader";
+import ProgramDetail from "@/components/programs/ProgramDetail";
+import ProgramHeader from "@/components/programs/ProgramHeader";
 
 export default function ViewProgramPage() {
   return (
-    <div className="bg-[#0B1220] p-4 sm:p-8 rounded-md min-h-screen">
-      <ProgamHeader />
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <ProgramHeader />
       <ProgramDetail />
     </div>
   );

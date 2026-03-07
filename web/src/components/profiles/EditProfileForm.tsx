@@ -1,11 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, ArrowLeft, Loader2, Save } from "lucide-react";
+import { Mail, ArrowLeft, Loader2, User, ShieldCheck, Info } from "lucide-react";
 import toast from "react-hot-toast";
 import { apiClient, apiFetcher } from "@/utils/api";
 import useSWR from "swr";
 import { Profile } from "@/utils/types";
+import Button from "../core/Button";
 
 const EditProfileForm = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const EditProfileForm = () => {
     try {
       await apiClient.patch(`/profiles/${id}`, { email });
       toast.success("Profile updated successfully!");
-      router.back();
+      router.push("/profiles");
     } catch (error: unknown) {
       const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || "Failed to update profile!";
       toast.error(message);
@@ -45,81 +46,93 @@ const EditProfileForm = () => {
 
   if (isFetching) {
     return (
-      <div className="flex flex-col items-center justify-center p-20 text-slate-400">
-        <Loader2 className="w-8 h-8 animate-spin mb-4" />
-        <p>Loading profile data...</p>
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
+        <Loader2 className="h-10 w-10 text-primary animate-spin" />
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading profile data...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="mb-8 flex items-center justify-between">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-slate-400 hover:text-slate-200 transition-colors text-sm"
-        >
-          <ArrowLeft size={16} />
-          Back to Profile
-        </button>
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
+      <div className="mb-8">
+         <div className="flex items-center gap-4 mb-4">
+            <button
+               type="button"
+               onClick={() => router.back()}
+               className="p-2 rounded-xl bg-foreground/5 text-foreground/40 hover:text-primary transition-all hover:bg-primary/5"
+            >
+               <ArrowLeft size={18} />
+            </button>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">Edit Profile</h1>
+         </div>
+         <p className="text-foreground/40 text-sm mt-1 font-medium">Update the user&apos;s email address and profile settings.</p>
       </div>
 
-      <div className="bg-[#0f1724] rounded-xl border border-slate-800 shadow-lg overflow-hidden">
-        <div className="p-6 border-b border-slate-800 bg-slate-900/30">
-          <h2 className="text-xl font-bold text-slate-100">Edit Profile</h2>
-          <p className="text-sm text-slate-400 mt-1">
-            Update the email address for this user profile.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
-          <div className="flex flex-col space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-slate-300">
-              Email Address
-            </label>
-            <div className="relative group">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
-              <input
-                id="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="user@example.com"
-                className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-3 pl-10 pr-4 text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
-              />
+      <div className="card-meltwater p-8 space-y-8">
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 mb-2">
+             <User size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">User Identity</h2>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest px-1">
+                Email Address <span className="text-primary">*</span>
+              </label>
+              <div className="relative group">
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/20 group-focus-within:text-primary transition-colors" />
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="e.g. user@example.com"
+                  className="w-full pl-11 pr-4 py-3 bg-foreground/5 border border-transparent focus:border-primary/30 rounded-xl text-sm font-bold placeholder:text-foreground/20 outline-none transition-all"
+                />
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="pt-4 flex gap-4">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-900/20"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Updating...
-                </>
-              ) : (
-                <>
-                  <Save className="w-5 h-5" />
-                  Update Profile
-                </>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => router.back()}
-              className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-lg transition-all border border-slate-700"
-            >
-              Cancel
-            </button>
+        <div className="space-y-6 pt-8 border-t border-border">
+          <div className="flex items-center gap-3 mb-2">
+             <ShieldCheck size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">Account Status</h2>
           </div>
-        </form>
+          <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center justify-between">
+             <div>
+                <p className="text-xs font-bold text-foreground mb-0.5">Verified Profile</p>
+                <p className="text-[10px] font-medium text-foreground/40">This account is fully verified and active.</p>
+             </div>
+             <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500">
+                <ShieldCheck size={18} />
+             </div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div className="flex items-center justify-end gap-4 pt-4">
+        <Button 
+          type="button" 
+          variant="outline" 
+          onClick={() => router.back()}
+          className="px-8"
+        >
+          Cancel
+        </Button>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="btn-pill bg-primary text-primary-foreground px-10 py-3 font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-90 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+        >
+          {isLoading && <Loader2 size={16} className="animate-spin" />}
+          {isLoading ? "Updating..." : "Update Profile"}
+        </button>
+      </div>
+    </form>
   );
 };
 

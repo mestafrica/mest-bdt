@@ -2,6 +2,7 @@
 import useSWR from "swr";
 import { apiFetcher } from "@/utils/api";
 import { useSearchParams } from "next/navigation";
+import { Info, Code, Layout, Calendar, Clock, Hash, Loader2, FileText } from "lucide-react";
 
 export default function FormDetail() {
   const searchParams = useSearchParams();
@@ -13,51 +14,71 @@ export default function FormDetail() {
 
   if (isLoading) {
     return (
-      <div className="mt-6 p-8 text-center text-slate-400 bg-[#0B1220] rounded-md border border-slate-800">
-        Loading form details...
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
+        <Loader2 className="h-10 w-10 text-primary animate-spin" />
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">Loading structure...</p>
       </div>
     );
   }
 
   if (error || !form) {
     return (
-      <div className="mt-6 p-8 text-center text-red-400 bg-[#0B1220] rounded-md border border-slate-800">
-        Failed to load form details.
+      <div className="card-meltwater p-12 text-center border-rose-500/20 bg-rose-500/5">
+        <p className="text-rose-500 font-bold">Failed to load form definitions.</p>
       </div>
     );
   }
 
   return (
-    <div className="mt-6 space-y-6">
+    <div className="space-y-8">
       {/* Details Card */}
-      <div className="bg-[#0B1220] rounded-md border border-slate-800 p-6">
-        <h2 className="text-lg font-medium text-slate-200 mb-4 border-b border-slate-800 pb-2">
-          Basic Information
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="text-sm text-slate-500 mb-1">Name</p>
-            <p className="text-slate-200">{form.name}</p>
+      <div className="card-meltwater p-8">
+        <div className="flex items-center gap-3 mb-6">
+           <Info size={18} className="text-primary" />
+           <h2 className="text-lg font-bold text-foreground tracking-tight">General Information</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-foreground/30 mb-1">
+               <FileText size={12} />
+               <span className="text-[10px] font-bold uppercase tracking-widest">Internal Name</span>
+            </div>
+            <p className="text-sm font-bold text-foreground">{form.name}</p>
           </div>
-          <div>
-            <p className="text-sm text-slate-500 mb-1">ID</p>
-            <p className="text-slate-200 font-mono text-sm">{form.id || (form as { _id?: string })._id}</p>
+          
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-foreground/30 mb-1">
+               <Hash size={12} />
+               <span className="text-[10px] font-bold uppercase tracking-widest">Configuration ID</span>
+            </div>
+            <p className="text-[11px] font-mono text-foreground/60 break-all">{form.id || (form as { _id?: string })._id}</p>
           </div>
-          <div className="md:col-span-2">
-            <p className="text-sm text-slate-500 mb-1">Description</p>
-            <p className="text-slate-200">{form.description}</p>
+
+          <div className="space-y-1 md:col-span-3">
+            <div className="flex items-center gap-2 text-foreground/30 mb-1">
+               <span className="text-[10px] font-bold uppercase tracking-widest">Description</span>
+            </div>
+            <p className="text-sm text-foreground/60 leading-relaxed font-medium">{form.description}</p>
           </div>
+          
           {(form.createdAt || form.updatedAt) && (
             <>
-              <div>
-                <p className="text-sm text-slate-500 mb-1">Created At</p>
-                <p className="text-slate-200">
-                  {form.createdAt ? new Date(form.createdAt).toLocaleString() : "N/A"}
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-foreground/30 mb-1">
+                   <Calendar size={12} />
+                   <span className="text-[10px] font-bold uppercase tracking-widest">Created</span>
+                </div>
+                <p className="text-[11px] font-bold text-foreground/60">
+                  {form.createdAt ? new Date(form.createdAt).toLocaleDateString(undefined, { dateStyle: 'long' }) : "N/A"}
                 </p>
               </div>
-              <div>
-                <p className="text-sm text-slate-500 mb-1">Last Updated</p>
-                <p className="text-slate-200">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-foreground/30 mb-1">
+                   <Clock size={12} />
+                   <span className="text-[10px] font-bold uppercase tracking-widest">Last Modified</span>
+                </div>
+                <p className="text-[11px] font-bold text-foreground/60">
                   {form.updatedAt ? new Date(form.updatedAt).toLocaleString() : "N/A"}
                 </p>
               </div>
@@ -67,41 +88,47 @@ export default function FormDetail() {
       </div>
 
       {/* Schemas */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* JSON Schema */}
-        <div className="bg-[#0B1220] rounded-md border border-slate-800 p-6 flex flex-col">
-          <h2 className="text-lg font-medium text-slate-200 mb-4 border-b border-slate-800 pb-2">
-            JSON Schema
-          </h2>
-          <pre className="flex-1 bg-[#0f1724] p-4 rounded-md overflow-x-auto text-sm text-slate-300 font-mono border border-slate-800/50">
-            {typeof form.schema === "string"
-              ? (() => {
-                  try {
-                    return JSON.stringify(JSON.parse(form.schema), null, 2);
-                  } catch {
-                    return form.schema;
-                  }
-                })()
-              : JSON.stringify(form.schema, null, 2)}
-          </pre>
+        <div className="card-meltwater p-8 flex flex-col">
+          <div className="flex items-center gap-3 mb-6">
+             <Code size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">Data Schema</h2>
+          </div>
+          <div className="flex-1 bg-foreground/[0.03] p-5 rounded-2xl overflow-hidden border border-border/50">
+            <pre className="h-[400px] overflow-auto text-[11px] text-foreground/50 font-mono scrollbar-hide">
+              {typeof form.schema === "string"
+                ? (() => {
+                    try {
+                      return JSON.stringify(JSON.parse(form.schema), null, 2);
+                    } catch {
+                      return form.schema;
+                    }
+                  })()
+                : JSON.stringify(form.schema, null, 2)}
+            </pre>
+          </div>
         </div>
 
         {/* UI Schema */}
-        <div className="bg-[#0B1220] rounded-md border border-slate-800 p-6 flex flex-col">
-          <h2 className="text-lg font-medium text-slate-200 mb-4 border-b border-slate-800 pb-2">
-            UI Schema
-          </h2>
-          <pre className="flex-1 bg-[#0f1724] p-4 rounded-md overflow-x-auto text-sm text-slate-300 font-mono border border-slate-800/50">
-            {typeof form.uiSchema === "string"
-              ? (() => {
-                  try {
-                    return JSON.stringify(JSON.parse(form.uiSchema || "{}"), null, 2);
-                  } catch {
-                    return form.uiSchema;
-                  }
-                })()
-              : JSON.stringify(form.uiSchema || {}, null, 2)}
-          </pre>
+        <div className="card-meltwater p-8 flex flex-col">
+           <div className="flex items-center gap-3 mb-6">
+             <Layout size={18} className="text-primary" />
+             <h2 className="text-lg font-bold text-foreground tracking-tight">UX Configuration</h2>
+          </div>
+          <div className="flex-1 bg-foreground/[0.03] p-5 rounded-2xl overflow-hidden border border-border/50">
+            <pre className="h-[400px] overflow-auto text-[11px] text-foreground/50 font-mono scrollbar-hide">
+              {typeof form.uiSchema === "string"
+                ? (() => {
+                    try {
+                      return JSON.stringify(JSON.parse(form.uiSchema || "{}"), null, 2);
+                    } catch {
+                      return form.uiSchema;
+                    }
+                  })()
+                : JSON.stringify(form.uiSchema || {}, null, 2)}
+            </pre>
+          </div>
         </div>
       </div>
     </div>
