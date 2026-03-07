@@ -11,6 +11,6 @@ export default function UserAccessChecker({
   const { isLoading, error } = useUser();
 
   if (isLoading) return <AccessLoader />;
-  if (error) return <AccessDenied />;
+  if (error) return <AccessDenied href="/" label="Go to Home" />;
   return <>{children}</>;
 }

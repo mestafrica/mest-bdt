@@ -1,57 +1,67 @@
 import React from "react";
-// 1. Import Lucide icons
-import { ShieldAlert, Lock } from "lucide-react";
+import { ShieldAlert, Lock, ArrowLeft } from "lucide-react";
 import HankoLogout from "./HankoLogout";
 import NoSSR from "../core/NoSSR";
 import Link from "next/link";
 import Button from "../core/Button";
 
-// Interface for component props (optional but good practice in TypeScript)
 interface AccessDeniedProps {
   title?: string;
   message?: string;
+  href: string;
+  label: string;
 }
 
 const AccessDenied: React.FC<AccessDeniedProps> = ({
-  title = "Access Denied",
-  message = "You do not have permission to view this page. Please contact your system administrator if you believe this is an error.",
+  title = "Access Restricted",
+  message = "You don't have the necessary permissions to access this module. Please verify your account status or contact your administrator.",
+  href,
+  label,
 }) => {
   return (
-    // Full-page container: Centered, fills viewport, uses a background color
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4 w-full">
-      {/* Content Card: Max width, rounded corners, shadow, white/dark background */}
-      <div className="w-full max-w-xl p-8 space-y-8 bg-white dark:bg-gray-800 rounded-lg shadow-2xl text-center">
-        {/* Illustration Section (Visual Indicator) */}
-        <div className="flex flex-col items-center justify-center space-y-4">
-          {/* Main Icon - Lucide icons accept Tailwind classes via 'className' */}
-          <div className="p-4 rounded-full bg-red-100 dark:bg-red-900/50">
-            <ShieldAlert
-              className="w-16 h-16 text-red-600 dark:text-red-400"
-              strokeWidth={1.5} // Lucide specific prop to control line thickness
-            />
+    <div className="flex items-center justify-center min-h-screen bg-background p-6 w-full animate-in zoom-in-95 duration-300">
+      <div className="w-full max-w-lg p-10 space-y-10 card-meltwater bg-card text-center shadow-2xl shadow-rose-500/5 border-rose-500/10">
+        {/* Visual Indicator */}
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="relative">
+            <div className="p-6 rounded-3xl bg-rose-500/10 ring-8 ring-rose-500/5">
+              <ShieldAlert
+                className="w-16 h-16 text-rose-500"
+                strokeWidth={1.5}
+              />
+            </div>
+            <div className="absolute -bottom-2 -right-2 p-2 bg-card border border-border rounded-xl shadow-lg">
+              <Lock className="w-5 h-5 text-foreground/40" />
+            </div>
           </div>
-          {/* Secondary Illustration/Lock Visual */}
-          <div className="flex items-center justify-center space-x-2 text-gray-400 dark:text-gray-500">
-            <Lock className="w-5 h-5" />
-            <span className="text-sm font-medium uppercase tracking-widest">
-              Secured Zone
+          
+          <div className="space-y-2">
+            <span className="text-[10px] font-bold text-rose-500/60 uppercase tracking-[0.3em]">
+              Security Protocol Alert
             </span>
           </div>
         </div>
+
         {/* Text Content */}
-        <div>
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
+        <div className="space-y-4">
+          <h1 className="text-4xl font-black text-foreground tracking-tight">
             {title}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">{message}</p>
+          <p className="text-foreground/50 font-medium leading-relaxed max-w-md mx-auto">
+            {message}
+          </p>
         </div>
-        {/* Small Print/Footer */}
-        <div className="pt-4 border-t border-gray-100 dark:border-gray-700/50 flex justify-between">
+
+        {/* Action Footer */}
+        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-center gap-4">
           <NoSSR>
             <HankoLogout />
           </NoSSR>
-          <Link href="/user">
-            <Button variant="primary">Visit Profile</Button>
+          <Link href={href}>
+            <Button variant="outline" className="w-full sm:w-auto flex items-center gap-2 group">
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              {label}
+            </Button>
           </Link>
         </div>
       </div>

@@ -1,44 +1,47 @@
 import React from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Briefcase } from "lucide-react";
 
-// Interface for component props
 interface AccessLoaderProps {
   message?: string;
 }
 
 const AccessLoader: React.FC<AccessLoaderProps> = ({
-  message = "Loading content, please wait...",
+  message = "Verifying your credentials and preparing your workspace...",
 }) => {
   return (
-    // Full-page container: Matches the AccessDenied component's layout
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4 w-full">
-      {/* Content Card: Matches the AccessDenied component's structure */}
-      <div className="w-full max-w-xl p-8 space-y-8 bg-white dark:bg-gray-800 rounded-lg shadow-2xl text-center">
-        {/* Spinner Illustration */}
-        <div className="flex flex-col items-center justify-center space-y-4">
-          {/* Main Icon: Uses the 'animate-spin' utility for rotation */}
-          <div className="p-4 rounded-full">
+    <div className="flex items-center justify-center min-h-screen bg-background p-6 w-full animate-in fade-in duration-500">
+      <div className="w-full max-w-md p-10 space-y-10 card-meltwater text-center bg-card shadow-2xl shadow-primary/5 flex flex-col items-center">
+        {/* Brand Logo Integration */}
+        <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 animate-pulse">
+          <Briefcase className="w-8 h-8 text-white" />
+        </div>
+
+        <div className="space-y-10 w-full">
+          {/* Main Loader */}
+          <div className="flex justify-center">
             <Loader2
-              className="w-16 h-16 text-indigo-600 dark:text-indigo-400 animate-spin"
-              strokeWidth={2}
+              className="w-12 h-12 text-primary animate-spin"
+              strokeWidth={2.5}
             />
           </div>
 
-          {/* Status Text */}
-          <div className="text-gray-600 dark:text-gray-400">
-            <span className="text-sm font-medium uppercase tracking-widest">
-              Processing Request
-            </span>
+          {/* Status Indicators */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold text-foreground tracking-tight">
+              {message}
+            </h2>
+            <div className="flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"></span>
+            </div>
           </div>
-        </div>
 
-        {/* --- */}
-
-        {/* Loading Message */}
-        <div>
-          <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-            {message}
-          </p>
+          <div className="pt-2">
+            <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-[0.2em]">
+              Secured by MEST Africa BDT
+            </p>
+          </div>
         </div>
       </div>
     </div>

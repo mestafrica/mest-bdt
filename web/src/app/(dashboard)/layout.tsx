@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Sidebar from "@/components/navigation/Sidebar";
-import AccessChecker from "@/components/auth/AccessChecker";
+import ProfileAccessChecker from "@/components/auth/ProfileAccessChecker";
 
 export const metadata: Metadata = {
   title: "MEST Africa - BDT Dashboard",
@@ -13,10 +13,10 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="flex min-h-screen">
-      <AccessChecker>
+      <ProfileAccessChecker>
         <Sidebar />
         <main className="grow p-8 h-dvh overflow-y-scroll">{children}</main>
-      </AccessChecker>
+      </ProfileAccessChecker>
     </div>
   );
 }
