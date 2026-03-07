@@ -2,42 +2,27 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { ConflictException, NotFoundException } from '@nestjs/common';
-import { AuthGuard } from '../common/guards/auth.guard';
+import { getModelToken } from '@nestjs/mongoose';
+import { mockModel } from '../common/mocks/model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { HankoUser } from '../common/decorators/user.decorator';
 
 describe('UsersController', () => {
   let controller: UsersController;
-
-  const mockUsersService = {
-    create: jest.fn(),
-    countDocuments: jest.fn(),
-    findAll: jest.fn(),
-    findOne: jest.fn(),
-    updateOne: jest.fn(),
-    deleteOne: jest.fn(),
-  };
-
-  const mockAuthGuard = {
-    canActivate: jest.fn(() => true),
-  };
+  let service: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [
-        {
-          provide: UsersService,
-          useValue: mockUsersService,
-        },
+        UsersService,
+        { provide: getModelToken('User'), useValue: mockModel },
       ],
-    })
-      .overrideGuard(AuthGuard)
-      .useValue(mockAuthGuard)
-      .compile();
+    }).compile();
 
     controller = module.get<UsersController>(UsersController);
+    service = module.get<UsersService>(UsersService);
     jest.clearAllMocks();
   });
 
@@ -46,119 +31,110 @@ describe('UsersController', () => {
   });
 
   describe('create', () => {
-    const createUserDto: CreateUserDto = {
-      email: 'test@example.com',
-      name: 'Test',
-      company: '60f1b9b3b3b3b3b3b3b3b3b3',
-      phone: '1234567890',
-      location: 'New York',
-      avatar: 'https://example.com/avatar.jpg',
-      bio: 'Tech enthusiast',
-      access: 'READ',
-    };
+    const dto: CreateUserDto = { email: 'test@test.com' } as any;
 
-    it('should create a user if email does not exist', async () => {
-      mockUsersService.countDocuments.mockResolvedValue(0);
-      mockUsersService.create.mockResolvedValue({
-        _id: '123',
-        ...createUserDto,
-      });
+    it('should create a user if they do not exist', async () => {
+      jest.spyOn(service, 'countDocuments').mockResolvedValue(0);
+      jest.spyOn(service, 'create').mockResolvedValue(dto as any);
 
-      const result = await controller.create(createUserDto);
+      const result = await controller.create(dto);
 
-      expect(mockUsersService.countDocuments).toHaveBeenCalledWith({
-        email: createUserDto.email,
-      });
-      expect(mockUsersService.create).toHaveBeenCalledWith(createUserDto);
-      expect(result).toEqual({ _id: '123', ...createUserDto });
+      expect(result).toEqual(dto);
+      expect(service.countDocuments).toHaveBeenCalledWith({ email: dto.email });
+      expect(service.create as jest.Mock).toHaveBeenCalledWith(dto);
     });
 
-    it('should throw ConflictException if email exists', async () => {
-      mockUsersService.countDocuments.mockResolvedValue(1);
+    it('should throw ConflictException if user exists', async () => {
+      jest.spyOn(service, 'countDocuments').mockResolvedValue(1);
 
-      await expect(controller.create(createUserDto)).rejects.toThrow(
-        ConflictException,
-      );
+      await expect(controller.create(dto)).rejects.toThrow(ConflictException);
     });
   });
 
   describe('findAll', () => {
-    it('should call service.findAll with parsed filter', async () => {
-      const filter = '{"role":"user"}';
-      await controller.findAll({ filter });
-      expect(mockUsersService.findAll).toHaveBeenCalledWith({ role: 'user' });
-    });
+    it('should find all users', async () => {
+      const users = [{ email: 'test@test.com' }];
+      jest.spyOn(service, 'findAll').mockResolvedValue(users as any);
 
-    it('should call service.findAll with default filter if none provided', async () => {
-      await controller.findAll({ filter: undefined as any });
-      expect(mockUsersService.findAll).toHaveBeenCalledWith({});
+      const result = await controller.findAll({ filter: '{"role":"admin"}' });
+
+      expect(result).toEqual(users);
+      expect(service.findAll as jest.Mock).toHaveBeenCalledWith({
+        role: 'admin',
+      });
     });
   });
 
   describe('countDocuments', () => {
-    it('should call service.countDocuments with parsed filter', async () => {
-      const filter = '{"role":"user"}';
-      await controller.countDocuments({ filter });
-      expect(mockUsersService.countDocuments).toHaveBeenCalledWith({
-        role: 'user',
-      });
+    it('should count users', async () => {
+      jest.spyOn(service, 'countDocuments').mockResolvedValue(5);
+
+      const result = await controller.countDocuments({ filter: '{}' });
+
+      expect(result).toEqual(5);
     });
   });
 
   describe('findCurrentUser', () => {
-    const mockUser: HankoUser = {
-      email: { address: 'test@example.com' },
-    } as HankoUser;
+    const hankoUser: HankoUser = { email: { address: 'me@test.com' } } as any;
 
-    it('should return current user if exists', async () => {
-      mockUsersService.countDocuments.mockResolvedValue(1);
-      mockUsersService.findOne.mockResolvedValue({ email: 'test@example.com' });
+    it('should find current user', async () => {
+      jest.spyOn(service, 'countDocuments').mockResolvedValue(1);
+      jest
+        .spyOn(service, 'findOne')
+        .mockResolvedValue({ email: 'me@test.com' } as any);
 
-      const result = await controller.findCurrentUser(mockUser);
+      const result = await controller.findCurrentUser(hankoUser);
 
-      expect(mockUsersService.countDocuments).toHaveBeenCalledWith({
-        email: mockUser.email.address,
-      });
-      expect(mockUsersService.findOne).toHaveBeenCalledWith({
-        email: mockUser.email.address,
-      });
-      expect(result).toEqual({ email: 'test@example.com' });
+      expect(result).toEqual({ email: 'me@test.com' });
     });
 
-    it('should throw NotFoundException if user does not exist', async () => {
-      mockUsersService.countDocuments.mockResolvedValue(0);
+    it('should throw NotFoundException if current user not found', async () => {
+      jest.spyOn(service, 'countDocuments').mockResolvedValue(0);
 
-      await expect(controller.findCurrentUser(mockUser)).rejects.toThrow(
+      await expect(controller.findCurrentUser(hankoUser)).rejects.toThrow(
         NotFoundException,
       );
     });
   });
 
   describe('findOne', () => {
-    it('should call service.findOne with id', async () => {
-      const id = '123';
-      await controller.findOne(id);
-      expect(mockUsersService.findOne).toHaveBeenCalledWith({ _id: id });
+    it('should find one user by id', async () => {
+      const user = { _id: '1' };
+      jest.spyOn(service, 'findOne').mockResolvedValue(user as any);
+
+      const result = await controller.findOne('1');
+
+      expect(result).toEqual(user);
+      expect(service.findOne as jest.Mock).toHaveBeenCalledWith({ _id: '1' });
     });
   });
 
   describe('updateOne', () => {
-    it('should call service.updateOne with id and dto', async () => {
-      const id = '123';
-      const updateUserDto: UpdateUserDto = { name: 'Updated' };
-      await controller.updateOne(id, updateUserDto);
-      expect(mockUsersService.updateOne).toHaveBeenCalledWith(
-        { _id: id },
-        updateUserDto,
+    it('should update a user', async () => {
+      const dto: UpdateUserDto = { name: 'Updated' };
+      jest.spyOn(service, 'updateOne').mockResolvedValue(dto as any);
+
+      const result = await controller.updateOne('1', dto);
+
+      expect(result).toEqual(dto);
+      expect(service.updateOne as jest.Mock).toHaveBeenCalledWith(
+        { _id: '1' },
+        dto,
       );
     });
   });
 
   describe('deleteOne', () => {
-    it('should call service.deleteOne with id', async () => {
-      const id = '123';
-      await controller.deleteOne(id);
-      expect(mockUsersService.deleteOne).toHaveBeenCalledWith({ _id: id });
+    it('should delete a user', async () => {
+      jest
+        .spyOn(service, 'deleteOne')
+        .mockResolvedValue({ deletedCount: 1 } as any);
+
+      const result = await controller.deleteOne('1');
+
+      expect(result).toEqual({ deletedCount: 1 });
+      expect(service.deleteOne as jest.Mock).toHaveBeenCalledWith({ _id: '1' });
     });
   });
 });

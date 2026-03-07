@@ -1,16 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UploadsService } from './uploads.service';
 import { BadRequestException } from '@nestjs/common';
-import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 
-// Mock Cloudinary
-jest.mock('cloudinary', () => ({
-  v2: {
-    uploader: {
-      upload_stream: jest.fn(),
-    },
-  },
-}));
+jest.mock('cloudinary');
 
 describe('UploadsService', () => {
   let service: UploadsService;
@@ -31,32 +24,29 @@ describe('UploadsService', () => {
   describe('uploadImage', () => {
     const mockFile = {
       buffer: Buffer.from('test-image'),
-      mimetype: 'image/jpeg',
+      mimetype: 'image/png',
     } as Express.Multer.File;
 
-    it('should upload image successfully and return URL', async () => {
-      const mockUploadResponse: Partial<UploadApiResponse> = {
-        secure_url:
-          'https://res.cloudinary.com/demo/image/upload/v1/sample.jpg',
+    it('should successfully upload an image', async () => {
+      const mockResult = { secure_url: 'https://test-url.com' };
+
+      const mockUploadStream = {
+        end: jest.fn().mockReturnThis(),
       };
 
       (cloudinary.uploader.upload_stream as jest.Mock).mockImplementation(
-        (options, callback: (error: any, result: any) => void) => {
-          callback(null, mockUploadResponse);
-          return {
-            end: jest.fn().mockImplementation(() => {
-              return true;
-            }),
-          };
+        (options: any, callback: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          callback(null, mockResult);
+          return mockUploadStream;
         },
       );
 
       const result = await service.uploadImage(mockFile);
-      expect(result).toEqual({ url: mockUploadResponse.secure_url });
-      expect(cloudinary.uploader.upload_stream).toHaveBeenCalledWith(
-        { resource_type: 'image' },
-        expect.any(Function),
-      );
+      expect(result).toEqual({ url: mockResult.secure_url });
+      expect(
+        cloudinary.uploader.upload_stream as jest.Mock,
+      ).toHaveBeenCalledWith({ resource_type: 'image' }, expect.any(Function));
     });
 
     it('should throw BadRequestException if no file is provided', async () => {

@@ -45,8 +45,6 @@ export class CohortsController {
   @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   create(@Body() createCohortDto: CreateCohortDto) {
-    // TODO: Ensure program used to create cohort exist
-    // Create and return cohort
     return this.cohortsService.create(createCohortDto);
   }
 

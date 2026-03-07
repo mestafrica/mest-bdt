@@ -123,10 +123,13 @@ export class ProfilesController {
   @ApiBadRequestResponse({ description: 'Invalid input data provided.' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  updateOne(
+  async updateOne(
     @Param('id') id: string,
     @Body() updateProfileDto: UpdateProfileDto,
   ) {
+    const profile = await this.profilesService.findOne({ _id: id });
+    if (!profile)
+      throw new NotFoundException('Profile for user does not exist!');
     return this.profilesService.updateOne({ _id: id }, updateProfileDto);
   }
 
@@ -142,7 +145,10 @@ export class ProfilesController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  deleteOne(@Param('id') id: string) {
+  async deleteOne(@Param('id') id: string) {
+    const profile = await this.profilesService.findOne({ _id: id });
+    if (!profile)
+      throw new NotFoundException('Profile for user does not exist!');
     return this.profilesService.deleteOne({ _id: id });
   }
 }

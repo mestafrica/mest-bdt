@@ -15,46 +15,56 @@ describe('UsersService', () => {
     }).compile();
 
     service = module.get<UsersService>(UsersService);
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('should call userModel.insertOne on create', async () => {
-    const doc = { email: 'test@example.com' };
-    await service.create(doc);
-    expect(mockModel.insertOne).toHaveBeenCalledWith(doc);
+  it('should create a user', async () => {
+    const dto = { email: 'test@test.com' };
+    mockModel.insertOne.mockResolvedValue(dto);
+    const result = await service.create(dto as any);
+    expect(result).toEqual(dto);
+    expect(mockModel.insertOne).toHaveBeenCalledWith(dto);
   });
 
-  it('should call userModel.countDocuments on countDocuments', async () => {
-    const filter = { email: 'test@example.com' };
-    await service.countDocuments(filter);
-    expect(mockModel.countDocuments).toHaveBeenCalledWith(filter);
+  it('should count users', async () => {
+    mockModel.countDocuments.mockResolvedValue(10);
+    const result = await service.countDocuments({});
+    expect(result).toEqual(10);
+    expect(mockModel.countDocuments).toHaveBeenCalledWith({});
   });
 
-  it('should call userModel.find on findAll', async () => {
-    const filter = { role: 'user' };
-    await service.findAll(filter);
-    expect(mockModel.find).toHaveBeenCalledWith(filter);
+  it('should find all users', async () => {
+    const users = [{ email: 'test@test.com' }];
+    mockModel.find.mockResolvedValue(users);
+    const result = await service.findAll({});
+    expect(result).toEqual(users);
+    expect(mockModel.find).toHaveBeenCalledWith({});
   });
 
-  it('should call userModel.findOne on findOne', async () => {
-    const filter = { _id: '123' };
-    await service.findOne(filter);
-    expect(mockModel.findOne).toHaveBeenCalledWith(filter);
+  it('should find one user', async () => {
+    const user = { email: 'test@test.com' };
+    mockModel.findOne.mockResolvedValue(user);
+    const result = await service.findOne({ _id: '1' });
+    expect(result).toEqual(user);
+    expect(mockModel.findOne).toHaveBeenCalledWith({ _id: '1' });
   });
 
-  it('should call userModel.updateOne on updateOne', async () => {
-    const filter = { _id: '123' };
-    const update = { name: 'Updated Name' };
-    await service.updateOne(filter, update);
-    expect(mockModel.updateOne).toHaveBeenCalledWith(filter, update);
+  it('should update a user', async () => {
+    const user = { email: 'Updated' };
+    mockModel.updateOne.mockResolvedValue(user);
+    const result = await service.updateOne({ _id: '1' }, user as any);
+    expect(result).toEqual(user);
+    expect(mockModel.updateOne).toHaveBeenCalledWith({ _id: '1' }, user);
   });
 
-  it('should call userModel.deleteOne on deleteOne', async () => {
-    const filter = { _id: '123' };
-    await service.deleteOne(filter);
-    expect(mockModel.deleteOne).toHaveBeenCalledWith(filter);
+  it('should delete a user', async () => {
+    mockModel.deleteOne.mockResolvedValue({ deletedCount: 1 });
+    const result = await service.deleteOne({ _id: '1' });
+    expect(result).toEqual({ deletedCount: 1 });
+    expect(mockModel.deleteOne).toHaveBeenCalledWith({ _id: '1' });
   });
 });

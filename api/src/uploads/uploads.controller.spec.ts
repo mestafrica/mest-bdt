@@ -5,6 +5,7 @@ import { AuthGuard } from '../common/guards/auth.guard';
 
 describe('UploadsController', () => {
   let controller: UploadsController;
+  let service: UploadsService;
 
   const mockUploadsService = {
     uploadImage: jest.fn(),
@@ -29,6 +30,7 @@ describe('UploadsController', () => {
       .compile();
 
     controller = module.get<UploadsController>(UploadsController);
+    service = module.get<UploadsService>(UploadsService);
     jest.clearAllMocks();
   });
 
@@ -36,17 +38,14 @@ describe('UploadsController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('uploadImage', () => {
-    it('should call uploadsService.uploadImage and return the result', async () => {
-      const mockFile = {
-        buffer: Buffer.from('test'),
-        mimetype: 'image/jpeg',
-      } as Express.Multer.File;
-      const expectedResult = { url: 'http://example.com/image.jpg' };
-      mockUploadsService.uploadImage.mockResolvedValue(expectedResult);
+  it('should upload an image', async () => {
+    const mockFile = { originalname: 'test.png' } as Express.Multer.File;
+    const mockResponse = { url: 'https://test.com' };
+    mockUploadsService.uploadImage.mockResolvedValue(mockResponse);
 
-      const result = await controller.uploadImage(mockFile);
-      expect(result).toEqual(expectedResult);
-    });
+    const result = await controller.uploadImage(mockFile);
+
+    expect(result).toEqual(mockResponse);
+    expect(service.uploadImage as jest.Mock).toHaveBeenCalledWith(mockFile);
   });
 });
