@@ -12,19 +12,27 @@ import {
   ApiBody,
   ApiCreatedResponse,
   ApiBearerAuth,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { UploadsService } from './uploads.service';
 import { AuthGuard } from '../common/guards/auth.guard';
 
 @ApiBearerAuth()
 @ApiTags('uploads')
+@ApiInternalServerErrorResponse({ description: 'Internal server error.' })
 @Controller('uploads')
 export class UploadsController {
   constructor(private readonly uploadsService: UploadsService) {}
 
   @UseGuards(AuthGuard)
   @Post('image')
+  @ApiOperation({ summary: 'Upload an image' })
   @ApiConsumes('multipart/form-data')
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   @ApiBody({
     schema: {
       type: 'object',

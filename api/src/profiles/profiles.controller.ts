@@ -17,24 +17,36 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiTags,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { Profile } from './schemas/profile.schema';
 import { CurrentUser, HankoUser } from '../common/decorators/user.decorator';
 import { AuthGuard } from '../common/guards/auth.guard';
 
+@ApiTags('profiles')
 @ApiBearerAuth()
+@ApiInternalServerErrorResponse({ description: 'Internal server error.' })
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @UseGuards(AuthGuard)
   @Post()
+  @ApiOperation({ summary: 'Create a new profile' })
   @ApiCreatedResponse({
     description: 'The profile has been successfully created.',
+    type: Profile,
   })
   @ApiBadRequestResponse({ description: 'Invalid input data provided.' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   async create(@Body() createProfileDto: CreateProfileDto) {
     // Ensure profile with email does not exist
     const count = await this.profilesService.countDocuments({
@@ -46,20 +58,27 @@ export class ProfilesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all profiles' })
   @ApiOkResponse({
     description: 'The profiles have been successfully found.',
+    type: [Profile],
   })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   findAll(@Query() { filter = '{}' }: { filter: string }) {
     return this.profilesService.findAll(JSON.parse(filter) as object);
   }
 
   @Get('count')
+  @ApiOperation({ summary: 'Count total profiles' })
+  @ApiOkResponse({ description: 'The count of profiles', type: Number })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   countDocuments(@Query() { filter = '{}' }: { filter: string }) {
     return this.profilesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @UseGuards(AuthGuard)
   @Get('me')
+  @ApiOperation({ summary: 'Get current user profile' })
   @ApiOkResponse({
     description: 'The current user profile has been successfully found.',
   })
@@ -78,21 +97,32 @@ export class ProfilesController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ description: 'The profile has been successfully found.' })
+  @ApiOperation({ summary: 'Get a profile by id' })
+  @ApiOkResponse({
+    description: 'The profile has been successfully found.',
+    type: Profile,
+  })
   @ApiNotFoundResponse({
     description: 'The profile with the given id was not found.',
   })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   findOne(@Param('id') id: string) {
     return this.profilesService.findOne({ _id: id });
   }
 
   @UseGuards(AuthGuard)
   @Patch(':id')
-  @ApiOkResponse({ description: 'The profile has been successfully updated.' })
+  @ApiOperation({ summary: 'Update a profile' })
+  @ApiOkResponse({
+    description: 'The profile has been successfully updated.',
+    type: Profile,
+  })
   @ApiNotFoundResponse({
     description: 'The profile with the given id was not found.',
   })
   @ApiBadRequestResponse({ description: 'Invalid input data provided.' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   updateOne(
     @Param('id') id: string,
     @Body() updateProfileDto: UpdateProfileDto,
@@ -102,10 +132,16 @@ export class ProfilesController {
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  @ApiOkResponse({ description: 'The profile has been successfully deleted.' })
+  @ApiOperation({ summary: 'Delete a profile' })
+  @ApiOkResponse({
+    description: 'The profile has been successfully deleted.',
+    type: Profile,
+  })
   @ApiNotFoundResponse({
     description: 'The profile with the given id was not found.',
   })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   deleteOne(@Param('id') id: string) {
     return this.profilesService.deleteOne({ _id: id });
   }
