@@ -8,7 +8,7 @@ import CompanyGoals from "@/components/companies/CompanyGoals";
 
 export default function ViewCompanyPage() {
   return (
-    <div className="p-6 sm:p-10 min-h-screen bg-gray-100  text-gray-900  transition-colors duration-300">
+    <div className="bg-[#0B1220] p-4 sm:p-8 rounded-md min-h-screen">
       <CompanyHeader />
 
       <div className="mt-6">

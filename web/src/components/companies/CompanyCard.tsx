@@ -9,65 +9,62 @@ export interface CompanyCardProps {
 
 export default function CompanyCard({ company }: CompanyCardProps) {
   return (
-    <div className=" relative rounded-lg shadow-md space-y-2 bg-white border border-transparent hover:border-blue-400  hover:shadow-lg ">
+    <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm flex flex-col">
       {/* Card Image */}
-      <div className="relative w-full h-48  overflow-hidden">
+      <div className="relative h-32 w-full bg-slate-900 border-b border-slate-800 transform transition-transform duration-300 hover:scale-105">
         <Image
           src={"https://placehold.co/600x400.png"}
-          alt="image complete"
+          alt="Company Image"
           fill
           quality={100}
           style={{ objectFit: "cover" }}
-          className="rounded-t-lg transform transition-transform duration-300 hover:scale-110 "
         />
       </div>
 
       {/* Company Details */}
-      <div className="  flex flex-col p-3  ">
-        <div className="flex justify-between">
+      <div className="p-4 flex flex-col flex-1">
+        <div className="flex justify-between items-start gap-2">
           <Link
             href={`/companies/view?id=${company.id}`}
-            className="text-gray-800 text-sm md:text-sm hover:text-blue-700 "
+            className="text-slate-100 font-medium hover:text-blue-400 focus:outline-none transition-colors"
           >
             {company.name}
           </Link>
-          <p className="bg-gray-200 flex items-center text-black px-2 py-1 rounded-full text-xs">
-            completed{" "}
+          <p className="border border-green-900 bg-green-900/40 text-green-200 px-2 py-0.5 rounded-md text-xs whitespace-nowrap">
+            Completed
           </p>
         </div>
-        <div className=" mt-1.5 flex items-center text-xs md:text-sm text-gray-700">
-          <p>Venture Captial </p>
+        
+        <div className="mt-2 flex items-center text-xs text-slate-400">
+          <p>Venture Capital</p>
           <span className="flex items-center ml-2">
-            <Dot /> 85 employees
+            <Dot className="text-slate-500 h-4 w-4" /> 85 employees
           </span>
         </div>
-      </div>
 
-      {/* Details */}
-      <div className="space-y-2 mt-4 text-xs md:text-sm text-gray-600 px-4">
-        <div className="flex items-center gap-4">
+        <div className="flex-1" />
+
+        {/* Details */}
+        <div className="space-y-2 mt-4 text-xs text-slate-500">
           <div className="flex items-center gap-2">
-            <Users size={16} />
+            <Users size={14} className="text-slate-500" />
             <p>Participants: 6</p>
           </div>
-        </div>
-        <div className="flex text-xs md:text-sm items-center gap-2">
           <div className="flex items-center gap-2">
-            <Calendar size={16} />
-            <p>Onboarded:</p>
+            <Calendar size={14} className="text-slate-500" />
+            <p>Onboarded: Aug 15, 2024</p>
           </div>
-          <p>Aug 15, 2024</p>
         </div>
-      </div>
 
-      {/* Progress bar */}
-      <div className="bg-white rounded-lg w-full md:w-72 mt-2 md:block p-4">
-        <div className="flex justify-between">
-          <p className="text-sm mb-1 text-gray-600">Completion</p>
-          <p className="text-sm mb-1">100%</p>
-        </div>
-        <div className="w-full h-2 bg-gray-400 rounded-full">
-          <div className="w-4/4 h-full  bg-black rounded-full"></div>
+        {/* Progress bar */}
+        <div className="mt-4 pt-4 border-t border-slate-800/50">
+          <div className="flex justify-between items-center mb-1.5">
+            <p className="text-xs text-slate-400">Completion</p>
+            <p className="text-xs text-slate-300 font-medium">100%</p>
+          </div>
+          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-full h-full bg-blue-500 rounded-full"></div>
+          </div>
         </div>
       </div>
     </div>

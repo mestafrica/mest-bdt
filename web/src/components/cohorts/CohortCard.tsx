@@ -11,10 +11,10 @@ export default function CohortCard({ cohort }: CohortCardProps) {
   return (
     <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm flex flex-col">
       {/* Image */}
-      <div className="relative h-48 w-full bg-slate-900 transform transition-transform duration-300 hover:scale-110">
+      <div className="relative h-32 w-full bg-slate-900 border-b border-slate-800 transform transition-transform duration-300 hover:scale-105">
         <Image
           src={cohort.image || "https://placehold.co/600x400.png"}
-          alt="Cohort 1"
+          alt="Cohort Image"
           fill
           sizes="(max-width: 640px) 100vw, 33vw"
           style={{ objectFit: "cover" }}
@@ -37,14 +37,14 @@ export default function CohortCard({ cohort }: CohortCardProps) {
           </span>
         </div>
         {/* Action Buttons */}
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-800/50">
           <Link href={`/cohorts/view?id=${cohort.id}`}>
-            <button className="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 cursor-pointer">
+            <button className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 cursor-pointer transition-colors">
               <Eye className="h-4 w-4" /> View
             </button>
           </Link>
           <Link href={`/cohorts/edit?id=${cohort.id}`}>
-            <button className="px-2 py-1 rounded-md border text-slate-100 border-slate-700 text-sm flex items-center gap-2 cursor-pointer">
+            <button className="px-3 py-1.5 rounded-md border text-slate-100 border-slate-700 hover:bg-slate-800 text-sm flex items-center gap-2 cursor-pointer transition-colors">
               <Edit className="h-4 w-4" /> Edit
             </button>
           </Link>

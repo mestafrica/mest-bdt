@@ -33,61 +33,58 @@ export default function EditCompanyForm() {
     <form
       autoComplete="off"
       action={handleSubmit}
-      className="mt-6 bg-white p-4 shadow-lg rounded-lg border border-gray-200 text-gray-800"
+      className="mt-6 bg-[#0B1220] p-4 sm:p-8 border border-slate-800 rounded-lg text-slate-200"
     >
-      <h1 className=" text-xl md:ml-6  font-bold">Edit Company</h1>
-      <p className="mt-2 md:ml-6 text-gray-700 text-sm">
+      <h1 className="text-2xl font-semibold text-slate-100 mb-2">Edit Company</h1>
+      <p className="text-slate-400 text-sm mb-6">
         Update the company information for Leadership Development Program
       </p>
       {/* Basic information details */}
-      <div className=" w-[95%] mx-auto mt-6">
-        {/* <h2 className="text-sm">Basic Information</h2> */}
+      <div className="w-full mx-auto mt-6">
+        <h2 className="text-lg font-medium text-slate-200 mb-4 border-b border-slate-800 pb-2">Basic Information</h2>
         <div className="space-y-6 mt-4">
-          <div className=" flex flex-col justify-between">
+          <div className="flex flex-col">
             <label
               htmlFor=""
-              className=" flex text-sm gap-1 mb-1 text-gray-900 font-bold"
+              className="text-sm font-medium text-slate-300 mb-2 block"
             >
-              Company Name
-              <span className="text-red-700">*</span>
+              Company Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               name="name"
               defaultValue={data?.name}
               placeholder="e.g., TechVentures Inc."
-              className="bg-gray-100 px-3 py-2 rounded-lg text-sm"
+              className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors w-full"
             />
           </div>
         </div>
       </div>
 
       {/* Company Information */}
-      <div className=" mt-4 w-[95%] mx-auto text-gray-800 ">
-        {/* <h2 className="text-sm">Contact Information</h2> */}
+      <div className="mt-10 w-full mx-auto">
+        <h2 className="text-lg font-medium text-slate-200 mb-4 border-b border-slate-800 pb-2">Contact Information</h2>
         <div className="mt-4">
           <label
             htmlFor=""
-            className="flex gap-1 items-center text-gray-900 font-bold text-sm mb-1 "
+            className="text-sm font-medium text-slate-300 mb-2 block"
           >
-            Project Manager
-            <span className="text-red-600">*</span>
+            Project Manager <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             placeholder="Add a company objective..."
-            className="bg-gray-100 px-4 py-3 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors w-full"
           />
         </div>
       </div>
-      <div className="mt-10 border-t border-gray-200  "></div>
 
       {/* Buttons */}
-      <div className=" flex text-sm gap-4 md:gap-6 w-[95%] mx-auto mt-6 mb-10">
-        <SubmitButton title="Update Company" />
-        <Button type="button" variant="danger" onClick={router.back}>
+      <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6 mt-10 border-t border-slate-800">
+        <Button type="button" variant="danger" onClick={() => router.back()}>
           Cancel
         </Button>
+        <SubmitButton title="Update Company" />
       </div>
     </form>
   );

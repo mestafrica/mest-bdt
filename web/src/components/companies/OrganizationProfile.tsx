@@ -1,50 +1,50 @@
 export default function OrganizationProfile() {
   return (
-    <div className="bg-white rounded-lg px-6 py-6 border border-gray-300 w-full">
-      <div className="mb-4">
-        <h2 className="text-base text-gray-900 font-semibold mb-2">
+    <div className="bg-[#0B1220] rounded-md px-6 py-6 border border-slate-800 w-full">
+      <div className="mb-4 text-slate-200">
+        <h2 className="text-lg font-medium mb-1">
           Organization Profile
         </h2>
-        <div className=" border-t  border-gray-200"></div>
-        <p className="text-sm mt-2 text-gray-600">
-          Business Operation Overview
-        </p>
       </div>
+      <div className="border-t border-slate-800 mb-4"></div>
+      <p className="text-sm text-slate-400 mb-6">
+        Business Operation Overview
+      </p>
 
-      <div>
-        <h2 className="text-sm mt-2 text-gray-900 font-bold">
+      <div className="mb-6">
+        <h2 className="text-sm text-slate-500">
           Project Manager
         </h2>
-        <p className="text-sm mt-2 text-gray-900 mb-4">Eramus Konney</p>
+        <p className="text-sm font-medium text-slate-200 mt-1 mb-4">Eramus Konney</p>
       </div>
 
-      <div className=" border-t  border-gray-400"></div>
+      <div className="border-t border-slate-800 mb-6"></div>
       {/* Key Data Fields */}
-      <div className="space-y-4 mt-4 mb-2">
+      <div className="space-y-6">
         <div>
-          <h2 className="text-sm mt-2 text-gray-900 ">
+          <h2 className="text-sm text-slate-500">
             Total Number of Employees
           </h2>
-          <p className="text-sm mt-2 text-gray-900 mb-4">60</p>
+          <p className="text-sm font-medium text-slate-200 mt-1">60</p>
         </div>
 
         <div>
-          <h3 className="text-sm text-gray-800 font-medium">
+          <h3 className="text-sm text-slate-500">
             Key Organizational Units
           </h3>
-          <p className="text-sm text-gray-700">10</p>
+          <p className="text-sm font-medium text-slate-200 mt-1">10</p>
         </div>
 
         <div>
-          <h3 className="text-sm text-gray-800 font-medium">
+          <h3 className="text-sm text-slate-500">
             Product / Service
           </h3>
-          <p className="text-sm text-gray-700">Technology</p>
+          <p className="text-sm font-medium text-slate-200 mt-1">Technology</p>
         </div>
 
         <div>
-          <h3 className="text-sm text-gray-800 font-medium">Annual Revenue</h3>
-          <p className="text-sm text-gray-700">$16.0M</p>
+          <h3 className="text-sm text-slate-500">Annual Revenue</h3>
+          <p className="text-sm font-medium text-slate-200 mt-1">$16.0M</p>
         </div>
       </div>
     </div>

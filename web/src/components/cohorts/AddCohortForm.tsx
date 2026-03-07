@@ -35,63 +35,59 @@ export default function AddCohortForm() {
     <form
       autoComplete="off"
       action={handleSubmit}
-      className="mt-6 bg-white p-4 sm:p-6 shadow-lg rounded-lg text-black"
+      className="mt-6 bg-[#0B1220] p-4 sm:p-8 border border-slate-800 rounded-lg text-slate-200"
     >
-      <h1 className="text-xl font-bold text-center sm:text-left">
+      <h1 className="text-2xl font-semibold text-slate-100 mb-2">
         Add New Cohort
       </h1>
-      <p className="mt-2 text-gray-700 text-sm text-center sm:text-left">
+      <p className="text-slate-400 text-sm mb-6">
         Create a new cohort by filling out the information below
       </p>
       <div className="w-full mx-auto mt-6">
         <div className="space-y-6 mt-4">
           {/* Cohort Name */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 font-semibold">
-              Cohort Name
-              <span className="text-red-700">*</span>
+            <label className="text-sm font-medium text-slate-300 mb-2">
+              Cohort Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               name="name"
               placeholder="e.g., 2025 Spring Cohort"
-              className="bg-gray-200 px-2 py-3 rounded-lg text-sm border border-gray-400"
+              className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
             />
           </div>
           {/* Cohort Description */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 font-semibold">
-              Cohort Description
-              <span className="text-red-700">*</span>
+            <label className="text-sm font-medium text-slate-300 mb-2">
+              Cohort Description <span className="text-red-500">*</span>
             </label>
             <textarea
               name="description"
               placeholder="Provide a detailed description of the cohort..."
-              className="bg-gray-100 px-2 py-3 rounded-lg text-sm border border-gray-400"
+              className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
               rows={5}
             />
           </div>
-          <div className="flex justify-between">
-            <div className="flex flex-col w-[45%]">
-              <label className="text-sm text-gray-700 font-semibold">
-                Start Date
-                <span className="text-red-700">*</span>
+          <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex flex-col flex-1">
+              <label className="text-sm font-medium text-slate-300 mb-2">
+                Start Date <span className="text-red-500">*</span>
               </label>
               <input
                 type="date"
                 name="startDate"
-                className="bg-gray-200 px-2 py-3 rounded-lg text-sm border border-gray-400"
+                className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors text-slate-200"
               />
             </div>
-            <div className="flex flex-col w-[45%]">
-              <label className="text-sm text-gray-700 font-semibold">
-                End Date
-                <span className="text-red-700">*</span>
+            <div className="flex flex-col flex-1">
+              <label className="text-sm font-medium text-slate-300 mb-2">
+                End Date <span className="text-red-500">*</span>
               </label>
               <input
                 type="date"
                 name="endDate"
-                className="bg-gray-200 px-2 py-3 rounded-lg text-sm border border-gray-400"
+                className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors text-slate-200"
               />
             </div>
           </div>
@@ -102,9 +98,8 @@ export default function AddCohortForm() {
             <p>Image uploaded successfully</p>
           ) : (
             <div className="flex flex-col">
-              <label className="text-sm text-gray-700 font-semibold">
-                Upload Image
-                <span className="text-gray-400 ml-1">(Optional)</span>
+              <label className="text-sm font-medium text-slate-300 mb-2">
+                Upload Image <span className="text-slate-500 font-normal">(Optional)</span>
               </label>
               <input
                 type="file"
@@ -114,16 +109,16 @@ export default function AddCohortForm() {
                     upload(e.target.files?.[0]);
                   }
                 }}
-                className="bg-gray-100 px-2 py-3 rounded-lg text-sm  border border-gray-400"
+                className="bg-[#0f1724] px-4 py-3 rounded-md text-sm border border-slate-700 focus:border-blue-500 outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 text-slate-300"
               />
             </div>
           )}
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row justify-end gap-4 mt-6">
-            <SubmitButton title="Create Cohort" />
-            <Button type="button" variant="danger" onClick={router.back}>
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6 mt-6 border-t border-slate-800">
+            <Button type="button" variant="danger" onClick={() => router.back()}>
               Cancel
             </Button>
+            <SubmitButton title="Create Cohort" />
           </div>
         </div>
       </div>

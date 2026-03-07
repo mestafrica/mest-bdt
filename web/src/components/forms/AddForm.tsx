@@ -12,8 +12,6 @@ export default function AddForm() {
   const [uiSchemaError, setUiSchemaError] = useState("");
 
   const handleSubmit = async (data: FormData) => {
-    toast.error("Form submission is disabled for now");
-    return;
     setSchemaError("");
     setUiSchemaError("");
 

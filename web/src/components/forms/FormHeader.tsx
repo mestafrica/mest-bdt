@@ -13,8 +13,6 @@ export default function FormHeader() {
   const { data: form } = useSWR(id ? `/forms/${id}` : null, apiFetcher);
 
   const handleDelete = async () => {
-    toast.error("Form deletion is disabled for now");
-    return;
     try {
       await apiClient.delete(`/forms/${id}`);
       toast.success("Form deleted successfully");

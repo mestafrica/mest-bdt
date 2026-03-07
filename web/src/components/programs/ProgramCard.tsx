@@ -9,49 +9,52 @@ export interface ProgramCardProps {
 
 export default function ProgramCard({ program }: ProgramCardProps) {
   return (
-    <div className=" relative rounded-lg shadow-md space-y-2 bg-white ">
-      <div className="relative w-full h-48  overflow-hidden">
+    <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm flex flex-col">
+      <div className="relative h-32 w-full bg-slate-900 border-b border-slate-800 transform transition-transform duration-300 hover:scale-105">
         <Image
           src={program?.image || "https://placehold.co/600x400.png"}
-          alt="image complete"
+          alt="Program Image"
           fill
           quality={100}
           style={{ objectFit: "cover" }}
-          className="rounded-t-lg"
         />
       </div>
-      <div className="flex mt-4 items-center justify-between">
+      <div className="flex mt-4 px-4 items-center justify-between">
         {/*Action tags  */}
-        <p className="bg-blue-100 absolute top-2 left-2 text-blue-900 px-2 py-1 rounded-full text-xs">
-          upcoming{" "}
+        <p className="border border-blue-900 bg-blue-900/40 text-blue-200 px-2 py-0.5 rounded-md text-xs">
+          Upcoming
         </p>
-        <div className=" absolute top-2  right-2 flex items-center gap-3">
-          <Link href={`/programs/view?id=${program.id}`}>
-            <Eye className="w-8 h-8 text-gray-600 bg-white p-1.5 rounded-full hover:text-blue-500 cursor-pointer transition" />
-          </Link>
-        </div>
       </div>
 
       {/* Program Details */}
-      <div className=" flex flex-col p-3  ">
-        <h2 className=" font-semibold ">{program.name}</h2>
-        <p className="text-gray-700 text-base mt-2  leading-relaxed">
+      <div className="p-4 flex flex-col flex-1">
+        <h2 className="text-slate-100 font-medium">{program.name}</h2>
+        <p className="text-sm text-slate-400 mt-1 line-clamp-3 leading-relaxed">
           {program.description}
         </p>
-        <div>
-          <div className="space-y-2 mt-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
-              <Boxes className="w-4 h-4" />
-              <p> 24 Cohorts</p>
-            </div>
+        <div className="flex-1" />
+        
+        <div className="space-y-2 mt-4 text-xs text-slate-500">
+          <div className="flex items-center gap-2">
+            <Boxes className="w-4 h-4" />
+            <p>24 Cohorts</p>
           </div>
-          <div className="flex items-center gap-2 mt-2 mb-4">
-            <Calendar className="w-4 h-4 text-gray-500" />
-            <p className="text-gray-600 text-sm">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-slate-500" />
+            <p>
               {new Date(program.startDate).toDateString()} -{" "}
               {new Date(program.endDate).toDateString()}
             </p>
           </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-800/50">
+          <Link href={`/programs/view?id=${program.id}`}>
+            <button className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 cursor-pointer transition-colors">
+              <Eye className="h-4 w-4" /> View
+            </button>
+          </Link>
         </div>
       </div>
     </div>
