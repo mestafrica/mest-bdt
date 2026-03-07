@@ -14,14 +14,14 @@ export default function CompanyGoals() {
         <div className="space-y-6">
           <div className="flex items-center gap-2">
              <Lightbulb size={18} className="text-primary" />
-             <h3 className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Company's Mission</h3>
+             <h3 className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Company&apos;s Mission</h3>
           </div>
           <p className="text-sm font-medium text-foreground/70 leading-relaxed border-l-2 border-primary/20 pl-6 italic">
-            "Our mission is to empower individuals and businesses with
+            &quot;Our mission is to empower individuals and businesses with
             innovative, reliable solutions that simplify their daily operations
             and unlock new opportunities for growth. We are committed to
             delivering exceptional value through integrity, customer-focused
-            service, and continuous improvement in everything we do."
+            service, and continuous improvement in everything we do.&quot;
           </p>
         </div>
         

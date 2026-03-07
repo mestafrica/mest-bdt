@@ -40,7 +40,7 @@ export default function OrganizationProfile() {
       <div className="mt-10 pt-8 border-t border-border">
          <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
             <span className="text-[10px] font-bold text-primary uppercase tracking-widest block mb-2">Core Product/Service</span>
-            <p className="text-sm font-bold text-foreground italic">"Cloud-based Enterprise Resource Planning Software for SMEs"</p>
+            <p className="text-sm font-bold text-foreground italic">&quot;Cloud-based Enterprise Resource Planning Software for SMEs&quot;</p>
          </div>
       </div>
     </div>

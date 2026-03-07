@@ -17,10 +17,5 @@ export class CreateResponseDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  response: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
   data: string;
 }

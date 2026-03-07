@@ -40,3 +40,17 @@ export type Profile = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type User = {
+  id: string;
+  company: string;
+  email: string;
+  name?: string;
+  phone?: string;
+  location?: string;
+  avatar?: string;
+  bio?: string;
+  access: "READ" | "WRITE";
+  createdAt?: string;
+  updatedAt?: string;
+};
