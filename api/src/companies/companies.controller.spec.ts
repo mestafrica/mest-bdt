@@ -15,6 +15,7 @@ describe('CompaniesController', () => {
         CompaniesService,
         { provide: getModelToken('Company'), useValue: mockModel },
         { provide: getModelToken('Response'), useValue: mockModel },
+        { provide: getModelToken('User'), useValue: mockModel },
       ],
     }).compile();
 

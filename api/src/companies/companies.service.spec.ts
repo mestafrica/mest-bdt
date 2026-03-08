@@ -6,6 +6,7 @@ import { ConflictException } from '@nestjs/common';
 
 const companyModelMock = { ...mockModel };
 const responseModelMock = { ...mockModel };
+const userModelMock = { ...mockModel };
 
 describe('CompaniesService', () => {
   let service: CompaniesService;
@@ -17,6 +18,7 @@ describe('CompaniesService', () => {
         CompaniesService,
         { provide: getModelToken('Company'), useValue: companyModelMock },
         { provide: getModelToken('Response'), useValue: responseModelMock },
+        { provide: getModelToken('User'), useValue: userModelMock },
       ],
     }).compile();
 
@@ -72,10 +74,11 @@ describe('CompaniesService', () => {
   });
 
   describe('deleteOne', () => {
-    it('should delete company if no responses exist', async () => {
+    it('should delete company if no responses or users exist', async () => {
       const company = { _id: 'cid1', name: 'Company 1' };
       companyModelMock.findOne.mockResolvedValue(company);
       responseModelMock.countDocuments.mockResolvedValue(0);
+      userModelMock.countDocuments.mockResolvedValue(0);
       companyModelMock.deleteOne.mockResolvedValue({ deletedCount: 1 });
 
       const result = await service.deleteOne({ _id: 'cid1' });
@@ -86,6 +89,17 @@ describe('CompaniesService', () => {
       const company = { _id: 'cid1', name: 'Company 1' };
       companyModelMock.findOne.mockResolvedValue(company);
       responseModelMock.countDocuments.mockResolvedValue(2);
+
+      await expect(service.deleteOne({ _id: 'cid1' })).rejects.toThrow(
+        ConflictException,
+      );
+    });
+
+    it('should throw ConflictException if users exist for company', async () => {
+      const company = { _id: 'cid1', name: 'Company 1' };
+      companyModelMock.findOne.mockResolvedValue(company);
+      responseModelMock.countDocuments.mockResolvedValue(0);
+      userModelMock.countDocuments.mockResolvedValue(2);
 
       await expect(service.deleteOne({ _id: 'cid1' })).rejects.toThrow(
         ConflictException,
