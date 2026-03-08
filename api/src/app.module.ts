@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Connection } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
-import normalize from 'normalize-mongoose';
+
 import { ProfilesModule } from './profiles/profiles.module';
 import { ProgramsModule } from './programs/programs.module';
 import { CohortsModule } from './cohorts/cohorts.module';
@@ -15,10 +15,28 @@ import { UploadsModule } from './uploads/uploads.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_URI as string, {
-      connectionFactory: (connection: Connection) => {
-        connection.plugin(normalize);
-        return connection;
+    MongooseModule.forRootAsync({
+      useFactory: async () => {
+        let normalize: any;
+        if (process.env.NODE_ENV !== 'test') {
+          try {
+            // Dynamic import to bypass ESM issues in Jest for CommonJS
+            const module = await eval("import('normalize-mongoose')");
+            normalize = module.default;
+          } catch {
+            // ignore
+          }
+        }
+
+        return {
+          uri: process.env.MONGO_URI as string,
+          connectionFactory: (connection: Connection) => {
+            if (normalize) {
+              connection.plugin(normalize);
+            }
+            return connection;
+          },
+        };
       },
     }),
     ProfilesModule,
