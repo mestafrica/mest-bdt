@@ -59,7 +59,7 @@ describe('ResponsesService', () => {
   it('should update a response', async () => {
     const response = { formId: 'Updated' };
     mockModel.updateOne.mockResolvedValue(response);
-    const result = await service.updateOne({ _id: '1' }, response as any);
+    const result = await service.updateOne({ _id: '1' }, response);
     expect(result).toEqual(response);
     expect(mockModel.updateOne).toHaveBeenCalledWith({ _id: '1' }, response);
   });
