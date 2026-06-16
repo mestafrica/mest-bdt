@@ -40,11 +40,11 @@ export default function InviteUserSection() {
     const access = String(formData.get("access"));
 
     // Create user
-    await apiClient.post("/users", {
-      email,
-      access,
-      company: companyId,
-    });
+    // await apiClient.post("/users", {
+    //   email,
+    //   access,
+    //   company: companyId,
+    // });
 
     // Send invitation email
     await apiClient.post("/invitations", {
