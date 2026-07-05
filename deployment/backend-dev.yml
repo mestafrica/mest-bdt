@@ -1,0 +1,61 @@
+services:
+  api-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+
+  auth-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: hanko
+      POSTGRES_PASSWORD: ${HANKO_DATABASE_PASSWORD:-hankopassword}
+      POSTGRES_DB: hanko
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hanko -d hanko"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  auth:
+    image: ghcr.io/teamhanko/hanko:latest
+    command: serve all
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    env_file:
+      - ../hanko/.env
+    volumes:
+      - ../hanko/config.yaml:/config/config.yaml
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      auth-migrate:
+        condition: service_completed_successfully
+
+  auth-migrate:
+    image: ghcr.io/teamhanko/hanko:latest
+    command: migrate up
+    env_file:
+      - ../hanko/.env
+    volumes:
+      - ../hanko/config.yaml:/config/config.yaml
+    depends_on:
+      auth-db:
+        condition: service_healthy
+
+  mailslurper:
+    image: marcopas/docker-mailslurper
+    ports:
+      - "2500:2500"
+      - "8080:8080"
+      - "8085:8085"
+
+volumes:
+  db_data:
+  auth_db_data:

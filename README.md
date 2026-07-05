@@ -25,23 +25,31 @@ To get started with this project, you can run the entire stack using Docker Comp
 
 ### Running with Docker (Recommended)
 
-1. **Prerequisites:**
-   - [Docker](https://docs.docker.com/get-docker/)
-   - [Docker Compose](https://docs.docker.com/compose/install/)
+The project provides multiple Docker Compose configurations for different development needs.
 
-2. **Setup Environment Variables:**
-   - Duplicate `hanko/.env.example` to `hanko/.env` and adjust the values if necessary.
-     ```bash
-     cp hanko/.env.example hanko/.env
-     ```
+#### Prerequisites
 
-3. **Start the Application:**
-   ```bash
-   docker compose up --build
-   ```
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+#### Setup Environment Variables
+
+Before running any configuration, set up the authentication environment:
+
+```bash
+cp hanko/.env.example hanko/.env
+```
+
+#### Deployment Options
+
+| Mode | Command | Description |
+| --- | --- | --- |
+| **Full Stack** | `docker compose up --build` | Runs everything: API, Web, Auth, and Databases. |
+| **Frontend Dev** | `docker compose -f deployment/frontend-dev.yml up --build` | Runs API, Auth, and Databases. Ideal for frontend developers running the web app locally. |
+| **Backend Dev** | `docker compose -f deployment/backend-dev.yml up --build` | Runs Auth and Databases. Ideal for backend developers running the API and web app locally. |
 
 Once the containers are running:
-- **Frontend:** [http://localhost:3000](http://localhost:3000)
+- **Frontend:** [http://localhost:3000](http://localhost:3000) (if running in Full Stack mode)
 - **Backend API:** [http://localhost:4000](http://localhost:4000)
 - **API Documentation:** [http://localhost:4000/api](http://localhost:4000/api)
 - **Hanko Auth:** [http://localhost:8000](http://localhost:8000)
