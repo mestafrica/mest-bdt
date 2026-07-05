@@ -68,7 +68,9 @@ describe('UploadsService', () => {
         mimetype: 'image/jpeg',
       } as Express.Multer.File;
 
-      mockImageProvider.uploadImage.mockRejectedValue(new Error('Upload failed'));
+      mockImageProvider.uploadImage.mockRejectedValue(
+        new Error('Upload failed'),
+      );
 
       await expect(service.uploadImage(mockFile)).rejects.toThrow(
         BadRequestException,

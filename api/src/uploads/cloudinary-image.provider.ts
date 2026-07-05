@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
-import {
-  ImageProvider,
-  ImageUploadResponse,
-} from './image-provider.interface';
+import { ImageProvider, ImageUploadResponse } from './image-provider.interface';
 
 @Injectable()
 export class CloudinaryImageProvider implements ImageProvider {

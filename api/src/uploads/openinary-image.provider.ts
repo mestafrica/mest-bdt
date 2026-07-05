@@ -1,8 +1,14 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import {
-  ImageProvider,
-  ImageUploadResponse,
-} from './image-provider.interface';
+import { ImageProvider, ImageUploadResponse } from './image-provider.interface';
+
+interface OpeninaryFileResponse {
+  url: string;
+}
+
+interface OpeninaryResponse {
+  success: boolean;
+  files: OpeninaryFileResponse[];
+}
 
 @Injectable()
 export class OpeninaryImageProvider implements ImageProvider {
@@ -12,7 +18,8 @@ export class OpeninaryImageProvider implements ImageProvider {
 
   constructor() {
     this.apiUrl = process.env.OPENINARY_URL || 'http://openinary:3000';
-    this.publicUrl = process.env.OPENINARY_PUBLIC_URL || 'http://localhost:3002';
+    this.publicUrl =
+      process.env.OPENINARY_PUBLIC_URL || 'http://localhost:3002';
     this.apiKey = process.env.OPENINARY_API_KEY || '';
   }
 
@@ -35,7 +42,7 @@ export class OpeninaryImageProvider implements ImageProvider {
         throw new Error(`Openinary upload failed: ${errorText}`);
       }
 
-      const result = await response.json();
+      const result = (await response.json()) as OpeninaryResponse;
       if (result.success && result.files && result.files.length > 0) {
         // Openinary returns internal URLs in result.files[0].url
         // We might need to replace the internal base URL with the public one
@@ -48,7 +55,9 @@ export class OpeninaryImageProvider implements ImageProvider {
         return { url };
       }
 
-      throw new Error('Openinary upload failed: No file information in response');
+      throw new Error(
+        'Openinary upload failed: No file information in response',
+      );
     } catch (error) {
       throw new BadRequestException(error.message);
     }
