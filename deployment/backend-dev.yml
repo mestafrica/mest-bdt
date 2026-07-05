@@ -29,7 +29,7 @@ services:
       - "8000:8000"
       - "8001:8001"
     env_file:
-      - ../hanko/.env
+      - .env
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:
@@ -42,12 +42,25 @@ services:
     image: ghcr.io/teamhanko/hanko:latest
     command: migrate up
     env_file:
-      - ../hanko/.env
+      - .env
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:
       auth-db:
         condition: service_healthy
+
+  openinary:
+    image: openinary/openinary:latest
+    ports:
+      - "3002:3000"
+    volumes:
+      - ../openinary/cache:/app/apps/api/cache
+      - ../openinary/public:/app/apps/api/public
+      - ../openinary/data:/app/data
+    environment:
+      - MODE=fullstack
+      - BETTER_AUTH_SECRET=${OPENINARY_AUTH_SECRET:-very-secret-openinary-key}
+      - BETTER_AUTH_URL=http://localhost:3002
 
   mailslurper:
     image: marcopas/docker-mailslurper

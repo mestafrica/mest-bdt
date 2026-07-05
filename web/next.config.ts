@@ -9,8 +9,9 @@ const nextConfig: NextConfig = {
         hostname: 'i.pinimg.com',
       },
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3002',
       },
       {
         protocol: 'https',

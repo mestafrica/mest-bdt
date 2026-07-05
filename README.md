@@ -37,7 +37,7 @@ The project provides multiple Docker Compose configurations for different develo
 Before running any configuration, set up the authentication environment:
 
 ```bash
-cp hanko/.env.example hanko/.env
+cp deployment/.env.example deployment/.env
 ```
 
 #### Deployment Options
@@ -50,8 +50,8 @@ cp hanko/.env.example hanko/.env
 
 Once the containers are running:
 - **Frontend:** [http://localhost:3000](http://localhost:3000) (if running in Full Stack mode)
-- **Backend API:** [http://localhost:4000](http://localhost:4000)
-- **API Documentation:** [http://localhost:4000/api](http://localhost:4000/api)
+- **Backend API:** [http://localhost:3001](http://localhost:3001)
+- **API Documentation:** [http://localhost:3001/api](http://localhost:3001/api)
 - **Hanko Auth:** [http://localhost:8000](http://localhost:8000)
 - **MailSlurper (Email Mock):** [http://localhost:8080](http://localhost:8080)
 - **Openinary (Image Service):** [http://localhost:3002](http://localhost:3002)
@@ -82,7 +82,7 @@ Once the containers are running:
    npm run start:dev
    ```
 
-The backend application will be running on `http://localhost:4000` (or as configured in `.env`).
+The backend application will be running on `http://localhost:3000` (or as configured in `.env`).
 
 #### Frontend (`/web`)
 
@@ -105,7 +105,7 @@ The frontend application will be running on `http://localhost:3000`.
 
 ## API Documentation
 
-The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:4000/api`.
+The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3001/api`.
 
 ## Testing
 
