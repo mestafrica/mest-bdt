@@ -21,14 +21,42 @@ This project is organized as a monorepo, containing both the backend and fronten
 
 ## Getting Started
 
-To get started with this project, you will need to set up and run both the backend and frontend applications.
+To get started with this project, you can run the entire stack using Docker Compose or set up each component manually.
 
-### Prerequisites
+### Running with Docker (Recommended)
 
-- [Node.js](https://nodejs.org) (v14 or later)
-- [npm](https://www.npmjs.com) (v6 or later)
+1. **Prerequisites:**
+   - [Docker](https://docs.docker.com/get-docker/)
+   - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Backend (`/api`)
+2. **Setup Environment Variables:**
+   - Duplicate `hanko/.env.example` to `hanko/.env` and adjust the values if necessary.
+     ```bash
+     cp hanko/.env.example hanko/.env
+     ```
+
+3. **Start the Application:**
+   ```bash
+   docker compose up --build
+   ```
+
+Once the containers are running:
+- **Frontend:** [http://localhost:3000](http://localhost:3000)
+- **Backend API:** [http://localhost:4000](http://localhost:4000)
+- **API Documentation:** [http://localhost:4000/api](http://localhost:4000/api)
+- **Hanko Auth:** [http://localhost:8000](http://localhost:8000)
+- **MailSlurper (Email Mock):** [http://localhost:8080](http://localhost:8080)
+
+### Manual Setup
+
+#### Prerequisites
+
+- [Node.js](https://nodejs.org) (v18 or later)
+- [npm](https://www.npmjs.com) (v9 or later)
+- [MongoDB](https://www.mongodb.com/try/download/community)
+- [Hanko Auth Service](https://github.com/teamhanko/hanko)
+
+#### Backend (`/api`)
 
 1. **Navigate to the `api` directory:**
    ```bash
@@ -45,9 +73,9 @@ To get started with this project, you will need to set up and run both the backe
    npm run start:dev
    ```
 
-The backend application will be running on `http://localhost:3000`.
+The backend application will be running on `http://localhost:4000` (or as configured in `.env`).
 
-### Frontend (`/web`)
+#### Frontend (`/web`)
 
 1. **Navigate to the `web` directory:**
    ```bash
@@ -68,7 +96,7 @@ The frontend application will be running on `http://localhost:3000`.
 
 ## API Documentation
 
-The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3000/docs`.
+The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:4000/api`.
 
 ## Testing
 
