@@ -1,0 +1,37 @@
+database:
+  user: hanko
+  password: "{{ .Env.HANKO_DATABASE_PASSWORD }}"
+  host: auth-db
+  port: 5432
+  database: hanko
+  dialect: postgres
+
+email_delivery:
+  enabled: true
+  email:
+    from_address: no-reply@example.com
+    from_name: MEST BDT Application
+  smtp:
+    host: mailslurper
+    port: 2500
+
+secrets:
+  keys:
+    - "{{ .Env.HANKO_SECRETS_KEYS }}"
+
+service:
+  name: MEST BDT Auth
+
+webauthn:
+  relying_party:
+    id: "localhost"
+    display_name: "MEST BDT Auth"
+    origins:
+      - "http://localhost:3000"
+
+server:
+  public:
+    cors:
+      allow_origins:
+        - "http://localhost:3000"
+      unsafe_wildcard_origin_allowed: true
