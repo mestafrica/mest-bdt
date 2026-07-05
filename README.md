@@ -44,7 +44,7 @@ cp hanko/.env.example hanko/.env
 
 | Mode | Command | Description |
 | --- | --- | --- |
-| **Full Stack** | `docker compose up --build` | Runs everything: API, Web, Auth, and Databases. |
+| **Full Stack** | `docker compose -f deployment/full.yml up --build` | Runs everything: API, Web, Auth, and Databases. |
 | **Frontend Dev** | `docker compose -f deployment/frontend-dev.yml up --build` | Runs API, Auth, and Databases. Ideal for frontend developers running the web app locally. |
 | **Backend Dev** | `docker compose -f deployment/backend-dev.yml up --build` | Runs Auth and Databases. Ideal for backend developers running the API and web app locally. |
 
