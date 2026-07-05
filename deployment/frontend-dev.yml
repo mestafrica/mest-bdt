@@ -55,7 +55,6 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - PORT=4000
       - MONGO_URI=mongodb://api-db:27017/bdt
       - HANKO_API_URL=http://auth:8000
       - APP_BASE_URL=http://localhost:3000
