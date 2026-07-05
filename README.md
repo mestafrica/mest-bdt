@@ -54,6 +54,7 @@ Once the containers are running:
 - **API Documentation:** [http://localhost:4000/api](http://localhost:4000/api)
 - **Hanko Auth:** [http://localhost:8000](http://localhost:8000)
 - **MailSlurper (Email Mock):** [http://localhost:8080](http://localhost:8080)
+- **Openinary (Image Service):** [http://localhost:3002](http://localhost:3002)
 
 ### Manual Setup
 

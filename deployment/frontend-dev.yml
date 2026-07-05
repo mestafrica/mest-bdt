@@ -49,6 +49,19 @@ services:
       auth-db:
         condition: service_healthy
 
+  openinary:
+    image: openinary/openinary:latest
+    ports:
+      - "3002:3000"
+    volumes:
+      - ../openinary/cache:/app/apps/api/cache
+      - ../openinary/public:/app/apps/api/public
+      - ../openinary/data:/app/data
+    environment:
+      - MODE=fullstack
+      - BETTER_AUTH_SECRET=${OPENINARY_AUTH_SECRET:-very-secret-openinary-key}
+      - BETTER_AUTH_URL=http://localhost:3002
+
   api:
     build:
       context: ../api
@@ -64,12 +77,17 @@ services:
       - SMTP_USER=test
       - SMTP_PASS=test
       - SMTP_FROM=no-reply@example.com
+      - UPLOAD_PROVIDER=${UPLOAD_PROVIDER:-openinary}
+      - OPENINARY_URL=http://openinary:3000
+      - OPENINARY_PUBLIC_URL=http://localhost:3002
+      - OPENINARY_API_KEY=${OPENINARY_API_KEY:-}
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME:-}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY:-}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET:-}
     depends_on:
       - api-db
       - auth
+      - openinary
 
   mailslurper:
     image: marcopas/docker-mailslurper
