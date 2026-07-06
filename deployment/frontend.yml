@@ -1,6 +1,7 @@
 services:
   api-db:
     image: mongo:latest
+    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
@@ -8,6 +9,7 @@ services:
 
   auth-db:
     image: postgres:15-alpine
+    restart: unless-stopped
     env_file:
       - .env
     ports:
@@ -22,6 +24,7 @@ services:
 
   auth:
     image: ghcr.io/teamhanko/hanko:latest
+    restart: unless-stopped
     command: serve all
     ports:
       - "8000:8000"
@@ -49,29 +52,35 @@ services:
 
   openinary:
     image: openinary/openinary:latest
+    restart: unless-stopped
     ports:
       - "3002:3000"
     volumes:
-      - ../openinary/cache:/app/apps/api/cache
-      - ../openinary/public:/app/apps/api/public
-      - ../openinary/data:/app/data
+      - openinary_cache:/app/apps/api/cache
+      - openinary_public:/app/apps/api/public
+      - openinary_data:/app/data
     env_file:
       - .env
 
   api:
     build:
       context: ../api
+    restart: unless-stopped
     ports:
       - "3001:3000"
     env_file:
       - .env
     depends_on:
-      - api-db
-      - auth
-      - openinary
+      api-db:
+        condition: service_started
+      auth:
+        condition: service_started
+      openinary:
+        condition: service_started
 
   mailslurper:
     image: marcopas/docker-mailslurper
+    restart: unless-stopped
     ports:
       - "2500:2500"
       - "8080:8080"
@@ -80,3 +89,6 @@ services:
 volumes:
   api_db_data:
   auth_db_data:
+  openinary_cache:
+  openinary_public:
+  openinary_data:

@@ -19,6 +19,12 @@ RUN npm install --omit=dev
 
 COPY --from=build /app/dist ./dist
 
+# Create a non-root user and set permissions
+RUN addgroup -S nodejs && adduser -S nestjs -G nodejs \
+    && chown -R nestjs:nodejs /app
+
+USER nestjs
+
 EXPOSE 3000
 
 CMD ["node", "dist/main"]
