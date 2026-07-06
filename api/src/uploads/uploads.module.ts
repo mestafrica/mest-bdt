@@ -1,11 +1,16 @@
 import { Module } from '@nestjs/common';
-import { UploadsController } from './uploads.controller';
 import { UploadsService } from './uploads.service';
-import { CloudinaryProvider } from './cloudinary.provider';
+import { UploadsController } from './uploads.controller';
+import { OpeninaryImageProvider } from './openinary-image.provider';
 
 @Module({
   controllers: [UploadsController],
-  providers: [UploadsService, CloudinaryProvider],
-  exports: [UploadsService],
+  providers: [
+    UploadsService,
+    {
+      provide: 'IMAGE_PROVIDER',
+      useClass: OpeninaryImageProvider,
+    },
+  ],
 })
 export class UploadsModule {}

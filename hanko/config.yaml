@@ -1,0 +1,48 @@
+# NOTE: Hanko loads config with koanf + kelseyhightower/envconfig. It does NOT
+# expand `{{ .Env.X }}` templates. Values below are localhost defaults; any field
+# whose env var is set (envconfig runs after the YAML load) is overridden at
+# startup. envconfig maps env vars onto these fields (set in the compose files):
+#   database.user                    -> DATABASE_USER                    (from POSTGRES_USER)
+#   database.password                -> DATABASE_PASSWORD                (from POSTGRES_PASSWORD)
+#   database.database                -> DATABASE_DATABASE                (from POSTGRES_DB)
+#   secret_keys                      -> SECRET_KEYS                      (from HANKO_SECRETS_KEYS)
+#   webauthn.relying_party.id        -> WEBAUTHN_RELYING_PARTY_ID        (from APP_HOST; bare host, no scheme/port)
+#   webauthn.relying_party.origins   -> WEBAUTHN_RELYING_PARTY_ORIGINS   (from APP_BASE_URL; comma-separated for multiple)
+#   server.public.cors.allow_origins -> SERVER_PUBLIC_CORS_ALLOW_ORIGINS (from APP_BASE_URL; comma-separated for multiple)
+database:
+  # user, password, and database name are injected via the DATABASE_* env vars
+  host: auth-db
+  port: 5432
+  dialect: postgres
+
+email_delivery:
+  enabled: true
+  email:
+    from_address: no-reply@example.com
+    from_name: MEST BDT Application
+  smtp:
+    host: mailslurper
+    port: 2500
+
+# secret_keys injected via the SECRET_KEYS env var (see deployment/*.yml).
+# Top-level `secret_keys` replaces the deprecated `secrets.keys` list.
+
+service:
+  name: MEST BDT Auth
+
+webauthn:
+  relying_party:
+    # Overridden by WEBAUTHN_RELYING_PARTY_ID (from APP_HOST) for non-localhost hosts.
+    id: "localhost"
+    display_name: "MEST BDT Auth"
+    # Overridden by WEBAUTHN_RELYING_PARTY_ORIGINS (from APP_BASE_URL) for non-localhost hosts.
+    origins:
+      - "http://localhost:3000"
+
+server:
+  public:
+    cors:
+      # Overridden by SERVER_PUBLIC_CORS_ALLOW_ORIGINS (from APP_BASE_URL) for non-localhost hosts.
+      allow_origins:
+        - "http://localhost:3000"
+      unsafe_wildcard_origin_allowed: true

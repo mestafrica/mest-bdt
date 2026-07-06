@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Enabled-blue)](https://hub.docker.com/)
 # MEST BDT Project
 
 ## A project to help organizations manage their companies in cohorts and programs
@@ -21,14 +23,63 @@ This project is organized as a monorepo, containing both the backend and fronten
 
 ## Getting Started
 
-To get started with this project, you will need to set up and run both the backend and frontend applications.
+To get started with this project, you can run the entire stack using Docker Compose or set up each component manually.
 
-### Prerequisites
+### Running with Docker (Recommended)
 
-- [Node.js](https://nodejs.org) (v14 or later)
-- [npm](https://www.npmjs.com) (v6 or later)
+The project provides multiple Docker Compose configurations for different development needs.
 
-### Backend (`/api`)
+#### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+#### Setup Environment Variables
+
+Before running any configuration, set up the root deployment environment:
+
+```bash
+cp deployment/.env.example deployment/.env
+```
+
+If you plan to run the `api` or `web` services locally (outside of Docker), you should also set up their respective environments:
+
+```bash
+cp api/.env.example api/.env
+cp web/.env.example web/.env.local
+```
+
+> **Note on `OPENINARY_API_KEY`**: 
+> The application uses Openinary for image hosting. When running locally or in development, you can generate an API key by visiting the Openinary dashboard at `http://localhost:3002` after the service has started. 
+> For production deployments, it is **critical** to set a valid `OPENINARY_API_KEY` in your `deployment/.env` file to secure image uploads. If left blank, the system may allow unauthenticated access to the media service depending on its configuration, which is insecure for production.
+
+#### Deployment Options
+
+| Mode | Command | Description |
+| --- | --- | --- |
+| **Full Stack** | `docker compose -f deployment/full.yml up --build` | Runs everything: API, Web, Auth, and Databases. |
+| **Frontend Dev** | `docker compose -f deployment/frontend.yml up --build` | Runs API, Auth, and Databases. Ideal for frontend developers running the web app locally. |
+| **Backend Dev** | `docker compose -f deployment/backend.yml up --build` | Runs Auth and Databases. Ideal for backend developers running the API and web app locally. |
+| **Production** | `docker compose -f deployment/production.yml up` | Runs everything using pre-built images from GHCR. No local build required. |
+
+Once the containers are running:
+- **Frontend:** [http://localhost:3000](http://localhost:3000) (if running in Full Stack mode)
+- **Backend API:** [http://localhost:3001](http://localhost:3001)
+- **API Documentation:** [http://localhost:3001/api](http://localhost:3001/api)
+- **Hanko Auth:** [http://localhost:8000](http://localhost:8000)
+- **MailSlurper (Email Mock):** [http://localhost:8080](http://localhost:8080)
+- **Openinary (Image Service):** [http://localhost:3002](http://localhost:3002)
+
+### Manual Setup
+
+#### Prerequisites
+
+- [Node.js](https://nodejs.org) (v18 or later)
+- [npm](https://www.npmjs.com) (v9 or later)
+- [MongoDB](https://www.mongodb.com/try/download/community)
+- [Hanko Auth Service](https://github.com/teamhanko/hanko)
+
+#### Backend (`/api`)
 
 1. **Navigate to the `api` directory:**
    ```bash
@@ -45,9 +96,9 @@ To get started with this project, you will need to set up and run both the backe
    npm run start:dev
    ```
 
-The backend application will be running on `http://localhost:3000`.
+The backend application will be running on `http://localhost:3000` (or as configured in `.env`).
 
-### Frontend (`/web`)
+#### Frontend (`/web`)
 
 1. **Navigate to the `web` directory:**
    ```bash
@@ -68,7 +119,7 @@ The frontend application will be running on `http://localhost:3000`.
 
 ## API Documentation
 
-The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3000/docs`.
+The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3001/api` (if running via Docker) or `http://localhost:3000/api` (if running locally without a custom `PORT`).
 
 ## Testing
 

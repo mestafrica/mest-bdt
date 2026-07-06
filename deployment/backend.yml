@@ -1,0 +1,93 @@
+services:
+  api-db:
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - api_db_data:/data/db
+
+  auth-db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  auth:
+    image: ghcr.io/teamhanko/hanko:latest
+    restart: unless-stopped
+    command: serve --config /config/config.yaml all
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    env_file:
+      - .env
+    environment:
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_DATABASE: ${POSTGRES_DB}
+      SECRET_KEYS: ${HANKO_SECRETS_KEYS}
+      # Public host, sourced from .env (APP_HOST / APP_BASE_URL). WebAuthn RP id
+      # is a bare host; origins/CORS are full origins.
+      WEBAUTHN_RELYING_PARTY_ID: ${APP_HOST}
+      WEBAUTHN_RELYING_PARTY_ORIGINS: ${APP_BASE_URL}
+      SERVER_PUBLIC_CORS_ALLOW_ORIGINS: ${APP_BASE_URL}
+    volumes:
+      - ../hanko/config.yaml:/config/config.yaml
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      auth-migrate:
+        condition: service_completed_successfully
+
+  auth-migrate:
+    image: ghcr.io/teamhanko/hanko:latest
+    command: --config /config/config.yaml migrate up
+    env_file:
+      - .env
+    environment:
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_DATABASE: ${POSTGRES_DB}
+      SECRET_KEYS: ${HANKO_SECRETS_KEYS}
+    volumes:
+      - ../hanko/config.yaml:/config/config.yaml
+    depends_on:
+      auth-db:
+        condition: service_healthy
+
+  openinary:
+    image: openinary/openinary:latest
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    volumes:
+      - openinary_cache:/app/apps/api/cache
+      - openinary_public:/app/apps/api/public
+      - openinary_data:/app/data
+    env_file:
+      - .env
+
+  mailslurper:
+    image: marcopas/docker-mailslurper
+    restart: unless-stopped
+    ports:
+      - "2500:2500"
+      - "8080:8080"
+      - "8085:8085"
+
+volumes:
+  api_db_data:
+  auth_db_data:
+  openinary_cache:
+  openinary_public:
+  openinary_data:

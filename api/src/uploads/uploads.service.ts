@@ -1,8 +1,10 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+import { Injectable, BadRequestException, Inject } from '@nestjs/common';
+import type { ImageProvider } from './image-provider.interface';
 
 @Injectable()
 export class UploadsService {
+  constructor(@Inject('IMAGE_PROVIDER') private imageProvider: ImageProvider) {}
+
   async uploadImage(file: Express.Multer.File): Promise<{ url: string }> {
     if (!file) {
       throw new BadRequestException('No file provided');
@@ -23,18 +25,11 @@ export class UploadsService {
     }
 
     try {
-      const result = await new Promise<UploadApiResponse>((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream({ resource_type: 'image' }, (error, result) => {
-            if (error) reject(new Error(error.message));
-            else resolve(result as UploadApiResponse);
-          })
-          .end(file.buffer);
-      });
-
-      return { url: result.secure_url };
-    } catch {
-      throw new BadRequestException('Failed to upload image to Cloudinary');
+      return await this.imageProvider.uploadImage(file);
+    } catch (error) {
+      throw new BadRequestException(
+        `Failed to upload image: ${error.message || 'Unknown error'}`,
+      );
     }
   }
 }

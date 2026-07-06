@@ -49,7 +49,7 @@ export class UploadsController {
     schema: {
       type: 'object',
       properties: {
-        url: { type: 'string', example: 'https://res.cloudinary.com/...' },
+          url: { type: 'string', example: 'http://localhost:3002/t/...' },
       },
     },
   })
