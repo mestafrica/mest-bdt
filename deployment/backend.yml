@@ -17,7 +17,7 @@ services:
     volumes:
       - auth_db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hanko -d hanko"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -25,12 +25,17 @@ services:
   auth:
     image: ghcr.io/teamhanko/hanko:latest
     restart: unless-stopped
-    command: serve all
+    command: serve --config /config/config.yaml all
     ports:
       - "8000:8000"
       - "8001:8001"
     env_file:
       - .env
+    environment:
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_DATABASE: ${POSTGRES_DB}
+      SECRET_KEYS: ${HANKO_SECRETS_KEYS}
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:
@@ -41,9 +46,14 @@ services:
 
   auth-migrate:
     image: ghcr.io/teamhanko/hanko:latest
-    command: migrate up
+    command: --config /config/config.yaml migrate up
     env_file:
       - .env
+    environment:
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_DATABASE: ${POSTGRES_DB}
+      SECRET_KEYS: ${HANKO_SECRETS_KEYS}
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:

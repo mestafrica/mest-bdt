@@ -1,9 +1,14 @@
+# NOTE: Hanko loads config with koanf + kelseyhightower/envconfig. It does NOT
+# expand `{{ .Env.X }}` templates. Connection details are injected via env vars
+# that envconfig maps onto these fields (set in the compose files):
+#   database.user     -> DATABASE_USER      (from POSTGRES_USER)
+#   database.password -> DATABASE_PASSWORD  (from POSTGRES_PASSWORD)
+#   database.database -> DATABASE_DATABASE  (from POSTGRES_DB)
+#   secret_keys       -> SECRET_KEYS        (from HANKO_SECRETS_KEYS)
 database:
-  user: hanko
-  password: "{{ .Env.HANKO_DATABASE_PASSWORD }}"
+  # user, password, and database name are injected via the DATABASE_* env vars
   host: auth-db
   port: 5432
-  database: hanko
   dialect: postgres
 
 email_delivery:
@@ -15,9 +20,8 @@ email_delivery:
     host: mailslurper
     port: 2500
 
-secrets:
-  keys:
-    - "{{ .Env.HANKO_SECRETS_KEYS }}"
+# secret_keys injected via the SECRET_KEYS env var (see deployment/*.yml).
+# Top-level `secret_keys` replaces the deprecated `secrets.keys` list.
 
 service:
   name: MEST BDT Auth
