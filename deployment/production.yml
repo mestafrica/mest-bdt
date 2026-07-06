@@ -1,0 +1,107 @@
+services:
+  api-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+
+  auth-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: hanko
+      POSTGRES_PASSWORD: ${HANKO_DATABASE_PASSWORD:-hankopassword}
+      POSTGRES_DB: hanko
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hanko -d hanko"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  auth:
+    image: ghcr.io/teamhanko/hanko:latest
+    command: serve all
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    env_file:
+      - .env
+    volumes:
+      - ../hanko/config.yaml:/config/config.yaml
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      auth-migrate:
+        condition: service_completed_successfully
+
+  auth-migrate:
+    image: ghcr.io/teamhanko/hanko:latest
+    command: migrate up
+    env_file:
+      - .env
+    volumes:
+      - ../hanko/config.yaml:/config/config.yaml
+    depends_on:
+      auth-db:
+        condition: service_healthy
+
+  openinary:
+    image: openinary/openinary:latest
+    ports:
+      - "3002:3000"
+    volumes:
+      - ../openinary/cache:/app/apps/api/cache
+      - ../openinary/public:/app/apps/api/public
+      - ../openinary/data:/app/data
+    environment:
+      - MODE=fullstack
+      - BETTER_AUTH_SECRET=${OPENINARY_AUTH_SECRET:-very-secret-openinary-key}
+      - BETTER_AUTH_URL=http://localhost:3002
+
+  api:
+    image: ghcr.io/mickeymond/mest-bdt-api:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - MONGO_URI=mongodb://api-db:27017/bdt
+      - HANKO_API_URL=http://auth:8000
+      - APP_BASE_URL=http://localhost:3000
+      - SMTP_HOST=mailslurper
+      - SMTP_PORT=2500
+      - SMTP_SECURE=false
+      - SMTP_USER=test
+      - SMTP_PASS=test
+      - SMTP_FROM=no-reply@example.com
+      - UPLOAD_PROVIDER=openinary
+      - OPENINARY_URL=http://openinary:3000
+      - OPENINARY_PUBLIC_URL=http://localhost:3002
+      - OPENINARY_API_KEY=${OPENINARY_API_KEY:-}
+    depends_on:
+      - api-db
+      - auth
+      - openinary
+
+  web:
+    image: ghcr.io/mickeymond/mest-bdt-web:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_HANKO_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_BDT_API_URL=http://localhost:3001
+    depends_on:
+      - api
+
+  mailslurper:
+    image: marcopas/docker-mailslurper
+    ports:
+      - "2500:2500"
+      - "8080:8080"
+      - "8085:8085"
+
+volumes:
+  db_data:
+  auth_db_data:
