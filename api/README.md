@@ -44,6 +44,47 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Operational scripts
+
+These scripts live in [`scripts/`](scripts/) and are meant to be run from the
+`api` directory once the supporting services are up. They read configuration
+from `api/.env` (same file the app uses).
+
+### Bootstrap the first web-admin profile
+
+A web admin can only access the platform once a `Profile` record exists for
+their signed-in email — `GET /profiles/me` returns 404 otherwise, and nothing
+in the app creates the first one. Seed it:
+
+```bash
+npm run seed:profile -- admin@example.com
+```
+
+- Requires MongoDB to be reachable (`MONGO_URI`, default
+  `mongodb://localhost:27017/bdt`).
+- Idempotent: re-running for an existing email is a no-op.
+- Store the exact email the admin signs in with (matching is case-sensitive).
+
+### Generate a Hanko access token for a user
+
+Mints a Hanko session token (a JWT accepted as `Authorization: Bearer <token>`
+by this API) for a user by email, via the Hanko **Admin API**:
+
+```bash
+npm run token:hanko -- admin@example.com
+# capture just the token (all logs go to stderr):
+TOKEN=$(npm run --silent token:hanko -- admin@example.com)
+```
+
+- Requires the Hanko Admin API to be reachable (`HANKO_ADMIN_API_URL`,
+  default `http://localhost:8001`).
+- Creates the Hanko user if one doesn't exist yet; pass `--no-create` to
+  fail instead.
+- Optional: `--user-agent=<ua>` and `--ip=<addr>` are recorded on the session.
+
+> The Admin API is unauthenticated by design — keep port 8001 network-isolated
+> in production.
+
 ## Run tests
 
 ```bash

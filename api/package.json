@@ -12,6 +12,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "seed:profile": "ts-node -P scripts/tsconfig.json scripts/seed-profile.ts",
+    "token:hanko": "ts-node -P scripts/tsconfig.json scripts/hanko-token.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
