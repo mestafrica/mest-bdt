@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/components/core/ThemeProvider";
 import "./globals.css";
@@ -32,8 +30,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Analytics />
-          <SpeedInsights />
           <Toaster />
           {children}
         </ThemeProvider>
