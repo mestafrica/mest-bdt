@@ -25,7 +25,9 @@ export class OpeninaryImageProvider implements ImageProvider {
 
   async uploadImage(file: Express.Multer.File): Promise<ImageUploadResponse> {
     const formData = new FormData();
-    const blob = new Blob([new Uint8Array(file.buffer)], { type: file.mimetype });
+    const blob = new Blob([new Uint8Array(file.buffer)], {
+      type: file.mimetype,
+    });
     formData.append('files', blob, file.originalname);
 
     try {
