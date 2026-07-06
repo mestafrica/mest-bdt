@@ -1,19 +1,8 @@
 import { Hanko } from "@teamhanko/hanko-elements";
 import axios from "axios";
 
-const getBaseURL = () => {
-  if (typeof window === "undefined") {
-    // Server-side
-    return (
-      process.env.BDT_API_URL_INTERNAL || process.env.NEXT_PUBLIC_BDT_API_URL
-    );
-  }
-  // Client-side
-  return process.env.NEXT_PUBLIC_BDT_API_URL;
-};
-
 export const apiClient = axios.create({
-  baseURL: getBaseURL(),
+  baseURL: process.env.NEXT_PUBLIC_BDT_API_URL,
 });
 
 apiClient.interceptors.request.use(

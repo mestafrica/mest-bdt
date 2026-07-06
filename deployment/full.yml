@@ -97,7 +97,6 @@ services:
     environment:
       - NEXT_PUBLIC_HANKO_API_URL=http://localhost:8000
       - NEXT_PUBLIC_BDT_API_URL=http://localhost:3001
-      - BDT_API_URL_INTERNAL=http://api:3000
     depends_on:
       - api
 
