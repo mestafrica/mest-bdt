@@ -8,10 +8,8 @@ services:
 
   auth-db:
     image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: hanko
-      POSTGRES_PASSWORD: ${HANKO_DATABASE_PASSWORD:-hankopassword}
-      POSTGRES_DB: hanko
+    env_file:
+      - .env
     ports:
       - "5432:5432"
     volumes:
@@ -57,29 +55,15 @@ services:
       - ../openinary/cache:/app/apps/api/cache
       - ../openinary/public:/app/apps/api/public
       - ../openinary/data:/app/data
-    environment:
-      - MODE=fullstack
-      - BETTER_AUTH_SECRET=${OPENINARY_AUTH_SECRET:-very-secret-openinary-key}
-      - BETTER_AUTH_URL=http://localhost:3002
+    env_file:
+      - .env
 
   api:
     image: ghcr.io/mestafrica/mest-bdt-api:latest
     ports:
       - "3001:3000"
-    environment:
-      - MONGO_URI=mongodb://api-db:27017/bdt
-      - HANKO_API_URL=http://auth:8000
-      - APP_BASE_URL=http://localhost:3000
-      - SMTP_HOST=mailslurper
-      - SMTP_PORT=2500
-      - SMTP_SECURE=false
-      - SMTP_USER=test
-      - SMTP_PASS=test
-      - SMTP_FROM=no-reply@example.com
-      - UPLOAD_PROVIDER=openinary
-      - OPENINARY_URL=http://openinary:3000
-      - OPENINARY_PUBLIC_URL=http://localhost:3002
-      - OPENINARY_API_KEY=${OPENINARY_API_KEY:-}
+    env_file:
+      - .env
     depends_on:
       - api-db
       - auth
@@ -89,18 +73,10 @@ services:
     image: ghcr.io/mestafrica/mest-bdt-web:latest
     ports:
       - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_HANKO_API_URL=http://localhost:8000
-      - NEXT_PUBLIC_BDT_API_URL=http://localhost:3001
+    env_file:
+      - .env
     depends_on:
       - api
-
-  mailslurper:
-    image: marcopas/docker-mailslurper
-    ports:
-      - "2500:2500"
-      - "8080:8080"
-      - "8085:8085"
 
 volumes:
   api_db_data:
