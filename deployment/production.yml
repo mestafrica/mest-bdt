@@ -8,8 +8,10 @@ services:
 
   auth-db:
     image: postgres:15-alpine
-    env_file:
-      - .env
+    environment:
+      POSTGRES_USER: hanko
+      POSTGRES_PASSWORD: ${HANKO_DATABASE_PASSWORD:-hankopassword}
+      POSTGRES_DB: hanko
     ports:
       - "5432:5432"
     volumes:

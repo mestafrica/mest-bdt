@@ -36,11 +36,22 @@ The project provides multiple Docker Compose configurations for different develo
 
 #### Setup Environment Variables
 
-Before running any configuration, set up the authentication environment:
+Before running any configuration, set up the root deployment environment:
 
 ```bash
 cp deployment/.env.example deployment/.env
 ```
+
+If you plan to run the `api` or `web` services locally (outside of Docker), you should also set up their respective environments:
+
+```bash
+cp api/.env.example api/.env
+cp web/.env.example web/.env.local
+```
+
+> **Note on `OPENINARY_API_KEY`**: 
+> The application uses Openinary for image hosting. When running locally or in development, you can generate an API key by visiting the Openinary dashboard at `http://localhost:3002` after the service has started. 
+> For production deployments, it is **critical** to set a valid `OPENINARY_API_KEY` in your `deployment/.env` file to secure image uploads. If left blank, the system may allow unauthenticated access to the media service depending on its configuration, which is insecure for production.
 
 #### Deployment Options
 
@@ -108,7 +119,7 @@ The frontend application will be running on `http://localhost:3000`.
 
 ## API Documentation
 
-The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3000/api`.
+The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3001/api` (if running via Docker) or `http://localhost:3000/api` (if running locally without a custom `PORT`).
 
 ## Testing
 
