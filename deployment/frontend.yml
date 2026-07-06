@@ -36,6 +36,11 @@ services:
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
       SECRET_KEYS: ${HANKO_SECRETS_KEYS}
+      # Public host, sourced from .env (APP_HOST / APP_BASE_URL). WebAuthn RP id
+      # is a bare host; origins/CORS are full origins.
+      WEBAUTHN_RELYING_PARTY_ID: ${APP_HOST}
+      WEBAUTHN_RELYING_PARTY_ORIGINS: ${APP_BASE_URL}
+      SERVER_PUBLIC_CORS_ALLOW_ORIGINS: ${APP_BASE_URL}
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:
