@@ -91,9 +91,6 @@ services:
   web:
     build:
       context: ../web
-      args:
-        - NEXT_PUBLIC_HANKO_API_URL=http://localhost:8000
-        - NEXT_PUBLIC_BDT_API_URL=http://localhost:3001
     restart: unless-stopped
     ports:
       - "3000:3000"
