@@ -45,8 +45,8 @@ cp deployment/.env.example deployment/.env
 | Mode | Command | Description |
 | --- | --- | --- |
 | **Full Stack** | `docker compose -f deployment/full.yml up --build` | Runs everything: API, Web, Auth, and Databases. |
-| **Frontend Dev** | `docker compose -f deployment/frontend-dev.yml up --build` | Runs API, Auth, and Databases. Ideal for frontend developers running the web app locally. |
-| **Backend Dev** | `docker compose -f deployment/backend-dev.yml up --build` | Runs Auth and Databases. Ideal for backend developers running the API and web app locally. |
+| **Frontend Dev** | `docker compose -f deployment/frontend.yml up --build` | Runs API, Auth, and Databases. Ideal for frontend developers running the web app locally. |
+| **Backend Dev** | `docker compose -f deployment/backend.yml up --build` | Runs Auth and Databases. Ideal for backend developers running the API and web app locally. |
 | **Production** | `docker compose -f deployment/production.yml up` | Runs everything using pre-built images from GHCR. No local build required. |
 
 Once the containers are running:
