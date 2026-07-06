@@ -4,7 +4,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - db_data:/data/db
+      - api_db_data:/data/db
 
   auth-db:
     image: postgres:15-alpine
@@ -70,5 +70,5 @@ services:
       - "8085:8085"
 
 volumes:
-  db_data:
+  api_db_data:
   auth_db_data:

@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Enabled-blue)](https://hub.docker.com/)
 # MEST BDT Project
 
 ## A project to help organizations manage their companies in cohorts and programs
@@ -106,7 +108,7 @@ The frontend application will be running on `http://localhost:3000`.
 
 ## API Documentation
 
-The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3001/api`.
+The backend API is documented using Swagger. Once the backend application is running, you can access the API documentation at `http://localhost:3000/api`.
 
 ## Testing
 
