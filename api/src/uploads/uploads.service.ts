@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, Inject } from '@nestjs/common';
-import { ImageProvider } from './image-provider.interface';
+import type { ImageProvider } from './image-provider.interface';
 
 @Injectable()
 export class UploadsService {
