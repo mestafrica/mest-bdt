@@ -8,6 +8,9 @@ export function useUser() {
     apiFetcher,
   );
 
+    console.log("Current user:", data);
+  console.log("User error:", error);
+  
   return {
     user: data,
     error,

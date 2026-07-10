@@ -39,7 +39,8 @@ export default function CohortHeader({ name }: { name?: string }) {
           </h1>
           <div className="flex items-center gap-2 mt-1">
             <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
-              Resource Management
+              {/* Resource Management */}
+              {`Cohort ID: ${searchParams.get("id") || "N/A"}`}
             </span>
             <span className="w-1 h-1 bg-foreground/20 rounded-full"></span>
             <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
