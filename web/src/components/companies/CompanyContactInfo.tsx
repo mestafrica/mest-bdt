@@ -1,5 +1,5 @@
 import { Mail, Phone, User } from "lucide-react";
-import { apiFetcher, apiClient } from "@/utils/api";
+
 
 export default function CompanyContactInfo() {
 
