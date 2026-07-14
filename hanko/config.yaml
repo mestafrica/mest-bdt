@@ -2,13 +2,23 @@
 # expand `{{ .Env.X }}` templates. Values below are localhost defaults; any field
 # whose env var is set (envconfig runs after the YAML load) is overridden at
 # startup. envconfig maps env vars onto these fields (set in the compose files):
-#   database.user                    -> DATABASE_USER                    (from POSTGRES_USER)
-#   database.password                -> DATABASE_PASSWORD                (from POSTGRES_PASSWORD)
-#   database.database                -> DATABASE_DATABASE                (from POSTGRES_DB)
-#   secret_keys                      -> SECRET_KEYS                      (from HANKO_SECRETS_KEYS)
-#   webauthn.relying_party.id        -> WEBAUTHN_RELYING_PARTY_ID        (from APP_HOST; bare host, no scheme/port)
-#   webauthn.relying_party.origins   -> WEBAUTHN_RELYING_PARTY_ORIGINS   (from APP_BASE_URL; comma-separated for multiple)
-#   server.public.cors.allow_origins -> SERVER_PUBLIC_CORS_ALLOW_ORIGINS (from APP_BASE_URL; comma-separated for multiple)
+#   database.user                  -> DATABASE_USER                  (from POSTGRES_USER)
+#   database.password              -> DATABASE_PASSWORD              (from POSTGRES_PASSWORD)
+#   database.database              -> DATABASE_DATABASE              (from POSTGRES_DB)
+#   secrets.keys                   -> SECRETS_KEYS                   (from HANKO_SECRETS_KEYS)
+#   webauthn.relying_party.id      -> WEBAUTHN_RELYING_PARTY_ID      (from APP_HOST; bare host, no scheme/port)
+#   webauthn.relying_party.origins -> WEBAUTHN_RELYING_PARTY_ORIGINS (from APP_BASE_URL; comma-separated for multiple)
+#
+# CORS is intentionally NOT driven by an env var (see the `cors` block below).
+# It is left as a wildcard here so the auth API accepts requests from whatever
+# host the browser is on (localhost, 127.0.0.1, a VM IP/hostname, any port). The
+# compose files therefore do NOT set SERVER_PUBLIC_CORS_ALLOW_ORIGINS — if they
+# did, an empty/mismatched APP_BASE_URL would override this and reintroduce the
+# CORS failure. To lock CORS down for a real deployment, replace the `*` below
+# with your exact web origin(s), e.g.:
+#   allow_origins:
+#     - "https://app.example.com"
+#   unsafe_wildcard_origin_allowed: false
 database:
   # user, password, and database name are injected via the DATABASE_* env vars
   host: auth-db
@@ -24,8 +34,11 @@ email_delivery:
     host: mailslurper
     port: 2500
 
-# secret_keys injected via the SECRET_KEYS env var (see deployment/*.yml).
-# Top-level `secret_keys` replaces the deprecated `secrets.keys` list.
+# secrets.keys is injected via the SECRETS_KEYS env var (from HANKO_SECRETS_KEYS
+# in deployment/.env). It MUST be set to a strong value — if it is missing, Hanko
+# falls back to a well-known default signing key and issued sessions are insecure.
+# (`SECRET_KEYS` / top-level `secret_keys` only exist on unreleased Hanko; the
+# released image reads `secrets.keys`.)
 
 service:
   name: MEST BDT Auth
@@ -42,7 +55,9 @@ webauthn:
 server:
   public:
     cors:
-      # Overridden by SERVER_PUBLIC_CORS_ALLOW_ORIGINS (from APP_BASE_URL) for non-localhost hosts.
+      # Wildcard with unsafe_wildcard_origin_allowed reflects the request Origin
+      # back (with Access-Control-Allow-Credentials), so credentialed requests
+      # work from any host. Not overridden by env — this is the source of truth.
       allow_origins:
-        - "http://localhost:3000"
+        - "*"
       unsafe_wildcard_origin_allowed: true
