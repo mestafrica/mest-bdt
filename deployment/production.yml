@@ -35,12 +35,20 @@ services:
       DATABASE_USER: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
+      # Released Hanko reads secrets.keys (env SECRETS_KEYS); SECRET_KEYS is only
+      # recognised by unreleased/main builds. Set both so the signing key is
+      # applied regardless of the image tag — otherwise Hanko silently falls back
+      # to a well-known default key and issued sessions are insecure.
+      SECRETS_KEYS: ${HANKO_SECRETS_KEYS}
       SECRET_KEYS: ${HANKO_SECRETS_KEYS}
-      # Public host, sourced from .env (APP_HOST / APP_BASE_URL). WebAuthn RP id
-      # is a bare host; origins/CORS are full origins.
-      WEBAUTHN_RELYING_PARTY_ID: ${APP_HOST}
-      WEBAUTHN_RELYING_PARTY_ORIGINS: ${APP_BASE_URL}
-      SERVER_PUBLIC_CORS_ALLOW_ORIGINS: ${APP_BASE_URL}
+      # Public host for WebAuthn: RP id is a bare host, origins are full URLs. The
+      # `:-` defaults stop a missing/empty APP_HOST/APP_BASE_URL from clobbering
+      # the localhost defaults in hanko/config.yaml. CORS is deliberately NOT set
+      # here — it is owned by hanko/config.yaml (wildcard) so requests from any
+      # browser origin are accepted. Injecting it from APP_BASE_URL is what caused
+      # the CORS failures when that value was empty or didn't match the origin.
+      WEBAUTHN_RELYING_PARTY_ID: ${APP_HOST:-localhost}
+      WEBAUTHN_RELYING_PARTY_ORIGINS: ${APP_BASE_URL:-http://localhost:3000}
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:
@@ -58,6 +66,7 @@ services:
       DATABASE_USER: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
+      SECRETS_KEYS: ${HANKO_SECRETS_KEYS}
       SECRET_KEYS: ${HANKO_SECRETS_KEYS}
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
