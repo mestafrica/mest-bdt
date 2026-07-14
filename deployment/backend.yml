@@ -46,14 +46,12 @@ services:
       # the localhost defaults in hanko/config.yaml.
       WEBAUTHN_RELYING_PARTY_ID: ${APP_HOST:-localhost}
       WEBAUTHN_RELYING_PARTY_ORIGINS: ${APP_BASE_URL:-http://localhost:3000}
-      # CORS: static wildcard so the auth API reflects ANY browser origin. Set via
-      # env (not only config.yaml) so CORS works even if the config.yaml volume
-      # fails to mount and Hanko falls back to its defaults. Both vars are REQUIRED
-      # together — "*" without the unsafe flag fails Hanko's startup validation.
-      # For production, replace "*" with your exact web origin and set the flag to
-      # "false".
-      SERVER_PUBLIC_CORS_ALLOW_ORIGINS: "*"
-      SERVER_PUBLIC_CORS_UNSAFE_WILDCARD_ORIGIN_ALLOWED: "true"
+      # CORS: Set CORS specifically for Web UI origin to allow credentialed cookies/headers.
+      # Support both split-words and non-split-words formats (envconfig mapping styles) for v3.
+      SERVER_PUBLIC_CORS_ALLOW_ORIGINS: ${APP_BASE_URL:-http://localhost:3000}
+      SERVER_PUBLIC_CORS_ALLOWORIGINS: ${APP_BASE_URL:-http://localhost:3000}
+      SERVER_PUBLIC_CORS_UNSAFE_WILDCARD_ORIGIN_ALLOWED: "false"
+      SERVER_PUBLIC_CORS_UNSAFEWILDCARDORIGINALLOWED: "false"
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:

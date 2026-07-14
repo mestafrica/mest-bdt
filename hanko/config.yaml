@@ -57,9 +57,8 @@ webauthn:
 server:
   public:
     cors:
-      # Wildcard with unsafe_wildcard_origin_allowed reflects the request Origin
-      # back (with Access-Control-Allow-Credentials), so credentialed requests
-      # work from any host. Not overridden by env — this is the source of truth.
+      # Explicitly allow the local web application origin to ensure browsers
+      # do not block credentialed CORS requests.
       allow_origins:
-        - "*"
-      unsafe_wildcard_origin_allowed: true
+        - "http://localhost:3000"
+      unsafe_wildcard_origin_allowed: false
