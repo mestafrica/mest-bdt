@@ -9,13 +9,15 @@
 #   webauthn.relying_party.id      -> WEBAUTHN_RELYING_PARTY_ID      (from APP_HOST; bare host, no scheme/port)
 #   webauthn.relying_party.origins -> WEBAUTHN_RELYING_PARTY_ORIGINS (from APP_BASE_URL; comma-separated for multiple)
 #
-# CORS is intentionally NOT driven by an env var (see the `cors` block below).
-# It is left as a wildcard here so the auth API accepts requests from whatever
-# host the browser is on (localhost, 127.0.0.1, a VM IP/hostname, any port). The
-# compose files therefore do NOT set SERVER_PUBLIC_CORS_ALLOW_ORIGINS — if they
-# did, an empty/mismatched APP_BASE_URL would override this and reintroduce the
-# CORS failure. To lock CORS down for a real deployment, replace the `*` below
-# with your exact web origin(s), e.g.:
+# CORS is ALSO set via env in the compose files, which is the authoritative
+# channel (envconfig applies env vars after this file loads, and works even if
+# this file fails to mount and Hanko falls back to its defaults):
+#   server.public.cors.allow_origins                 -> SERVER_PUBLIC_CORS_ALLOW_ORIGINS                 (static "*")
+#   server.public.cors.unsafe_wildcard_origin_allowed -> SERVER_PUBLIC_CORS_UNSAFE_WILDCARD_ORIGIN_ALLOWED (static "true")
+# The wildcard below is a fallback with the same effect. Both the origin list and
+# the unsafe flag must agree — a "*" origin without the flag fails startup
+# validation. To lock CORS down for a real deployment, set both the env vars and
+# the block below to your exact web origin(s), e.g.:
 #   allow_origins:
 #     - "https://app.example.com"
 #   unsafe_wildcard_origin_allowed: false

@@ -43,12 +43,17 @@ services:
       SECRET_KEYS: ${HANKO_SECRETS_KEYS}
       # Public host for WebAuthn: RP id is a bare host, origins are full URLs. The
       # `:-` defaults stop a missing/empty APP_HOST/APP_BASE_URL from clobbering
-      # the localhost defaults in hanko/config.yaml. CORS is deliberately NOT set
-      # here — it is owned by hanko/config.yaml (wildcard) so requests from any
-      # browser origin are accepted. Injecting it from APP_BASE_URL is what caused
-      # the CORS failures when that value was empty or didn't match the origin.
+      # the localhost defaults in hanko/config.yaml.
       WEBAUTHN_RELYING_PARTY_ID: ${APP_HOST:-localhost}
       WEBAUTHN_RELYING_PARTY_ORIGINS: ${APP_BASE_URL:-http://localhost:3000}
+      # CORS: static wildcard so the auth API reflects ANY browser origin. Set via
+      # env (not only config.yaml) so CORS works even if the config.yaml volume
+      # fails to mount and Hanko falls back to its defaults. Both vars are REQUIRED
+      # together — "*" without the unsafe flag fails Hanko's startup validation.
+      # For production, replace "*" with your exact web origin and set the flag to
+      # "false".
+      SERVER_PUBLIC_CORS_ALLOW_ORIGINS: "*"
+      SERVER_PUBLIC_CORS_UNSAFE_WILDCARD_ORIGIN_ALLOWED: "true"
     volumes:
       - ../hanko/config.yaml:/config/config.yaml
     depends_on:
