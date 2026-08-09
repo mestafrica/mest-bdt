@@ -1,11 +1,38 @@
 import { Building2, Users, Award, TrendingUp } from "lucide-react";
 
-export default function CompanyStats() {
+interface Company {
+  sector: string;
+  totalEmployees: number | string;
+  operationalYears: number | string;
+  totalUsers: number | string;
+}
+
+interface CompanyStatsProps {
+  company: Company;
+}
+
+export default function CompanyStats({ company }: CompanyStatsProps) {
+  
+  
   const stats = [
-    { label: "Sector", value: "Technology", icon: Building2 },
-    { label: "Company Size", value: "250+ Employees", icon: Award },
-    { label: "Operational", value: "8 Years", icon: TrendingUp },
-    { label: "Total Users", value: "12 Members", icon: Users },
+    { label: "Sector", 
+      value: company.sector, 
+      icon: Building2 
+    },
+
+    { label: "Company Size",
+       value: `${company.totalEmployees} Employees`,
+        icon: Award
+       },
+
+    { label: "Operational", 
+      value: `${company.operationalYears} Years`,
+     icon: TrendingUp
+     },
+
+    { label: "Total Users", 
+      value: `${company.totalUsers} Members`, icon: Users 
+    },
   ];
 
   return (

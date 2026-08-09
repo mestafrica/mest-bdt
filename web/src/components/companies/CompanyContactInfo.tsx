@@ -1,6 +1,16 @@
 import { Mail, Phone, User } from "lucide-react";
 
-export default function CompanyContactInfo() {
+interface Company {
+  mainPointOfContact: string;
+  altPointOfContact: string;
+  // add the other fields you use
+}
+
+interface CompanyContactInfoProps {
+  company: Company;
+}
+export default function CompanyContactInfo({company}: CompanyContactInfoProps) {
+
   const contacts = [
     {
       role: "Primary Contact",
