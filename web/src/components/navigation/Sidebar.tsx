@@ -9,7 +9,7 @@ import {
   Users,
   Terminal,
   Activity,
-  Settings2,
+  Settings2, FileText
 } from "lucide-react";
 import Link from "next/link";
 import HankoLogout from "../auth/HankoLogout";
@@ -28,6 +28,7 @@ const sidebarItems: SidebarItem[] = [
   { name: "Profiles", icon: Users, href: "/profiles" },
   { name: "Forms", icon: Terminal, href: "/forms" },
   { name: "Responses", icon: Activity, href: "/responses" },
+  { name: "Reports", icon: FileText, href: "/reports"},
   { name: "Account", icon: Settings2, href: "/account" },
 ];
 
@@ -54,7 +55,7 @@ const Sidebar: React.FC = () => {
           fixed top-0 left-0 h-full w-64 bg-card text-foreground z-40 border-r border-border
           transform transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:h-screen lg:shadow-none
-          flex-shrink-0 ${isOpen ? "translate-x-0 shadow-xl" : "-translate-x-full"}
+          flex shrink-0 ${isOpen ? "translate-x-0 shadow-xl" : "-translate-x-full"}
         `}
       >
         <div className="p-6 flex flex-col h-full">

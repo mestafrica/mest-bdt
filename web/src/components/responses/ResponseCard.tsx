@@ -48,7 +48,7 @@ export default function ResponseCard({
         <span className="text-foreground/40 font-bold uppercase tracking-wider">
           {key}
         </span>
-        <span className="text-foreground font-semibold truncate max-w-[150px]">
+        <span className="text-foreground font-semibold truncate max-w-37.5">
           {String(value)}
         </span>
       </div>

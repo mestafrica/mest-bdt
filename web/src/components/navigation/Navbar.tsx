@@ -1,13 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { Menu, X, Briefcase } from "lucide-react";
+import { Menu, X, Briefcase, ChevronDown, FileText, BarChart3 } from "lucide-react";
 import Link from "next/link";
 import useSWR from "swr";
 import { apiFetcher } from "@/utils/api";
 import { ThemeToggle } from "../core/ThemeToggle";
 import HankoLogout from "../auth/HankoLogout";
 import NoSSR from "../core/NoSSR";
-
 
 // Define the type for a navigation link item
 interface NavItem {
@@ -18,16 +17,35 @@ interface NavItem {
 const navItems: NavItem[] = [
   // { name: "Account", href: "/account" },
   { name: "Company", href: "/user/company" },
-
 ];
 
 const Navbar: React.FC = () => {
   const { data } = useSWR("/forms", apiFetcher);
   const [isOpen, setIsOpen] = useState(false);
+  const [isBMCDropdownOpen, setIsBMCDropdownOpen] = useState(false);
+  const [isMobileBMCDropdownOpen, setIsMobileBMCDropdownOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const toggleBMCDropdown = () => {
+    setIsBMCDropdownOpen(!isBMCDropdownOpen);
+  };
+
+  const toggleMobileBMCDropdown = () => {
+    setIsMobileBMCDropdownOpen(!isMobileBMCDropdownOpen);
+  };
+
+  // Filter BMC Diagnostics forms from the data
+  const bmcForms = data?.filter((item: { name: string; id: string }) => 
+    item.name === "BMC Diagnostics" || item.name === "BMC Diagnostic"
+  );
+
+  // Other forms (excluding BMC Diagnostics)
+  const otherForms = data?.filter((item: { name: string; id: string }) => 
+    item.name !== "BMC Diagnostics" && item.name !== "BMC Diagnostic"
+  );
 
   return (
     <nav className="bg-card border-b border-border shadow-sm fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
@@ -58,7 +76,9 @@ const Navbar: React.FC = () => {
                   {item.name}
                 </Link>
               ))}
-              {data?.map((item: { name: string; id: string }) => (
+              
+              {/* Forms (excluding BMC Diagnostics) */}
+              {otherForms?.map((item: { name: string; id: string }) => (
                 <Link
                   key={item.id}
                   href={`/user/form?id=${item.id}`}
@@ -67,6 +87,48 @@ const Navbar: React.FC = () => {
                   {item.name}
                 </Link>
               ))}
+
+              {/* BMC Diagnostics Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={toggleBMCDropdown}
+                  className="text-foreground/70 hover:bg-foreground/5 hover:text-foreground px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 inline-flex items-center gap-1"
+                >
+                  BMC Diagnostics
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isBMCDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {isBMCDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-card border border-border rounded-lg shadow-lg py-1 z-50">
+                    {/* BMC Diagnostics Form */}
+                    {bmcForms?.map((item: { name: string; id: string }) => (
+                      <Link
+                        key={item.id}
+                        href={`/user/form?id=${item.id}`}
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground/70 hover:bg-foreground/5 hover:text-foreground transition-colors"
+                        onClick={() => setIsBMCDropdownOpen(false)}
+                      >
+                        <FileText className="w-4 h-4" />
+                        {item.name}
+                      </Link>
+                    ))}
+                    
+                    {/* Separator */}
+                    <div className="border-t border-border my-1"></div>
+                    
+                    {/* Business Diagnostics Report */}
+                    <Link
+                      href="/user/bmc-reports"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-foreground/70 hover:bg-foreground/5 hover:text-foreground transition-colors"
+                      onClick={() => setIsBMCDropdownOpen(false)}
+                    >
+                      <BarChart3 className="w-4 h-4" />
+                      Business Diagnostics Report
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               {/* Responses Link */}
               <Link
                 href="/user/responses"
@@ -114,12 +176,14 @@ const Navbar: React.FC = () => {
               key={item.name}
               href={item.href}
               className="text-foreground/70 hover:bg-foreground/5 hover:text-foreground block px-4 py-3 rounded-xl text-base font-semibold transition-all duration-200"
-              onClick={() => setIsOpen(false)} // Close menu when item is clicked
+              onClick={() => setIsOpen(false)}
             >
               {item.name}
             </Link>
           ))}
-          {data?.map((item: { name: string; id: string }) => (
+          
+          {/* Other Forms (excluding BMC Diagnostics) */}
+          {otherForms?.map((item: { name: string; id: string }) => (
             <Link
               key={item.id}
               href={`/user/form?id=${item.id}`}
@@ -129,6 +193,54 @@ const Navbar: React.FC = () => {
               {item.name}
             </Link>
           ))}
+
+          {/* Mobile BMC Diagnostics Dropdown */}
+          <div>
+            <button
+              onClick={toggleMobileBMCDropdown}
+              className="text-foreground/70 hover:bg-foreground/5 hover:text-foreground w-full flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all duration-200"
+            >
+              <span>BMC Diagnostics</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${isMobileBMCDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {isMobileBMCDropdownOpen && (
+              <div className="ml-4 space-y-1">
+                {/* BMC Diagnostics Form */}
+                {bmcForms?.map((item: { name: string; id: string }) => (
+                  <Link
+                    key={item.id}
+                    href={`/user/form?id=${item.id}`}
+                    className="flex items-center gap-2 text-foreground/70 hover:bg-foreground/5 hover:text-foreground px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsMobileBMCDropdownOpen(false);
+                    }}
+                  >
+                    <FileText className="w-4 h-4" />
+                    {item.name}
+                  </Link>
+                ))}
+                
+                {/* Separator */}
+                <div className="border-t border-border my-1"></div>
+                
+                {/* Business Diagnostics Report */}
+                <Link
+                  href="/user/bmc-reports"
+                  className="flex items-center gap-2 text-foreground/70 hover:bg-foreground/5 hover:text-foreground px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setIsMobileBMCDropdownOpen(false);
+                  }}
+                >
+                  <BarChart3 className="w-4 h-4" />
+                  Business Diagnostics Report
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link
             href="/user/responses"
             className="text-foreground/70 hover:bg-foreground/5 hover:text-foreground block px-4 py-3 rounded-xl text-base font-semibold transition-all duration-200"
