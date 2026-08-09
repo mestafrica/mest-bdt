@@ -26,9 +26,25 @@ export class Company {
   @Prop()
   mainPointOfContact: string;
 
+  @ApiProperty({ example: 'john.doe@acme.com', required: false })
+  @Prop()
+  mainPocEmail: string;
+
+  @ApiProperty({ example: '+233241234567', required: false })
+  @Prop()
+  mainPocPhone: string;
+
   @ApiProperty({ example: 'Jane Doe' })
   @Prop()
   altPointOfContact: string;
+
+  @ApiProperty({ example: 'jane.doe@acme.com', required: false })
+  @Prop()
+  altPocEmail: string;
+
+  @ApiProperty({ example: '+233247654321', required: false })
+  @Prop()
+  altPocPhone: string;
 
   @ApiProperty({ example: 'Peter Pan' })
   @Prop()

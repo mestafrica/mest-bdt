@@ -27,6 +27,32 @@ export class CohortsService {
     return this.cohortModel.findOne(filter);
   }
 
+  /**
+   * Fetch a single cohort by id, enriched with the number of companies
+   * affiliated with it (`companiesCount`). Returns `null` when not found so
+   * the controller mirrors the existing not-found behaviour. Used by
+   * `GET /cohorts/:id`; the list endpoints are intentionally left unchanged.
+   */
+  async findOneWithStats(id: string) {
+    const cohort = await this.cohortModel.findOne({ _id: id });
+    if (!cohort) {
+      return null;
+    }
+
+    const companiesCount = await this.companyModel.countDocuments({
+      cohort: id as any,
+    });
+
+    // Serialise via the model's toJSON (normalize plugin → `id`, no `_id`)
+    // when available; tests pass plain objects, so fall back to the object.
+    const base =
+      typeof (cohort as { toJSON?: () => unknown }).toJSON === 'function'
+        ? (cohort as { toJSON: () => Record<string, unknown> }).toJSON()
+        : (cohort as unknown as Record<string, unknown>);
+
+    return { ...base, companiesCount };
+  }
+
   updateOne(filter: QueryFilter<Cohort>, update: UpdateQuery<Cohort>) {
     return this.cohortModel.updateOne(filter, update);
   }

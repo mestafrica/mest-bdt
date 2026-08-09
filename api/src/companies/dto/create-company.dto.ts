@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCompanyDto {
   @IsMongoId()
@@ -22,11 +22,47 @@ export class CreateCompanyDto {
   })
   mainPointOfContact: string;
 
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Email of the main point of contact.',
+    example: 'john.doe@acme.com',
+    required: false,
+  })
+  mainPocEmail?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Phone number of the main point of contact.',
+    example: '+233241234567',
+    required: false,
+  })
+  mainPocPhone?: string;
+
   @ApiProperty({
     description: 'The alternative point of contact for the company.',
     example: 'Jane Doe',
   })
   altPointOfContact: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Email of the alternative point of contact.',
+    example: 'jane.doe@acme.com',
+    required: false,
+  })
+  altPocEmail?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Phone number of the alternative point of contact.',
+    example: '+233247654321',
+    required: false,
+  })
+  altPocPhone?: string;
 
   @ApiProperty({
     description: 'The project manager for the company.',

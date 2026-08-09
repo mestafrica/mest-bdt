@@ -78,7 +78,7 @@ export class ProgramsController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   findOne(@Param('id') id: string) {
-    return this.programsService.findOne({ _id: id });
+    return this.programsService.findOneWithStats(id);
   }
 
   @UseGuards(AuthGuard)

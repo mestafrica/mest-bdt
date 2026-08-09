@@ -78,7 +78,7 @@ export class CohortsController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized.' })
   findOne(@Param('id') id: string) {
-    return this.cohortsService.findOne({ _id: id });
+    return this.cohortsService.findOneWithStats(id);
   }
 
   @UseGuards(AuthGuard)

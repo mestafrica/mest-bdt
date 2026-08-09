@@ -15,6 +15,7 @@ describe('ProgramsController', () => {
         ProgramsService,
         { provide: getModelToken('Program'), useValue: mockModel },
         { provide: getModelToken('Cohort'), useValue: mockModel },
+        { provide: getModelToken('Company'), useValue: mockModel },
       ],
     }).compile();
 
@@ -46,11 +47,17 @@ describe('ProgramsController', () => {
     expect(result).toEqual(5);
   });
 
-  it('should find one program', async () => {
-    const program = { name: 'Program 1' };
-    jest.spyOn(service, 'findOne').mockResolvedValue(program as any);
+  it('should find one program with stats', async () => {
+    const program = {
+      id: '1',
+      name: 'Program 1',
+      activeCohortsCount: 2,
+      participantsCount: 7,
+    };
+    jest.spyOn(service, 'findOneWithStats').mockResolvedValue(program as any);
     const result = await controller.findOne('1');
     expect(result).toEqual(program);
+    expect(service.findOneWithStats as jest.Mock).toHaveBeenCalledWith('1');
   });
 
   it('should update a program', async () => {

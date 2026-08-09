@@ -72,6 +72,33 @@ describe('CohortsService', () => {
     );
   });
 
+  describe('findOneWithStats', () => {
+    it('enriches the cohort with its affiliated companies count', async () => {
+      cohortModelMock.findOne.mockResolvedValue({
+        name: 'Cohort 1',
+        toJSON: () => ({ id: 'cid1', name: 'Cohort 1' }),
+      });
+      companyModelMock.countDocuments.mockResolvedValue(4);
+
+      const result = await service.findOneWithStats('cid1');
+
+      expect(result).toEqual({
+        id: 'cid1',
+        name: 'Cohort 1',
+        companiesCount: 4,
+      });
+      expect(companyModelMock.countDocuments).toHaveBeenCalledWith({
+        cohort: 'cid1',
+      });
+    });
+
+    it('returns null when the cohort does not exist', async () => {
+      cohortModelMock.findOne.mockResolvedValue(null);
+      const result = await service.findOneWithStats('missing');
+      expect(result).toBeNull();
+    });
+  });
+
   describe('deleteOne', () => {
     it('should delete cohort if no companies exist', async () => {
       const cohort = { _id: 'cid1', name: 'Cohort 1' };

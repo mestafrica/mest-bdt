@@ -50,13 +50,14 @@ describe('CohortsController', () => {
     expect(result).toEqual(5);
   });
 
-  it('should find one cohort', async () => {
-    const cohort = { name: 'Cohort 1' };
+  it('should find one cohort with stats', async () => {
+    const cohort = { id: '1', name: 'Cohort 1', companiesCount: 4 };
     jest
-      .spyOn(service, 'findOne' as keyof CohortsService)
+      .spyOn(service, 'findOneWithStats' as keyof CohortsService)
       .mockResolvedValue(cohort as any);
     const result = await controller.findOne('1');
     expect(result).toEqual(cohort);
+    expect(service.findOneWithStats as jest.Mock).toHaveBeenCalledWith('1');
   });
 
   it('should update a cohort', async () => {
